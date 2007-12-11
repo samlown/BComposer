@@ -1,0 +1,26 @@
+<%= error_messages_for 'project' %>
+
+<!--[form:project]-->
+<p><label for="project_name"><%= _('Name') %></label><br/>
+<%= text_field 'project', 'name'  %></p>
+
+<% if current_user.is_admin? %>
+<p><label for="project_project_group_id"><%= _('Project Group') %></label><br/>
+<%= select 'project', 'project_group_id', ProjectGroup.find(:all).collect { |pg| [ pg.name, pg.id ] } %></p>
+<% end %>
+
+<p><label for="project_domain"><%= _('Domain') %></label>
+<small>(Do not include ending slash.)</small><br/>
+<%= text_field 'project', 'domain'  %></p>
+
+<p><label for="project_sender"><%= _('Sender Email Address') %></label><br/>
+<%= text_field 'project', 'sender'  %></p>
+
+<p><label for="project_report_recipients"><%= _('Email address(es) for delivery reports') %></label><br/>
+<%= text_area 'project', 'report_recipients', :cols => 60, :rows => 4 %></p>
+
+<p><label for="project_description"><%= _('Description') %></label><br/>
+<%= text_area 'project', 'description' , :cols => 60, :rows => 4 %></p>
+
+<!--[eoform:project]-->
+

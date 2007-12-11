@@ -1,0 +1,220 @@
+#!/usr/bin/env ruby
+#
+# Send Bulletin! - Samuel Lown 2006-06-30
+#
+# Load up the required data from the database and send an email
+# from for the bulltin id specified.
+#
+
+require 'optparse'
+require File.dirname(__FILE__) + '/../config/boot'
+
+options = { :environment => (ENV['RAILS_ENV'] || "production").dup }
+ENV["RAILS_ENV"] = options[:environment]
+RAILS_ENV.replace(options[:environment]) if defined?(RAILS_ENV)
+
+require RAILS_ROOT + '/config/environment'
+
+# CONFIGURATION OPTIONS
+
+# Admin_email - where problems are sent
+options[:admin_email] =  "me@samlown.com"
+
+# Where the PID is stored
+options[:pid_file] = RAILS_ROOT + '/tmp/pids/sendmail'
+
+options[:verbose] = false
+
+#################################################
+#  FUNCTIONS
+
+#
+# The meaty sendmail function
+# 
+def sendmail(bulletin, options)
+    
+    time_start = Time.now
+    failed_emails = Array.new
+    total_sent = 0
+    total_failed = 0
+    
+    bulletin_id = bulletin.id
+    
+    puts "Sending bulletin '"+bulletin.title+"'"
+    
+    if (! (bulletin.is_status('P') or bulletin.is_status('T')))
+      puts "The status of this Bulletin is not pending and cannot be sent!"
+      return
+    end
+    
+    #if (! bulletin.rendered)
+    #  puts "This bulletin has not been rendered correctly. ABORTED!"
+    #  return
+    #end
+    
+    puts "Sending bulletin to " + bulletin.subscription_count.to_s + " subscribers in 10s..."
+    sleep 10
+    
+    # Send out an email to say its on its way!
+    if bulletin.project.report_recipients
+	    BulkMailer::deliver_delivery_start( bulletin, :time_start => Time.now, :recipient_count => bulletin.subscription_count.to_s )
+    end
+    puts "Sending!"
+
+    # assume all going well and set the status to something reasonable
+    bulletin.status = 'T'
+    bulletin.save
+    
+    bulletin.subscriptions.each do | subscription |
+      r = subscription.recipient
+      
+      # this is a bit expensive, but we're sending email which is much slower!
+      receipt = r.recipient_receipts.find(:first, :conditions => ['bulletin_id = ?', bulletin.id])
+        
+      if (! receipt) 
+        # create a new receipt
+        receipt = RecipientReceipt.new
+        receipt.recipient = r
+        receipt.bulletin = bulletin
+      end
+      sleep_count = 0;
+      if (receipt.status != 'R') # and (receipt.status != 'F'))
+        print "Sending email to: " + r.email if options[:verbose]
+        begin 
+          BulkMailer::deliver_bulletin(bulletin, subscription)
+          receipt.status = 'R'
+          receipt.received = Time.now
+          puts " - DONE" if options[:verbose]
+          $sentcount += 1
+          total_sent += 1
+          sleep_count = 0;
+        rescue
+          #if ($! =~ /timeout|refused/i)
+            if (sleep_count == 4)
+              puts "WAITED TOO LONG! - skipping"
+            else
+              puts " - connection timeout! Waiting 5s ..."
+              sleep 5
+	      sleep_count += 1
+              retry
+            end
+	      #end
+          receipt.status = 'F'
+          puts " - FAILED! ("+ $! +")"
+          $failedcount += 1
+          total_failed += 1
+          failed_emails.push(r.email + ' - ' + $!)
+        end
+        receipt.save
+      else
+      	# puts " - ALREADY SENT"
+      end
+    end
+
+    #if (total_failed > 0)
+    #  bulletin.status = 'P'
+    #else 
+    bulletin.status = 'S'
+    #end
+    bulletin.date_released = Time.now
+    bulletin.save
+    
+    time_end = Time.now
+    # send delivery report!
+    if bulletin.project.report_recipients
+	    BulkMailer::deliver_delivery_report( bulletin, time_start, time_end, 
+    		total_sent, total_failed, failed_emails )
+        puts "Delivery report sent"
+    end
+end
+
+
+
+#################################################
+
+
+
+ARGV.options do |opts|
+  script_name = File.basename($0)
+  opts.banner = "Usage: sendmail"
+
+  opts.separator ""
+
+  opts.on("-e", "--environment=name", String,
+          "Specifies the environment for the runner to operate under (test/development/production).",
+          "Default: development") { |options[:environment]| }
+
+  opts.on("-v", "--verbose", "Enable verbose output, the results of each email will be printed") do
+    options[:verbose] = true
+  end
+
+  opts.separator ""
+
+  opts.on("-h", "--help",
+          "Show this help message.") { puts opts; exit }
+
+  opts.parse!
+end
+
+ActionMailer::Base.raise_delivery_errors = true
+# ActionMailer::Base.perform_deliveries = false
+
+# Check for any already running deliveries
+
+if (FileTest.exists? options[:pid_file])
+  old_pid = nil
+  File.open( options[:pid_file] ) do | file |
+  	old_pid = file.read( 32 ).to_i
+  end
+  begin
+    if Process.kill(0, old_pid)
+      puts "SendMail Process currently running, please try again later."
+      exit
+    end
+  rescue
+    puts "Stale lockfile found."
+  end
+end
+
+# Write the current PID to a file
+begin
+  File.open( options[:pid_file], 'w' ) do | file |
+    file.write $$
+  end
+rescue
+  puts "Unable to write to lock file! " + $!
+  exit
+end
+
+# generate a list of pending Bulletins
+
+$sentcount = 0
+$failedcount = 0
+
+
+Bulletin.find(:all, :conditions => "status = 'T'").each do | bol |
+  puts "Failed bulletin found! Trying to send again ..."
+  sendmail(bol, options)
+end
+
+bulletins = Bulletin.find(:all, :conditions => "status = 'P'") 
+
+if bulletins.size == 0
+  puts "No bulletins to send!"
+  File.delete( options[:pid_file] )
+  exit
+else
+  bulletins.each do | bol |
+    sendmail(bol, options)
+  end
+end
+
+# add check for failed sendmail processes, i.e. bulletins in the T state
+
+if ($sentcount or $failedcount)
+	puts "   TOTAL SENT: "+$sentcount.to_s
+	puts " TOTAL FAILED: "+$failedcount.to_s
+end
+
+# remove the lock file
+File.delete( options[:pid_file] )

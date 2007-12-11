@@ -1,0 +1,85 @@
+<h1><%= _('Bulletin List') %></h1>
+
+<table>
+  <tr>
+	<th><%= _("Date") %></th>    
+    <th><%= _("Title") %></th>
+    <th><%= _("Subject") %></th>
+    <th><%= _("Status") %></th>
+    <th><%= _("Recv") %></th> <!-- recipients -->
+    <th><%= _("Fail") %></th> <!-- failures -->
+  </tr>
+  
+<% for bulletin in @bulletins %>
+  <tr>
+    <td ><%=h bulletin.updated_on.strftime("%d/%m/%Y") %></td>
+    <td>
+<% if (bulletin.is_status('O') and check_role(:edit_bulletin)) %> 
+    <%= link_to bulletin.title, :action => 'live_edit', :id => bulletin, :edit_mode => true %>
+<% else %> 
+    <%= link_to bulletin.title, :action => 'preview', :id => bulletin %>
+<% end %>
+    <td ><%= bulletin.subject %></td>
+    <td ><%=h bulletin.status_text %></td>
+    <td ><%=h bulletin.recipient_receipts.total_received %></td>
+    <td ><%=h bulletin.recipient_receipts.total_failed %></td>
+
+<% if (bulletin.is_status('O') and check_role(:edit_bulletin)) %> 
+    <td><%= link_to(image_tag("liveedit.png", :border => 0, :title => _("Live Edit")), :action => 'live_edit', :id => bulletin, :edit_mode => true) %></td>
+<% else %> 
+    <td ><%= link_to(image_tag("viewmag.png", :border => 0, :title => _("Show")), :action => 'preview', :id => bulletin) %></td>
+<% end %>
+    <td ><%= link_to(image_tag("add.png", :border => 0, :title => _("Duplicate")), {:action => 'copy', :id => bulletin }, :confirm => 'Are you sure you want to duplicate this bulletin?', :method => :post) if check_role(:create_bulletin) %> </td>
+   
+    <td ><%= link_to(image_tag("send.png", :border => 0, :title=> _("Send Test")), {:action => 'send_test', :id => bulletin }) if check_role(:edit_bulletin) %> </td>
+
+<% if (bulletin.is_status('O')) %>
+    <td><%= link_to(image_tag("edit.png", :border => 0, :title => _("Edit")), :action => 'edit', :id => bulletin) if check_role(:edit_bulletin) %></td>
+    <td><%= link_to(image_tag("sections.png", :border => 0, :title => _("Sections")), :controller => 'sections', :action => 'list', :bulletin_id => bulletin) %></td>
+	<td><%= link_to(image_tag("send2.png", :border => 0, :title => _("Send")), {:action => 'send_bulletin', :id => bulletin }, 
+      		:confirm => _("Are you sure you want to send this bulletin?\n No modifications can be made while a bulletin is being sent!"), :method => :post) if check_role(:send_bulletin) %> </td>
+
+<% elsif bulletin.is_status('P') %>
+	<td colspan="3">
+	      	<%= link_to _('Abort'), {:action => 'abort_send', :id => bulletin },
+      	    :confirm => _("Are you sure you want to abort the pending send?"), :method => :post if check_role(:send_bulletin) %>
+	</td>
+<% elsif bulletin.is_status('S') %>
+	<td colspan="3">
+      	<%= link_to _('Stats'), :action => 'stats', :id => bulletin %>
+	</td>
+<% else %>
+    <td colspan="3"> </td>
+<% end %>
+    <td><%= link_to _('Pages'), :controller => 'content_pages', :action => 'list', :bulletin_id => bulletin.id if ENABLE_CONTENT_PAGES %></td>
+    <td>
+      <% if (bulletin.is_status('O') or bulletin.is_status('S')) %>
+        <%= link_to(image_tag("destroy.png", :border => 0, :title => _("Destroy")), { :action => 'destroy', :id => bulletin }, :confirm => _('Are you sure?'), :method => :post) if check_role(:create_bulletin) %></td>
+      <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<%= page_selector(@bulletin_pages) %>
+
+<br />
+<br />
+
+<hr />
+
+<% if check_role(:create_bulletin) %>
+  <%= link_to(image_tag("add.png", :border => 0, :title => _("New")) + " " + _("New Bulletin"), :action => 'new') %>  |
+<% end %>
+<% if check_role(:edit_project) %>
+  <%= link_to _('Edit Project'), :controller => 'projects', :action => 'edit' %> |
+<% end %>
+<% if check_role(:edit_templates) %>
+  <%= link_to _('Templates'), :controller => 'templets', :action => 'list' %> |
+<% end %>
+<% if check_role(:edit_recipients) %>
+  <%= link_to _('Subscribers'), :controller => 'subscriptions', :action => 'list' %> |
+<% end %>
+<% if check_role(:edit_files) %>
+  <%= link_to _('Files'), :controller => 'files', :action => 'list' %>
+<% end %>

@@ -1,0 +1,50 @@
+table { 
+    padding: 1px; 
+    margin: 0;  
+    color: #333; 
+    /* background: #829bff; */
+    empty-cells: inherit;
+    border-spacing: 0px 1px;
+    border-collapse: collapse;
+    border-style: none;
+    font-size: 10px;
+}
+
+table a {
+    color: #3056c6; 
+    text-decoration: none;
+    padding: 0px;
+    margin: 0px;
+}  
+table a:visited { text-decoration: none;  color: #3056c6;}
+table a:hover { text-decoration: none; color: black;}  
+table caption {
+    text-align: right; 
+    text-transform: uppercase;  
+    padding-bottom: 10px;
+}
+
+table thead {
+    text-align: left; 
+    font-weight: normal;
+}
+table th {
+    color: #152562;
+    background-color: #fffeec;
+    padding: 10px;
+}
+table td {
+    background: #d9ddf6;
+    border-top: 1px solid #BBBBBB;
+    border-bottom: 1px solid #BBBBBB;
+}
+table tbody td {
+    padding: 3px; 
+    text-align: left;
+}
+table tbody tr {
+    background: #d9ddf6;
+}
+table tbody tr.odd {background: #F0F2F4;}
+table tbody tr:hover {background: white; color: #3056c6;}
+

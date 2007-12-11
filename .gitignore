@@ -1,0 +1,7 @@
+log/*.log
+tmp/**/*
+nbproject
+doc/api
+doc/app
+.svn
+~

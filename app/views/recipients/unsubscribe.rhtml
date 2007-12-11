@@ -1,0 +1,10 @@
+<h1>Bolet&iacute;n de <%= @project.name %></h1>
+
+<h2>Darse de baja:</h2>
+
+<%= start_form_tag :action => 'remove', :project_id => @project %>
+	<p><label for="recipient_email">Email</label><br/>
+	<%= text_field 'recipient', 'email'  %></p>
+	
+	<%= submit_tag 'Mandar' %>
+<%= end_form_tag %>

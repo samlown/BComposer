@@ -1,0 +1,10 @@
+--- !ruby/object:TempletExporter 
+charset: ISO-8859-15
+created_on: 2007-04-02 21:15:31 +02:00
+description: The form used to edit the profile
+filetype: text/html
+filter: liquid
+name: PAGE_PROFILE_FORM
+subject: ""
+type: Page
+updated_on: 2007-04-23 14:19:54 +02:00

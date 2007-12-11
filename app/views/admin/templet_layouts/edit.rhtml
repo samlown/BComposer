@@ -1,0 +1,12 @@
+<h1>Editing Layout</h1>
+
+<% form_tag :action => 'update', :id => @templet_layout do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag _('Save') %>
+<% end %>
+
+<hr/ color="black">
+
+<%= link_to _('Show'), :action => 'show', :id => @templet_layout %> |
+<%= link_to _('Layouts'), :action => 'list', :templet_id => @templet_layout.templet_id %> |
+<%= link_to _('Templates'), :controller => 'templets', :action => 'list' %>

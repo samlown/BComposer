@@ -1,0 +1,113 @@
+#!/usr/bin/env ruby
+#
+# Add Addresses - Samuel Lown 2006-06-30
+# 
+# Add addresses to the database from a CSV file or something similar.
+# 
+# It is assumed that this file will be edited before execution depending on the
+# situation with the source data.
+#
+
+require 'optparse'
+require File.dirname(__FILE__) + '/../config/boot'
+
+options = { :environment => (ENV['RAILS_ENV'] || "development").dup }
+ENV["RAILS_ENV"] = options[:environment]
+RAILS_ENV.replace(options[:environment]) if defined?(RAILS_ENV)
+
+require RAILS_ROOT + '/config/environment'
+
+## Determine parameter options
+OptionParser.new do | opts |
+  opts.banner = "Usage: addaddresses [options]"
+
+  opts.on("-r", "--real", "Run the real thing") do |v|
+    options[:real] = v
+  end
+end.parse!
+
+#################################################
+#  FUNCTIONS
+
+
+#################################################
+
+# Set the fields expected, nil for a field to skip
+#names = [
+#	'email', 'firstname', 'surname', 'country',
+#	'confirmed', 'nil', 'nil', 'artist',
+#	'mobile', 'nosms', 'noemail', 'password',
+#	'address', 'city', 'postcode' ]
+names = [ 'email' ]
+
+# load the file
+#
+count = 0
+skipped = 0
+first = true
+$stdin.each_line("\n") do | line | 
+  if first
+    first = false
+    next
+  end
+  # puts line
+  # swap wierdness for spaces 
+  #txt = line.chomp.gsub(/["\t ;\/\\,\#\[\]]/, ' ')
+
+  recipient = Recipient.new
+
+  # split everything with tabs
+  items = line.split(",")
+
+  if items.size != names.size
+    puts "Invalid line: " + items[0]
+    next
+  end
+
+  i = 0  
+  names.each do | name |
+  	if name == 'nil'
+  	  i += 1
+  	  next
+  	end
+  	 
+  	if name == 'confirmed'
+  	  if items[i] == 'yes'
+  	    recipient.state = 'C'
+  	  else
+  	    recipient.state = 'F'
+  	  end
+  	elsif name == 'password'
+  	  recipient.password = items[i]
+  	  recipient.password_confirmation = items[i]
+  	else
+  	  recipient.send(name+'=', items[i])
+  	end
+  	i += 1
+  end
+  
+  recipient.date_created = Time.now
+  recipient.project_id = 6
+  if ! recipient.save
+    skipped += 1
+    if ! recipient.email.nil?
+      puts "Invalid: '" + recipient.email + "' "
+      recipient.errors.each_full do | msg |
+        puts "   * " + msg
+      end
+    else
+      puts $!
+    end
+  else
+    puts "Added: "+recipient.email
+    count += 1
+  end
+end
+
+if (options[:real]) 
+  puts "RUNNING FOR REAL!"
+else
+  puts "THIS WAS A TEST! Use -r to perform real thing"
+end
+puts " -- SKIPPED EMAILS     = "+skipped.to_s
+puts " -- TOTAL VALID EMAILS = "+count.to_s

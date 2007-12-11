@@ -1,0 +1,8 @@
+<% for column in Bulletin.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @bulletin.send(column.name) %>
+</p>
+<% end %>
+
+<%= link_to _('Edit'), :action => 'edit', :id => @bulletin %> |
+<%= link_to _('Bulletins'), :action => 'list' %>

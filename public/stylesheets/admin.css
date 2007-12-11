@@ -1,0 +1,195 @@
+body { background-color: #FFF; color: #666666;  }
+
+body {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size:   12px;
+  line-height: 16px;
+  margin: 0px;
+  padding: 0px;
+  background-color: #fffeec;
+}
+
+#header {
+  padding: 4px;
+  background-color: #d9ddf6;
+}
+
+p {
+
+}
+
+h1 {
+  font-size: 20px;
+}
+
+pre {  background-color: red;   padding: 10px;  font-size: 11px; }
+
+a { color: #3056c6; text-decoration: none; font-style:bold; font-weight:bold; }
+a:visited { color: #3056c6; }
+a:hover { text-decoration: underline; color: black; }
+
+
+#content {
+  margin: 10px;
+  padding: 10px;
+  border: 0px;
+  /* background-color:white; */
+}
+
+#logoutbox {
+  float: right;
+  margin-top: 0px;
+  padding: 5px;
+  border: 0px solid black;
+  font-size: 12;
+}
+
+#projects {
+  font-size: 12px;
+}
+
+
+table { 
+    padding: 1px; 
+    margin: 0;  
+    color: #333; 
+    /* background: #829bff; */
+    empty-cells: inherit;
+    border-spacing: 0px 1px;
+    border-collapse: collapse;
+    border-style: none;
+}
+
+table a {
+    color: #3056c6; 
+    text-decoration: none;
+    padding: 0px;
+    margin: 0px;
+}  
+table a:visited { text-decoration: none;  color: #3056c6;}
+table a:hover { text-decoration: none; color: black;}  
+table caption {
+    text-align: right; 
+    text-transform: uppercase;  
+    padding-bottom: 10px;
+}
+
+table thead {
+    text-align: left; 
+    font-weight: normal;
+}
+table th {
+    color: #152562;
+    background-color: #fffeec;
+    padding: 10px;
+}
+table td {
+    background: #d9ddf6;
+    border-top: 1px solid #BBBBBB;
+    border-bottom: 1px solid #BBBBBB;
+}
+table tbody td {
+    padding: 10px;
+    background: repeat-x; 
+    text-align: left;
+}
+table tbody tr {
+    background: #d9ddf6;
+}
+table tbody tr.odd {background: #F0F2F4;}
+table tbody tr:hover {background: white; color: #3056c6;}
+
+#filelist table tbody td {
+    padding: 3px;
+}
+
+.fieldWithErrors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+#errorExplanation {
+  width: 400px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}	
+
+#errorExplanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  background-color: #c00;
+  color: #fff;
+}
+
+#errorExplanation p {
+  color: #333;
+  margin-bottom: 0;
+  padding: 5px;
+}
+
+#errorExplanation ul li {
+  font-size: 12px;
+  list-style: square;
+}
+
+div.uploadStatus {
+  margin: 5px;
+}
+
+div.progressBar {
+  margin: 5px;
+}
+
+div.progressBar div.border {
+  background-color: #fff;
+  border: 1px solid gray;
+  width: 100%;
+}
+
+div.progressBar div.background {
+  background-color: #333;
+  height: 18px;
+  width: 0%;
+}
+
+
+input.text, textarea, select {
+    font-size:1.1em;
+    line-height:1.3em;
+    border-top:1px solid #7c7c7c;
+    border-left:1px solid #c3c3c3;
+    border-right:1px solid #c3c3c3;
+    border-bottom:1px solid #ddd;
+    background:#fff url(/images/fieldbg.gif) repeat-x top;
+}
+
+/*
+input {
+border: 2px solid gray;
+background-color: #EEEEEE;
+font-size: 13;
+}
+
+textarea {
+border: 2px solid gray;
+background-color: #EEEEEE;
+}
+
+select {
+border: 2px solid gray;
+background-color: #EEEEEE;
+font-size: 12px;
+}
+*/
+#search_filter_bar li {
+	display: inline;
+	margin-left: 0px;
+	padding-left: 5px;	
+}

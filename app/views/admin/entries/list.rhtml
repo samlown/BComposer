@@ -1,0 +1,37 @@
+<h1><%= _('Listing entries') %></h1>
+
+<h2><%= _('Section: %s') % [ link_to(@section.send(:name), :controller => 'sections', :action => 'list', :bulletin_id => @section.bulletin_id) ] %></h2>
+
+<table>
+  <tr>
+    <th>&nbsp;</th>
+	<th><%= _('Title') %></th>
+	<th><%= _('Date updated') %></th>
+  </tr>
+
+<%
+#prepare page value
+page = @entry_pages.current
+%>
+<% for entry in @entries %>
+  <tr>
+    <td><%= link_to image_tag("up.png", :border=>0, :title=>_('up')), :action => 'move_up', :id => entry, :page => page %>
+    <%= link_to image_tag("down.png", :border=>0, :title=>_('down')), :action => 'move_down', :id => entry, :page => page %>
+    </td>
+    <td><%= link_to entry.send(:title), {:action => 'edit', :id => entry }, :title=>_("Edit") %></td>
+    <td><%=h entry.send(:date_updated) %></td>
+    <td><%= link_to image_tag("Show.png", :title=>_("Show"), :border=>0), :action => 'show', :id => entry %></td>
+    <td><%= link_to image_tag("edit.png", :title=>_("Edit"), :border=>0), :action => 'edit', :id => entry if check_role(:edit_entry) %></td>
+    <td><%= link_to image_tag("destroy.png", :title=>_("Destroy"), :border=>0), { :action => 'destroy', :id => entry }, :confirm => _('Are you sure?'), :method => :post if check_role(:edit_entry) %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to _('Previous page'), { :page => @entry_pages.current.previous, :section_id => @section } if @entry_pages.current.previous %>
+<%= link_to _('Next page'), { :page => @entry_pages.current.next, :section_id => @section } if @entry_pages.current.next %> 
+
+<br />
+
+<%= link_to(image_tag("add.png", :border=>0) + ' '+_('New entry'), :action => 'new', :section_id => @section) + ' | ' if check_role(:edit_entry) %>
+<%= link_to _('Sections'), :controller => 'sections', :action => 'list', :bulletin_id => @section.bulletin_id %> |
+<%= link_to _('Bulletins'), :controller => 'bulletins', :action => 'list' %>

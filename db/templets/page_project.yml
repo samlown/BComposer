@@ -1,0 +1,10 @@
+--- !ruby/object:TempletExporter 
+charset: ISO-8859-15
+created_on: 2007-03-19 19:30:20 +01:00
+description: The project welcome screen seen by the users.
+filetype: text/html
+filter: liquid
+name: PAGE_PROJECT
+subject: ""
+type: Page
+updated_on: 2007-04-23 14:19:55 +02:00

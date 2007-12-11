@@ -1,0 +1,83 @@
+#!/usr/bin/env ruby
+#
+# Add Addresses - Samuel Lown 2006-06-30
+# 
+# Add addresses to the database
+#
+
+require 'optparse'
+require File.dirname(__FILE__) + '/../config/boot'
+
+options = { :environment => (ENV['RAILS_ENV'] || "development").dup }
+ENV["RAILS_ENV"] = options[:environment]
+RAILS_ENV.replace(options[:environment]) if defined?(RAILS_ENV)
+
+require RAILS_ROOT + '/config/environment'
+
+## Determine parameter options
+OptionParser.new do | opts |
+  opts.banner = "Usage: addaddresses [options]"
+
+  opts.on("-r", "--real", "Run the real thing") do |v|
+    options[:real] = v
+  end
+end.parse!
+
+#################################################
+#  FUNCTIONS
+
+
+#################################################
+
+
+# load the file
+#
+count = 0
+skipped = 0
+$stdin.each_line("\n") do | line | 
+  # puts line
+  # swap wierdness for spaces 
+  txt = line.chomp.gsub(/["\t ;\/\\,\#\[\]]/, ' ')
+
+  # split everything with spaces
+  txt.split(' ').each do | email |
+    if (email !~ /@/) 
+      skipped += 1
+      next
+    end
+
+    if (! options[:real]) 
+      puts email
+      count += 1	
+      # dont continue! (testing)
+      next
+    end
+
+    recipient = Recipient.new
+    recipient.email = email
+    recipient.state = 'F' # set forced 
+    pass = Recipient.generate_password
+    recipient.password = pass
+    recipient.password_confirmation = pass
+    recipient.date_created = Time.now
+    recipient.project_id = 1
+    if ! recipient.save
+       skipped += 1
+       puts "Invalid: '"+email+"' "
+       recipient.errors.each do | msg |
+         puts "  * " + msg
+       end
+    else
+       count += 1
+    end
+     
+  end
+end
+
+if (options[:real]) 
+  puts "RUNNING FOR REAL!"
+else
+  puts "THIS WAS A TEST! Use -r to perform real thing"
+end
+puts " -- SKIPPED EMAILS     = "+skipped.to_s
+puts " -- TOTAL VALID EMAILS = "+count.to_s

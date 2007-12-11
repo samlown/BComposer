@@ -1,0 +1,9 @@
+<h1><%= _("Editing bulletin") %></h1>
+
+<%= start_form_tag :action => 'update', :id => @bulletin %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag _('Save') %>
+<%= end_form_tag %>
+
+<%= link_to image_tag("liveedit.png", :border => 0, :title => _("Live Edit"))+' '+_('Live Edit'), :action => 'live_edit', :id => @bulletin, :edit_mode => true %> |
+<%= link_to image_tag("back.gif", :border => 0, :title => _("Back"))+' '+_('List Bulletins'), :action => 'list'  %>

@@ -1,0 +1,38 @@
+<%= error_messages_for 'bulletin' %>
+
+<!--[form:bulletin]-->
+
+<p><label for="bulletin_title"><%= _("Title") %></label><br/>
+<%= text_field 'bulletin', 'title', :size=>50  %></p>
+
+<p><label for="bulletin_subject"><%= _("Email Subject") %></label><br />
+<%= text_field 'bulletin', 'subject', :size=>50 %></p>
+
+<p><label for="bulletin_templet_id"><%= _("Template") %></label><br/>
+<%= select 'bulletin', 'templet_id', @templets.collect { |t| [ t.name, t.id ] } %>
+</p>
+
+<p><label for="bulletin_date"><%= _("Date") %></label>
+<br/><small><%= _('Date when the bulletin is to be sent, may be different to release date!') %></small><br/>
+<%= date_select 'bulletin', 'date' %>
+</p>
+
+<% # if current_user.is_admin? %> 
+  <p><label for="bulletin_filter"><%= _("Filter") %></label><br/>
+  <%= text_area 'bulletin', 'filter', :cols => 50, :rows => 2  %></p>
+  <% begin %>
+  <p><b><%= _('Current subscription count') %>:</b> <%= @bulletin.subscription_count.to_s %></p>
+  <% rescue %>
+    Error: <%= $! %></p>
+  <% end %>
+<% # end %>
+
+<p><label for="bulletin_notes"><%= _("Notes") %></label><br/>
+<%= text_area 'bulletin', 'notes', :cols => 50, :rows => 3  %></p>
+
+
+<!-- p><label for="bulletin_date_released">Date released</label><br/>
+<%= datetime_select 'bulletin', 'date_released'  %></p -->
+
+<!--[eoform:bulletin]-->
+

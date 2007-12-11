@@ -1,0 +1,55 @@
+<%= error_messages_for 'templet' %>
+
+<!--[form:templet]-->
+
+<% if @project %>
+  <p>Project Name:<br/>
+  <%= @project.name %>
+  <%= hidden_field 'templet', 'project_id' %></p>
+<% else %>
+  <p>Editing default template</p>
+<% end %>
+
+<p><label for="templet_name">Name</label><br/>
+<%= text_field 'templet', 'name'  %> <small><%= link_to 'special names info', {:action=>'help'}, :popup => ['new_window', 'height=300,width=600'] %></small></p>
+
+<% if (@templet.new_record?) %>
+<p><label for="templet_type_name">Type</label><br/>
+<%= select 'templet', 'type_name', ( @templet.valid_types ), {}, { :onchange=>"toggle_subject_box(this.options[this.selectedIndex].value);" } %>
+</p>
+<script type="text/javascript">
+// if the templet name changes, show or hide the subject box
+function toggle_subject_box(value) {
+	if (value == 'Email') {
+		Effect.Appear('subject_box', {duration:1});
+	} else {
+		Effect.Puff('subject_box', {duration: 1});
+	}
+}
+</script>
+<% else %>
+<p><label>Type: </label><%= @templet.type_name %>
+</p>
+<% end %>
+
+<p><label for="templet_static">Static</label>
+<%= select 'templet', 'static', [['True', true], ['False', false]] %>
+<br/>
+<small>When true, the bulletin is parsed and cached for delivery, special fields
+are still available for limited fields like recipient details and statistics. 
+Setting to true is recommended for large user lists.
+</small>
+<p>
+
+<div id="subject_box" style="display: <%= (@templet.is_a? Email)?'block':'none' %>">
+	<p><label for="templet_subject">E-mail Subject:</label><br />
+	<%= text_field 'templet', 'subject', {:size => 50 } %>
+	</p>
+</div>
+
+<p><label for="templet_description">Description</label><br/>
+<%= text_area 'templet', 'description', {:cols=>60, :rows=>5 } %></p>
+
+
+<!--[eoform:templet]-->
+

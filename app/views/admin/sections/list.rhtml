@@ -1,0 +1,31 @@
+<h1><%= _('Listing sections') %></h1>
+
+<h2><%= _('For %s') % [ link_to(@bulletin.send(:title), :controller => 'bulletins', :action => 'list') ] %></h2>
+
+<table>
+  <tr>
+  	<th><%= _('Name') %></th>
+    <th><%= _('Title') %></th>
+    <th><%= _('Date Updated') %></th>
+  </tr>
+  
+<% for section in @sections %>
+  <tr>
+  	<td><%= link_to section.name, { :controller => 'entries', :action => 'list', :section_id => section }, :title => "View Entries" %></td>
+    <td><%=h section.send('title') %></td>
+    <td><%=h section.send('date_created') %></td>   
+    <td><%= link_to image_tag("Show.png", :title=>_("show"), :border=>"0"), { :action => 'show', :id => section } %></td>
+    <td><%= link_to image_tag("edit.png", :title=>_("Edit"), :border=>"0"), { :action => 'edit', :id => section } if check_role(:edit_section) %></td>
+    <td><%= link_to image_tag("destroy.png", :title=>_("Destroy"), :border=>"0"), { :action => 'destroy', :id => section }, :confirm => 'Are you sure?', :method => :post if check_role(:edit_section) %></td>
+    <td><%= link_to image_tag("sections.png", :title=>_("Entries"), :border=>"0"), { :controller => 'entries', :action => 'list', :section_id => section } %></td> 
+ </tr>
+<% end %>
+</table>
+
+<%= link_to _('Previous page'), { :page => @section_pages.current.previous } if @section_pages.current.previous %>
+<%= link_to _('Next page'), { :page => @section_pages.current.next } if @section_pages.current.next %> 
+
+<br />
+
+<%= link_to(image_tag("add.png", :border=>"0")+' '+_('New section'), { :action => 'new', :bulletin_id => @bulletin.id }) + ' | ' if check_role(:edit_section) %>
+<%= link_to image_tag("back.gif", :border=>"0")+' '+_('Bulletins'), { :controller => 'bulletins', :action => 'list' } %>

@@ -1,0 +1,27 @@
+<h1>Listing users</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Date Created</th>
+  </tr>
+  
+<% for user in @users %>
+  <tr>
+    <td ><%=h user.name %></td>
+    <td ><%=h user.description %></td>
+    <td ><%=h user.date_created %></td>
+    <td ><%= link_to image_tag('Show.png', :title => 'Show user', :border=>0), :action => 'show', :id => user %></td>
+    <td ><%= link_to image_tag('edituser.png', :title=>"edit user", :border=>0), :action => 'edit', :id => user %></td>
+    <td ><%= link_to image_tag('destroy.png', :title=>"destroy", :border=>0), { :action => 'destroy', :id => user }, :confirm => 'Are you sure?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @user_pages.current.previous } if @user_pages.current.previous %>
+<%= link_to 'Next page', { :page => @user_pages.current.next } if @user_pages.current.next %> 
+
+<br />
+
+<%= link_to image_tag("add.png", :border => 0)+'New user', :action => 'new' %>

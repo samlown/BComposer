@@ -1,0 +1,28 @@
+
+<p>
+  <b>Name:</b> <%=h @templet_layout.name %>
+</p>
+<p>
+  <b>File Type:</b> <%=h @templet_layout.filetype %>
+</p>
+<p>
+  <b>Character Set:</b> <%=h @templet_layout.charset %>
+</p>
+<p>
+  <b>Data:</b><br />
+<div>
+<pre style="backgound-color: #FFFFFF;"><%=h @templet_layout.data %></pre>
+</div>
+</p>
+
+<p>
+  <b>Created On:</b> <%=h @templet_layout.created_on %>
+</p>
+<p>
+  <b>Updated On:</b> <%=h @templet_layout.updated_on %>
+</p>
+
+<hr/ color="black">
+
+<%= link_to 'Edit', :action => 'edit', :id => @templet_layout %> |
+<%= link_to 'Layouts', :action => 'list', :templet_id => @templet_layout.templet_id %>

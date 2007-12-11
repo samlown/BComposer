@@ -1,0 +1,28 @@
+<h1>Listing Project Groups</h1>
+
+<table>
+  <tr>
+  <% for column in ProjectGroup.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+  
+<% for project_group in @project_groups %>
+  <tr>
+  <% for column in ProjectGroup.content_columns %>
+    <td><%=h project_group.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to 'Show', :action => 'show', :id => project_group %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => project_group %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => project_group }, :confirm => 'Are you sure?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @project_group_pages.current.previous } if @project_group_pages.current.previous %>
+<%= link_to 'Next page', { :page => @project_group_pages.current.next } if @project_group_pages.current.next %> 
+
+<br />
+
+<%= link_to 'New Project Group', :action => 'new' %>
+ | <%= link_to 'Projects', :controller => 'projects', :action => 'list' %>

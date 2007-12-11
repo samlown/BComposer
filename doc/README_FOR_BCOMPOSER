@@ -1,0 +1,66 @@
+= BComposer
+
+== Introduction
+
+The bulletin composer, list management, and delivery utility.
+
+Bcomposer was designed initially with a simple need, to be able to create
+complex email bulletins, and allow anyone to add contents to them easily
+and quickly. A templating system is provided using Liquid templates (and
+optionally ERB) so that bulletin contents can be stored in the database
+an manipulated easily.
+
+As the system has development, more features have been added such as 
+subscription forms used by the subscribers, support for groups of projects 
+sharing access to the subscribers, and statistics.
+
+== License
+
+Copyright (C) 2007 Samuel Lown <me@samlown.com>
+
+BComposer is licensed under the GNU GPLv3 with some rights reserved by the copyright holder to release the project under a dual-license. 
+The rights to dual-license the project excludes all contributions provided by third parties, which will always be released under the terms of the GPL unless explicitly authorised.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+== Key Features
+
+The following components make up the current version of BComposer:
+
+ * Projects
+ * Project Groups - A project belongs to one of these.
+ * User access restrictions - limit access to certain users based by project
+and function; templates for example can be accessed by designers, but not by 
+the content editors.
+ * Bulletins are split into seccions and sections into entries - this allows 
+a template to be split into parts allowing complex layouts to be edited
+easily.
+ * Templating
+ ** Liquid template language (also ERB, but not recommended)
+ ** Used for: Bulletins, subscription emails and internal pages
+ ** A set of default templates are provided.
+ * Statistics - support for hidden images recording access by single users.
+
+== Instalation
+
+Bcomposer is a normal Rails app requiring a SMTP host to send out email.
+
+The following steps should be followed to install the aplication correctly.
+
+TODO Write steps
+
+
+== Technical Description
+

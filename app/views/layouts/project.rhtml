@@ -1,0 +1,36 @@
+<html>
+<head>
+  <title>Bcomposer</title>
+  <%= stylesheet_link_tag 'project' %>
+  <%= stylesheet_link_tag @project.directory_url + '/stylesheet.css' %>
+  <%= javascript_include_tag :defaults %> 
+</head>
+<body>
+
+<% if ! @no_headers %>
+<div id="header">
+    <%= @header_text %>
+</div>
+<% end %>
+
+<div id="content">
+<p style="color: green"><%= flash[:notice] %></p>
+<p style="color: red"><%= flash[:warning] %></p>
+<p style="color: red"><%= flash[:error] %></p>
+
+<% if @recipient %>
+  <%= error_messages_for 'recipient' %>
+<% end %>
+
+<%= yield %>
+
+</div>
+
+<% if ! @no_headers %>
+<div id="footer">
+    <%= @footer_text %>
+</div>
+<% end %>
+
+</body>
+</html>

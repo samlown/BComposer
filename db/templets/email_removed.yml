@@ -1,0 +1,10 @@
+--- !ruby/object:TempletExporter 
+charset: ISO-8859-15
+created_on: 2006-10-17 15:08:35 +02:00
+description: ""
+filetype: text/html
+filter: liquid
+name: EMAIL_REMOVED
+subject: Removed from mailing list
+type: Email
+updated_on: 2007-04-23 14:19:55 +02:00

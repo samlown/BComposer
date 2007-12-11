@@ -1,0 +1,10 @@
+--- !ruby/object:TempletExporter 
+charset: ISO-8859-15
+created_on: 2006-10-06 12:46:56 +02:00
+description: Allow the user to confirm their email address.
+filetype: text/html
+filter: liquid
+name: EMAIL_PENDING
+subject: Please confirm your email address
+type: Email
+updated_on: 2007-04-23 14:19:55 +02:00

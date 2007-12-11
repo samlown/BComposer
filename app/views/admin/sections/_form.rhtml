@@ -1,0 +1,35 @@
+<%= error_messages_for 'section' %>
+
+<!--[form:section]-->
+<%= hidden_field 'section', 'bulletin_id' %>
+
+<p><label for="section_name"><%= _('Name') %>:</label><br/>
+<% if @popup_mode %>
+  <strong><%=h @section.name %></strong>
+<% else %>
+<%= text_field 'section', 'name' %>
+<% end %>
+</p>
+
+<p><label for="section_style"><%= _('Style') %>:</label><br/>
+<%= text_field 'section', 'style'  %></p>
+
+<fieldset id="options">
+<label for="options"><%= _('Optional Fields') %></label>
+
+<p><label for="section_title"><%= _('Title') %>:</label><br/>
+<%= text_area 'section', 'title', :cols => 60, :rows => 1  %></p>
+
+<p><label for="section_description"><%= _('Description') %>:</label><br/>
+<%= text_area 'section', 'description', :cols => 60, :rows => 3 %></p>
+
+<p><label for="section_link"><%= _('Link') %>:</label><br/>
+<%= text_field 'section', 'link'  %></p>
+
+<p><label for="section_link_text"><%= _('Link Text') %>:</label><br/>
+<%= text_field 'section', 'link_text'  %></p>
+
+</fieldset>
+
+<!--[eoform:section]-->
+

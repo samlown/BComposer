@@ -1,0 +1,26 @@
+<%= error_messages_for 'recipient' %>
+
+<!--[form:recipient]-->
+
+<p><label for="recipient_email"><%= _('Email Address') %></label><br/>
+<%= text_field 'recipient', 'email'  %></p>
+
+<% if current_user.is_admin? %>
+<p><label for="recipient_project_group_id"><%= _('Project Group') %></label><br/>
+<%= select 'recipient', 'project_group_id', ProjectGroup.find(:all).collect { |pg| [ pg.name, pg.id ] } %></p>
+<% end %>
+
+<p><label for="recipient_firstname"><%= _('Firstname') %></label><br/>
+<%= text_field 'recipient', 'firstname'  %></p>
+
+<p><label for="recipient_surname"><%= _('Surnames') %></label><br/>
+<%= text_field 'recipient', 'surname'  %> <%= text_field 'recipient', 'surname2'  %></p>
+
+<% @recipient.attribute_names.each do | attrib | %>
+  <% next if ['id', 'firstname', 'surname', 'surname2', 'email', 
+      'project_group_id', 'new_data', 'created_on', 'updated_on'].include? attrib %>
+  <p><label for="recipient_<%= attrib %>"><%= attrib.humanize %></label><br/>
+  <%= text_field 'recipient', attrib  %></p>
+<% end %>
+
+<!--[eoform:recipient]-->

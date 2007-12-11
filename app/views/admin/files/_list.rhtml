@@ -1,0 +1,133 @@
+<div id="flash">
+  <p style="color: green"><%= flash[:notice] %></p>
+  <p style="color: red"><%= flash[:warning] %></p>
+</div>
+
+<p><strong><%= _('Current Directory') %>:</strong>
+<%= link_to_remote _('root'), :update => "filelist", 
+        :url => { :action => 'list', :mode => @mode, :path => [] } %>
+<% path = []; @path.each do | p | path << p; %>
+  / <%= link_to_remote p, :update => "filelist",
+      :url => { :action => 'list', :mode => @mode, :path => path } %>
+<% end %>
+</p>
+
+<div>
+  <% if check_role(:edit_files) %>
+    <%= link_to _('Create Directory'), '#',
+        :onclick => visual_effect(:toggle_appear, :createdir) + visual_effect(:fade, :uploadfile, :duration => 0) %>
+     | 
+    <%= link_to _('Upload File'), '#',
+        :onclick => visual_effect(:toggle_appear, :uploadfile)  + visual_effect(:fade, :createdir, :duration => 0)  %>
+
+    <div style="padding: 4px;">
+      <% form_tag({ :action => 'add' }, :multipart => true) do %>
+        <%= hidden_field_tag 'path', @path.join('/') %>
+        <%= hidden_field_tag 'mode', @mode %>
+        <div name="uploadfile" id="uploadfile" style="display: none;">
+          <%= _('New File') %>: <%= file_field_tag 'upload_file' %> <%= submit_tag _('Add'), :diasble_with => _('Uploading...') %>
+        </div>
+        <div name="createdir" id="createdir" style="display: none;">
+          <%= _('Directory Name') %>: <%= text_field_tag "directory_name" %> 
+          <%= submit_tag _('Create'), :onclick => "$('create_spinner').show()" %>
+          <%= image_tag 'spinner.gif', :border=>0, :id=>"create_spinner", :style=>"display: none;" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<div style="clear: both;"></div>
+
+<table cellspacing="0" cellpadding="0">
+<tr>
+    <th>Filename</th>
+    <th>Size</th>
+    <th>&nbsp;</th>
+    <th>Modified</th>
+    <th> &nbsp; </th>
+</tr>
+
+<% (@dirs + @files).each do | file | %>
+
+    <tr id="file_<%= file[:name] %>">
+
+    <% if @edit_file == file[:name] %>
+        <td colspan="5">
+          <% form_remote_tag :update => 'filelist', :url => { :action => 'edit' },
+            :html => { :action => 'edit' },
+            :after => visual_effect(:appear, 'editspinner', :duration => 0) do %>
+              <%= hidden_field_tag 'original_file_name', file[:name] %>
+              <%= hidden_field_tag 'path', @path.join('/') %>
+              <%= hidden_field_tag 'mode', @mode %>
+              <%= text_field_tag 'file_name', file[:name] %>
+              <%= submit_tag _('Save') %>
+              <%= link_to_remote _('Cancel'), :update => 'filelist',
+                    :url => { :action => 'list', :path => @path.join('/'), :mode => @mode },
+                    :after => "$('cancel_spinner').show(); return 0;" %>
+              <%= image_tag 'spinner.gif', :border=>0, :id=>"cancel_spinner", :style=>"display: none;" %>
+          <% end %>
+        </td>
+    <% elsif @resize_file == file[:name] %>
+      <td colspan="5">
+        <% form_remote_tag :update => 'filelist', :url => { :action => 'resize' },
+            :html => { :action => 'resize' },
+            :after => visual_effect(:appear, 'editspinner', :duration => 0) do %>
+              <%= hidden_field_tag 'file', file[:name] %>
+              <%= hidden_field_tag 'mode', @mode %>
+              <strong><%= file[:name] %></strong>
+              <%= hidden_field_tag 'path', @path.join('/') %>
+              <%= select_tag 'size', options_for_select(['50x50', '60x100', '100x100','150x150','200x200','250x250','350x350','450x450'], '200x200') %>
+              <%= submit_tag _('Resize') %>
+              <%= link_to_remote _('Cancel'), :update => 'filelist',
+                    :url => { :action => 'list', :path => @path.join('/'), :mode => @mode },
+                    :after => "$('cancel_spinner').show(); return 0;" %>
+              <%= image_tag 'spinner.gif', :border=>0, :id=>"cancel_spinner", :style=>"display: none;" %>
+          <% end %>        
+      </td>
+    <% else %>
+      <% if file[:dir] %>
+        <td colspan="4">
+          <%= link_to_remote '['+file[:name]+']',  :update => "filelist",
+              :url => { :action => 'list', :path => (@path.dup << file[:name]).join('/'), :mode => @mode } %>
+        </td>
+      <% else %>
+        <td>
+          <% if @mode == :popup %>
+            <%= link_to_function file[:name], "close_and_update( '"+(@path.dup << file[:name]).join('/')+"' )" %>
+          <% else %>
+            <%= link_to file[:name], file[:url], :popup => ['Preview - '+file[:name], 'height=500,width=600,resizable=1,scrollbars=1'] %>
+          <% end %>
+        </td>
+        <td>
+          <%= human_size(file[:size]) %>
+        </td>
+        <td>
+          <b><%= (! file[:dim].nil?) ? file[:dim] : '' %></b>
+        </td>
+        <td>
+          <%=h file[:modified_on].strftime("%Y-%m-%d") %>
+        </td>
+      <% end %>
+        <td>
+          <% if check_role(:edit_files) %>
+          <%= link_to_remote image_tag('edit.png', :border=>0, :title=>_('Edit')), :update => 'filelist',
+                :url => { :action => 'list', :edit_file => file[:name], :path => @path.join('/'), :mode => @mode } %>
+            |
+          <% if ! file[:dir] and LibraryHelper.check_magick %>
+          <%= link_to_remote image_tag('add.png', :border=>0, :title=>_('Resize')), :update => 'filelist',
+                :url => { :action => 'list', :resize_file => file[:name], :path => @path.join('/'), :mode => @mode },
+                :after => 'show_spinner( self )' %>
+            |
+          <% end %>
+          <%= link_to_remote image_tag('destroy.png', :border=>0, :title=>_('Delete')), :update => 'filelist',
+                :url => { :action => 'delete', :file => file[:name], :path => @path.join('/'), :mode => @mode },
+                :confirm => file[:dir] ? _('Are you sure you want to delete this folder and all its contents?') : _('Are you sure you want to delete this file?'),
+                :after => 'show_spinner( self )' %>
+          <% end %>
+          <span id="file_<%= file[:name] %>_spin">&nbsp;</span>
+        </td>
+    <% end %>
+    </tr>
+<% end %>
+</table>

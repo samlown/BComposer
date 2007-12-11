@@ -1,0 +1,38 @@
+<h1><%= _('Listing Content Pages') %></h1>
+
+<table>
+  <tr>
+    <th><%= _('Name') %></th>
+    <th><%= _('Date updated') %></th>
+  </tr>
+  
+<% for content_page in @content_pages %>
+  <tr>
+    <td>
+    <% if @mode != :popup %>
+    <%=h content_page.name %>
+    <% else %>
+    <%= link_to_function content_page.name, "close_and_update( '"+content_page.name+"' )" %>
+    <% end %>
+    </td>
+    <td><%=h content_page.updated_on %></td>
+  <% if @mode != :popup %>
+    <td><%= link_to _('Show'), { :controller => '/content', :action => 'page', :bulletin_title => @bulletin.title, :page_name => content_page.name }, :popup => true %></td>
+    <td><%= link_to _('Edit'), :action => 'edit', :id => content_page %></td>
+    <td><%= link_to _('Destroy'), { :action => 'destroy', :id => content_page }, :confirm => 'Are you sure?', :method => :post %></td>
+  <% end %>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to _('Previous page'), { :page => @content_page_pages.current.previous, :bulletin_id => @bulletin.id, :mode => @mode } if @content_page_pages.current.previous %>
+<%= link_to _('Next page'), { :page => @content_page_pages.current.next, :bulletin_id => @bulletin.id, :mode => @mode } if @content_page_pages.current.next %> 
+
+<br />
+<br />
+<% if @mode != :popup %>
+  <%= link_to image_tag('add.png', :border=>0)+' '+_('New content page'), :action => 'new', :bulletin_id => @bulletin.id %> | 
+  <%= link_to _('Bulletins'), :controller => 'bulletins', :action => 'list' %>
+<% end %>

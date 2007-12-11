@@ -1,0 +1,21 @@
+<% for column in ProjectGroup.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @project_group.send(column.name) %>
+</p>
+<% end %>
+
+<h2>Projects in this Group</h2>
+
+<ul>
+  <% @project_group.projects.each do | project | %>
+    <li>
+      <%= link_to project.name, :controller => 'projects', :action => 'show', :project_name => project.name %>
+    </li>
+  <% end %>
+</ul>
+
+<hr>
+
+<%= link_to 'Edit', :action => 'edit', :id => @project_group %> |
+<%= link_to 'Project Groups', :action => 'list' %>
+ | <%= link_to 'Projects', :controller => 'projects', :action => 'list' %>

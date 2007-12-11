@@ -1,0 +1,10 @@
+<h1>Editing Project Group</h1>
+
+<% form_tag :action => 'update', :id => @project_group do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'Edit' %>
+<% end %>
+
+<%= link_to 'Show', :action => 'show', :id => @project_group %> |
+<%= link_to 'Project Groups', :action => 'list' %> |
+<%= link_to 'Projects', :controller => 'projects', :action => 'list' %>

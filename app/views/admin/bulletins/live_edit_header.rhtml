@@ -1,0 +1,45 @@
+<html>
+<head>
+  <title><%= _('Bcomposer live edit') %></title>
+  <%= stylesheet_link_tag 'admin' %>
+<script>
+function toggle(item) {
+  display = document.getElementById(item).style.display;
+  if (display == 'none') {
+    document.getElementById(item).style.display = 'inline';
+  } else {
+    document.getElementById(item).style.display = 'none';
+  }
+}
+function show(item) {
+  document.getElementById(item).styles.display = 'block';
+}
+</script>
+</head>
+<body>
+
+<p style="color: green"><%= flash[:notice] %></p>
+
+<p>
+<div style="float: right;">
+<%= link_to _('Bulletin List'), { :action => 'list' }, :target => '_top' %> |
+<%= link_to _('Edit'), { :action => 'edit', :id => @bulletin.id }, :target => '_top' %>
+</div>
+
+<div>
+<%= _('Mode') %>: 
+<div id="option1" style="display: <%= (@edit_mode ? 'none' : 'inline') %>;"> 
+<%= link_to _('edit'), { :action=>'preview_edit', :id=>@bulletin.id, :edit_mode => true },
+      :target=>'content', :onclick=>"toggle('option1'); toggle('option2');" %>
+ | <%= _('preview') %>
+</div>
+<div id="option2" style="display: <%= (@edit_mode ? 'inline' : 'none') %>;">
+ <%= _('edit') %> | 
+<%= link_to _('preview'), { :action=>'preview', :id=>@bulletin.id, :edit_mode => false },
+  :target=>'content',  :onclick=>"toggle('option1'); toggle('option2');" %>
+</div>
+</div>
+</p>
+
+</body>
+</html>

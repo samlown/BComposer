@@ -1,0 +1,20 @@
+
+The bulletin "<%= @bulletin_name %>" has been sent successfully!
+
+ Time started: <%= @time_start.to_formatted_s :full %>
+Time finished: <%= @time_end.to_formatted_s :full %>
+ Total failed: <%= @total_failed %>
+   Total sent: <%= @total_sent %>
+
+<% if @failures.length > 0 %>
+Delivery to the following addresses failed:
+
+-- START --
+<% @failures.each do | addr | %>
+ <%= addr %>
+<% end %>
+-- END --
+
+<% end %>
+
+Have a nice day!

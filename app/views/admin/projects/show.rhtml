@@ -1,0 +1,17 @@
+<% for column in Project.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @project.send(column.name) %>
+</p>
+<% end %>
+
+<SPAN STYLE="font-size: 130%"><strong><%= link_to 'Bulletins', :controller => 'bulletins', :action => 'list' %></strong></span>
+<% if check_role(:edit_templates) %>
+  | <%= link_to _('Templates'), :controller => 'templets', :action => 'list' %> 
+<% end %>
+<% if check_role(:edit_recipients) %>
+  | <%= link_to _('Recipients'), :controller => 'recipients', :action => 'list' %>
+<% end %>
+<% if check_role(:edit_project) %>
+  | <%= link_to _('Edit'), :action => 'edit', :id => @project.id %>
+<% end %>
+

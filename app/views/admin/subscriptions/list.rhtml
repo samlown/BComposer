@@ -1,0 +1,53 @@
+<h1><%= _('Listing recipients') %></h1>
+
+<% if (@bulletin) %>
+	<h2><%= _('Bulletin %s') % [@bulletin.name] %></h2>
+	<p><%= _('Number of recipients who have received bulltin: %s') % [ @bulletin.recipient_receipts.count(:conditions => 'received IS NOT NULL') ] %>
+<% end %>
+
+<% form_tag({ :action => 'list' }, :method => :get) do %>
+  <%= image_tag('search.png', :border=>0, :alt=>_("search")) %>
+  <input type="text" name="search" value="<%= @search %>" size="30"/><%= submit_tag _('Search') %>
+<% end %>
+
+<div id="search_filter_bar">
+<ul>
+	<li><%= link_to_if(@filter, _('All'), { :action=>'list', :search => @search } ) %></li>
+	<li><%= link_to_if(@filter != 'C', _('Confirmed'), { :action=>:list, :search => @search, :filter=>'C' } ) %></li>
+	<li><%= link_to_if(@filter != 'P', _('Pending'), { :action=>:list, :search => @search, :filter=>'P' } ) %></li>
+	<li><%= link_to_if(@filter != 'F', _('Forced'), { :action=>:list, :search => @search, :filter=>'F' } ) %></li>
+	<li><%= link_to_if(@filter != 'R', _('Removed'), { :action=>:list, :search => @search, :filter=>'R' } ) %></li>
+</ul>
+</div>
+
+<table>
+  <tr>
+    <th><%= _('Email') %></th>
+    <th><%= _('Name') %></th>
+    <th><%= _('Status') %></th>
+    <th><%= _('Date Added') %></th>
+  </tr>
+  
+<% @subscriptions.each do | s | %>
+  <% recipient = s.recipient %>
+  <tr>
+    <% if ! recipient.nil? %>
+      <td><%=h recipient.email %></td>
+      <td><%= recipient.full_name %></td>
+    <% else %>
+      <td colspan="2">invalid entry!</td>
+    <% end %>
+    <td><%= s.status_text %></td>
+    <td><%=h s.created_on %></td>
+    <td><%= link_to(image_tag("edit.png", :border => 0, :title => _("edit")), :action => 'edit', :id => s.id) %></td>
+    <td><%= link_to(image_tag("destroy.png", :border => 0, :title => _("destroy")), { :action => 'destroy', :id => s.id }, :confirm => _('Are you sure?'), :method => :post) %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= page_selector(@subscription_pages, {:search => @search, :filter => @filter }) %>
+
+<br />
+
+<%= link_to(image_tag("new.gif", :border => 0, :title => _("New recipient")) +' '+_("New recipient"), :action => 'new') %>
+| <%= link_to _('Bulletins'), :controller => 'bulletins', :action => 'list' %>

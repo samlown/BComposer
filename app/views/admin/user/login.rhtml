@@ -1,0 +1,12 @@
+
+<h2><%= _("Enter access details:") %></h2>
+
+<% form_tag :action => 'login' do %>
+  <p><label for="user_username"><%= _("Username") %></label><br/>
+  <%= text_field 'user', 'name'  %></p>
+
+  <p><label for="user_password"><%= _("Password") %></label><br/>
+  <%= password_field 'user', 'password'  %></p>
+
+  <%= submit_tag _("Login") %>
+<% end %>

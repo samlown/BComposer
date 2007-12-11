@@ -1,0 +1,32 @@
+<%= error_messages_for 'recipient' %>
+
+<!--[form:recipient]-->
+
+<p><label for="recipient_email"><%= _('Email Address') %></label><br/>
+<% if @recipient.new_record? %>
+  <%= text_field 'recipient', 'email'  %>
+<% else %>
+  <%= @recipient.email %>
+<% end %>
+</p>
+
+<p><label for="recipient_firstname"><%= _('Firstname') %></label><br/>
+<%= text_field 'recipient', 'firstname'  %></p>
+
+<p><label for="recipient_surname"><%= _('Surnames') %></label><br/>
+<%= text_field 'recipient', 'surname'  %> <%= text_field 'recipient', 'surname2'  %></p>
+
+<% @recipient.attribute_names.each do | attrib | %>
+  <% next if ['id', 'firstname', 'surname', 'surname2', 'email', 
+      'project_group_id', 'new_data', 'created_on', 'updated_on'].include? attrib %>
+  <p><label for="recipient_<%= attrib %>"><%= attrib.humanize %></label><br/>
+  <%= text_field 'recipient', attrib  %></p>
+
+<% end %>
+
+
+<p><label for="subscription_state"><%= _('State') %></label><br/>
+<%= select("subscription", "state", @subscription.valid_states) %>
+<span id="notify_box"><input type="checkbox" name="notify" value="1" /><%= _('Notify recipient of change') %></span></p>
+
+<!--[eoform:recipient]-->

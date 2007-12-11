@@ -1,0 +1,61 @@
+#!/usr/bin/env ruby
+#
+# Import the provided CSV file and store Recipient objects
+#
+# Copyright (c) 2007 - Samuel Lown <me@samlown.com>
+#
+#
+#
+require 'optparse'
+require File.dirname(__FILE__) + '/../config/boot'
+options = { :environment => (ENV['RAILS_ENV'] || "development").dup }
+ENV["RAILS_ENV"] = options[:environment]
+RAILS_ENV.replace(options[:environment]) if defined?(RAILS_ENV)
+
+require RAILS_ROOT + '/config/environment'
+
+filename = nil
+project = nil
+project_name = ""
+
+# Determine options
+OptionParser.new do | opts |
+  opts.banner = "Usage: import_csv -i FILE -p PROJECT_NAME"
+
+  opts.on("-i", "--input FILE", String, "Read FILE for CSV data.") do |v|
+    filename = v
+  end
+  
+  opts.on("-p", "--project NAME", String, "Name of the project to use.") do | v |
+    project_name = v
+  end
+end.parse!
+
+project = Project.find_by_name( project_name )
+
+if (! project_name)
+	puts "No Project!"
+	exit
+elsif (! project)
+	puts "No Project called #{project_name}!"
+	exit
+elsif (! filename)
+	puts "No File!"
+	exit;
+end
+
+# start em up!
+
+puts "Performing import..."
+
+begin
+	result = RecipientImporter.import_from_csv( filename, project ) do | msg |
+		puts "> "+msg
+	end
+rescue
+	puts "FATAL ERROR!"
+	puts $!
+	exit
+end
+puts " -- SKIPPED EMAILS     = "+result[:skipped].to_s
+puts " -- TOTAL VALID EMAILS = "+result[:success].to_s

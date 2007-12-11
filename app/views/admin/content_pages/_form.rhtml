@@ -1,0 +1,32 @@
+<%= error_messages_for 'content_page' %>
+
+<!--[form:content_page]-->
+<p><label for="content_page_name"><%= _('Name') %></label><br/>
+<%= text_field 'content_page', 'name'  %></p>
+
+<p><label><%= _('Bulletin') %>:</label> <%= @content_page.bulletin.title %></p>
+<%= hidden_field 'content_page', 'bulletin_id' %>
+
+<p><label for="content_page_templet_id"><%= _('Template') %></label><br/>
+<%= select 'content_page', 'templet_id', @templets.collect { |t| [ t.name, t.id ] } %>
+</p>
+
+<p><label for="content_page_status"><%= _('Status') %></label><br/>
+<%= text_field 'content_page', 'status'  %></p>
+
+<p><label for="content_page_abstract"><%= _('Abstract') %></label><br/>
+<%= text_area 'content_page', 'abstract', :rows => 4, :cols => 60  %></p>
+
+<p><label for="content_page_content"><%= _('Content') %></label><br/>
+<%= fckeditor_textarea 'content_page', 'content', :toolbarSet => 'Default', :width => '100%', :height => '500px' %>
+<!-- text_area 'content_page', 'content', :rows => 10, :cols => 60  -->
+</p>
+
+<p><label for="content_media_url"><%= _('Media URL') %></label><br/>
+<%= text_field 'content_page', 'media_url'  %></p>
+
+<p><label for="content_page_notes"><%= _('Notes') %></label><br/>
+<%= text_area 'content_page', 'notes', :rows => 4, :cols => 60  %></p>
+
+<!--[eoform:content_page]-->
+

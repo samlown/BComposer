@@ -1,0 +1,1257 @@
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: bcomposer 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-03-23 11:26+0100\n"
+"PO-Revision-Date: 2007-03-23 11:27+0100\n"
+"Last-Translator: Samuel Lown <dev@samlown.com>\n"
+"Language-Team:  <en@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: app/controllers/admin/bulletins_controller.rb:55
+msgid "Bulletin was successfully created."
+msgstr "Boletín creado con éxito."
+
+#: app/controllers/admin/bulletins_controller.rb:84
+msgid "Bulletin was successfully updated."
+msgstr "Boletín actualizado con éxito."
+
+#: app/controllers/admin/bulletins_controller.rb:105
+msgid "Bulletin has been scheduled for delivery!"
+msgstr "Envio del Boletín programado!"
+
+#: app/controllers/admin/bulletins_controller.rb:107
+#: app/controllers/admin/bulletins_controller.rb:175
+#: app/controllers/admin/bulletins_controller.rb:194
+msgid "A fatal error has occurred while compiling the temlpate!<br />Please check the template and try again!"
+msgstr "Un fallo fatal ha ocurrido durante la compilación de la marqueta.<br />Por favor, comprueba la marqueta y probarlo de nuevo."
+
+#: app/controllers/admin/bulletins_controller.rb:124
+msgid "Send aborted!"
+msgstr "Envio abortado!"
+
+#: app/controllers/admin/bulletins_controller.rb:126
+msgid "Unable to abort sending, as the bulletin is now being sent!"
+msgstr "No es posible abortar, el boletín ya se esta enviando."
+
+#: app/controllers/admin/bulletins_controller.rb:146
+msgid "Test e-mail sent successfully!"
+msgstr "Correo de prueba enviado con éxito!"
+
+#: app/controllers/admin/entries_controller.rb:64
+msgid "Entry was successfully created."
+msgstr "Entrada creada con éxito"
+
+#: app/controllers/admin/entries_controller.rb:87
+msgid "Entry was successfully updated."
+msgstr "Entrada actualizada con éxito"
+
+#: app/controllers/admin/projects_controller.rb:31
+msgid "You do not belong to any projects! Please consult your administrator!"
+msgstr "No se pertenece a ningún proyecto! Consulta su administrador."
+
+#: app/controllers/admin/projects_controller.rb:56
+msgid "Project was successfully created."
+msgstr "Proyecto creado con éxito."
+
+#: app/controllers/admin/projects_controller.rb:76
+msgid "Project was successfully updated."
+msgstr "Proyecto actualizado con éxito"
+
+#: app/controllers/admin/recipients_controller.rb:67
+msgid "New recipient has been stored"
+msgstr "Nuevo destinatario guardado"
+
+#: app/controllers/admin/recipients_controller.rb:87
+msgid "Updated"
+msgstr "Actualizado"
+
+#: app/controllers/admin/recipients_controller.rb:90
+msgid "recipient notified"
+msgstr "destinatario notificado"
+
+#: app/controllers/admin/sections_controller.rb:37
+msgid "Section was successfully created."
+msgstr "Sección creada con éxito"
+
+#: app/controllers/admin/sections_controller.rb:58
+msgid "Section was successfully updated."
+msgstr "Sección actualizada con éxito"
+
+#: app/controllers/admin/templet_layouts_controller.rb:69
+#, fuzzy
+msgid "TempletLayout was successfully updated."
+msgstr "Tag actualizado con éxito."
+
+#: app/controllers/admin/user_controller.rb:19
+msgid "Login successful"
+msgstr "Conectado con éxito"
+
+#: app/controllers/admin/user_controller.rb:22
+msgid "Login unsuccessful"
+msgstr "Fallo al conectarse"
+
+#: app/controllers/admin/user_controller.rb:29
+msgid "Logged out"
+msgstr "Desconectado"
+
+#: app/controllers/admin/user_controller.rb:39
+msgid "Password Changed"
+msgstr "Contraseña Cambiado"
+
+#: app/controllers/admin/tags_controller.rb:33
+msgid "Tag was successfully created."
+msgstr "Tag creado con éxito"
+
+#: app/controllers/admin/tags_controller.rb:47
+msgid "Tag was successfully updated."
+msgstr "Tag actualizado con éxito."
+
+#: app/controllers/admin/content_pages_controller.rb:35
+msgid "ContentPage was successfully created."
+msgstr "Página de Contenidos creada con éxito."
+
+#: app/controllers/admin/content_pages_controller.rb:50
+msgid "ContentPage was successfully updated."
+msgstr "Página de Contenidos actualizada con éxito"
+
+#: app/helpers/application_helper.rb:36
+msgid "prev"
+msgstr "Anterior"
+
+#: app/helpers/application_helper.rb:57
+msgid "next"
+msgstr "Siguiente"
+
+#: app/helpers/application_helper.rb:59
+msgid "Displaying %{from} to %{to} of %{of}"
+msgstr "Mostrando desde %{from} hasta %{to} de %{of}"
+
+#: app/models/project.rb:-
+msgid "project"
+msgstr "proyecto"
+
+#: app/models/project.rb:-
+msgid "Project|Name"
+msgstr "Proyecto|Nombre"
+
+#: app/models/project.rb:-
+msgid "Project|Sender"
+msgstr "Proyecto|Enviado por"
+
+#: app/models/project.rb:-
+msgid "Project|Report recipients"
+msgstr "Proyecto|Destinatarios de Informe"
+
+#: app/models/project.rb:-
+msgid "Project|Domain"
+msgstr "Proyecto|Dominio"
+
+#: app/models/project.rb:-
+msgid "Project|Description"
+msgstr "Proyecto|Descripción"
+
+#: app/models/project.rb:-
+msgid "Project|Default lang"
+msgstr "Proyecto|Lenguaje Predeterminado"
+
+#: app/models/project.rb:-
+msgid "Project|Date updated"
+msgstr "Proyecto|Fecha Actualizado"
+
+#: app/models/bulletin.rb:-
+msgid "bulletin"
+msgstr "boletín"
+
+#: app/models/bulletin.rb:-
+msgid "Bulletin|Project"
+msgstr "Boletín|Proyecto"
+
+#: app/models/bulletin.rb:-
+msgid "Bulletin|Templet"
+msgstr "Boletín|Marqueta"
+
+#: app/models/bulletin.rb:-
+msgid "Bulletin|Title"
+msgstr "Boletín|Titulo"
+
+#: app/models/bulletin.rb:-
+msgid "Bulletin|Subject"
+msgstr "Boletín|Asunto"
+
+#: app/models/bulletin.rb:-
+msgid "Bulletin|Notes"
+msgstr "Boletín|Notas"
+
+#: app/models/bulletin.rb:-
+msgid "Bulletin|Rendered"
+msgstr ""
+
+#: app/models/bulletin.rb:-
+msgid "Bulletin|Status"
+msgstr "Boletín|Status"
+
+#: app/models/bulletin.rb:-
+msgid "Bulletin|Date released"
+msgstr ""
+
+#: app/models/bulletin.rb:-
+msgid "Bulletin|Date updated"
+msgstr ""
+
+#: app/models/templet.rb:-
+msgid "templet"
+msgstr "marqueta"
+
+#: app/models/templet.rb:-
+msgid "Templet|Project"
+msgstr "Marqueta|Proyecto"
+
+#: app/models/templet.rb:-
+msgid "Templet|Type"
+msgstr "Marqueta|Tipo"
+
+#: app/models/templet.rb:-
+msgid "Templet|Type code"
+msgstr "Marqueta|Codigo de Tipo"
+
+#: app/models/templet.rb:-
+msgid "Templet|Name"
+msgstr "Marqueta|Nombre"
+
+#: app/models/templet.rb:-
+msgid "Templet|Subject"
+msgstr "Marqueta|Asunto"
+
+#: app/models/templet.rb:-
+msgid "Templet|Static"
+msgstr "Marqueta|Estatica"
+
+#: app/models/templet.rb:-
+msgid "Templet|Description"
+msgstr "Marqueta|Descripción"
+
+#: app/models/templet.rb:-
+msgid "Templet|Created on"
+msgstr "Marqueta|Creada el"
+
+#: app/models/templet.rb:-
+msgid "Templet|Updated on"
+msgstr "Marqueta|Actualizado el"
+
+#: app/models/section.rb:-
+msgid "section"
+msgstr "sección"
+
+#: app/models/section.rb:-
+msgid "Section|Bulletin"
+msgstr "Sección|Boletín"
+
+#: app/models/section.rb:-
+msgid "Section|Name"
+msgstr "Sección|Nombre"
+
+#: app/models/section.rb:-
+msgid "Section|Title"
+msgstr "Sección|Titulo"
+
+#: app/models/section.rb:-
+msgid "Section|Style"
+msgstr "Sección|Estilo"
+
+#: app/models/section.rb:-
+msgid "Section|Description"
+msgstr "Sección|Descripción"
+
+#: app/models/section.rb:-
+msgid "Section|Type"
+msgstr "Sección|Tipo"
+
+#: app/models/section.rb:-
+msgid "Section|Link"
+msgstr "Sección|Enlace"
+
+#: app/models/section.rb:-
+msgid "Section|Link text"
+msgstr "Sección|Texto de Enlace"
+
+#: app/models/section.rb:-
+msgid "Section|Date created"
+msgstr "Sección|Fecha Creada"
+
+#: app/models/section.rb:-
+msgid "Section|Date updated"
+msgstr "Sección|Fecha Actualizada"
+
+#: app/models/entry.rb:-
+msgid "entry"
+msgstr "entrada"
+
+#: app/models/entry.rb:-
+msgid "Entry|Section"
+msgstr "Entrada|Sección"
+
+#: app/models/entry.rb:-
+msgid "Entry|Title"
+msgstr "Entrada|Titulo"
+
+#: app/models/entry.rb:-
+msgid "Entry|Subtitle"
+msgstr "Entrada|Subtitulo"
+
+#: app/models/entry.rb:-
+msgid "Entry|Style"
+msgstr "Entrada|Estilo"
+
+#: app/models/entry.rb:-
+msgid "Entry|Body"
+msgstr "Entrada|Cuerpo"
+
+#: app/models/entry.rb:-
+msgid "Entry|Image link"
+msgstr "Entrada|Enlace a imagen"
+
+#: app/models/entry.rb:-
+msgid "Entry|Image text"
+msgstr "Entrada|Texto de imagen"
+
+#: app/models/entry.rb:-
+msgid "Entry|Link"
+msgstr "Entrdada|Enlace"
+
+#: app/models/entry.rb:-
+msgid "Entry|Link text"
+msgstr "Entrada|Texto de enlace"
+
+#: app/models/entry.rb:-
+msgid "Entry|Position"
+msgstr "Entrada|Posición"
+
+#: app/models/entry.rb:-
+msgid "Entry|Date created"
+msgstr "Entrada|Fecha Creada"
+
+#: app/models/entry.rb:-
+msgid "Entry|Date updated"
+msgstr "Entrada|Fecha actualizado"
+
+#: app/models/templet_layout.rb:-
+msgid "templet layout"
+msgstr "diseño de marqueta"
+
+#: app/models/templet_layout.rb:-
+msgid "TempletLayout|Templet"
+msgstr ""
+
+#: app/models/templet_layout.rb:-
+msgid "TempletLayout|Name"
+msgstr ""
+
+#: app/models/templet_layout.rb:-
+msgid "TempletLayout|Filetype"
+msgstr ""
+
+#: app/models/templet_layout.rb:-
+msgid "TempletLayout|Charset"
+msgstr ""
+
+#: app/models/templet_layout.rb:-
+msgid "TempletLayout|Edit as raw"
+msgstr ""
+
+#: app/models/templet_layout.rb:-
+msgid "TempletLayout|Data"
+msgstr ""
+
+#: app/models/templet_layout.rb:-
+msgid "TempletLayout|Created on"
+msgstr ""
+
+#: app/models/templet_layout.rb:-
+msgid "TempletLayout|Updated on"
+msgstr ""
+
+#: app/models/recipient.rb:-
+msgid "recipient"
+msgstr "destinatario"
+
+#: app/models/recipient.rb:-
+msgid "Recipient|Project"
+msgstr ""
+
+#: app/models/recipient.rb:-
+msgid "Recipient|Email"
+msgstr ""
+
+#: app/models/recipient.rb:-
+msgid "Recipient|Pass"
+msgstr ""
+
+#: app/models/recipient.rb:-
+msgid "Recipient|Confirm code"
+msgstr ""
+
+#: app/models/recipient.rb:-
+msgid "Recipient|Firstname"
+msgstr "Destinatario|Nombre"
+
+#: app/models/recipient.rb:-
+msgid "Recipient|Surname"
+msgstr "Destinatario|Apellido"
+
+#: app/models/recipient.rb:-
+msgid "Recipient|Surname2"
+msgstr ""
+
+#: app/models/recipient.rb:-
+msgid "Recipient|State"
+msgstr ""
+
+#: app/models/recipient.rb:-
+msgid "Recipient|Lang pref"
+msgstr ""
+
+#: app/models/recipient.rb:-
+msgid "Recipient|Date created"
+msgstr "Destinatario|Fecha Creado"
+
+#: app/models/recipient.rb:-
+msgid "Recipient|Date updated"
+msgstr ""
+
+#: app/models/recipient_receipt.rb:-
+msgid "recipient receipt"
+msgstr "recibo de destinatario"
+
+#: app/models/recipient_receipt.rb:-
+msgid "RecipientReceipt|Bulletin"
+msgstr ""
+
+#: app/models/recipient_receipt.rb:-
+msgid "RecipientReceipt|Recipient"
+msgstr ""
+
+#: app/models/recipient_receipt.rb:-
+msgid "RecipientReceipt|Status"
+msgstr ""
+
+#: app/models/recipient_receipt.rb:-
+msgid "RecipientReceipt|Received"
+msgstr ""
+
+#: app/models/recipient_receipt.rb:-
+msgid "RecipientReceipt|Read"
+msgstr ""
+
+#: app/models/recipient_receipt.rb:-
+msgid "RecipientReceipt|Hits"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "user"
+msgstr "usuario"
+
+#: app/models/user.rb:-
+msgid "User|Name"
+msgstr "Usuario|Nombre"
+
+#: app/models/user.rb:-
+msgid "User|Password hash"
+msgstr "Usuario|Hash de Contraseña"
+
+#: app/models/user.rb:-
+msgid "User|Description"
+msgstr "Usuario|Descripción"
+
+#: app/models/user.rb:-
+msgid "User|Admin role"
+msgstr "Usuario|Rol de administrador"
+
+#: app/models/user.rb:-
+msgid "User|Date created"
+msgstr "Usuario|Fecha creado"
+
+#: app/models/user.rb:-
+msgid "User|Date updated"
+msgstr "Usuario|Fecha actualizado"
+
+#: app/models/bulletin_layout.rb:-
+msgid "bulletin layout"
+msgstr "diseño de boletin"
+
+#: app/models/bulletin_layout.rb:-
+msgid "BulletinLayout|Bulletin"
+msgstr ""
+
+#: app/models/bulletin_layout.rb:-
+msgid "BulletinLayout|Name"
+msgstr ""
+
+#: app/models/bulletin_layout.rb:-
+msgid "BulletinLayout|Filetype"
+msgstr ""
+
+#: app/models/bulletin_layout.rb:-
+msgid "BulletinLayout|Charset"
+msgstr ""
+
+#: app/models/bulletin_layout.rb:-
+msgid "BulletinLayout|Rendered"
+msgstr ""
+
+#: app/models/bulletin_layout.rb:-
+msgid "BulletinLayout|Date updated"
+msgstr ""
+
+#: app/models/recipient_email_receipt.rb:-
+msgid "recipient email receipt"
+msgstr "recibo de correo de destinatario"
+
+#: app/models/recipient_email_receipt.rb:-
+msgid "RecipientEmailReceipt|Bulletin"
+msgstr ""
+
+#: app/models/recipient_email_receipt.rb:-
+msgid "RecipientEmailReceipt|Recipient"
+msgstr ""
+
+#: app/models/recipient_email_receipt.rb:-
+msgid "RecipientEmailReceipt|Status"
+msgstr ""
+
+#: app/models/recipient_email_receipt.rb:-
+msgid "RecipientEmailReceipt|Received"
+msgstr ""
+
+#: app/models/user_role.rb:-
+msgid "user role"
+msgstr "rol de usuario"
+
+#: app/models/user_role.rb:-
+msgid "UserRole|User"
+msgstr ""
+
+#: app/models/user_role.rb:-
+msgid "UserRole|Project"
+msgstr ""
+
+#: app/models/user_role.rb:-
+msgid "UserRole|Edit project"
+msgstr ""
+
+#: app/models/user_role.rb:-
+msgid "UserRole|Create bulletin"
+msgstr ""
+
+#: app/models/user_role.rb:-
+msgid "UserRole|Send bulletin"
+msgstr ""
+
+#: app/models/user_role.rb:-
+msgid "UserRole|Edit bulletin"
+msgstr ""
+
+#: app/models/user_role.rb:-
+msgid "UserRole|Edit recipients"
+msgstr ""
+
+#: app/models/user_role.rb:-
+msgid "UserRole|Edit section"
+msgstr ""
+
+#: app/models/user_role.rb:-
+msgid "UserRole|Edit entry"
+msgstr ""
+
+#: app/models/user_role.rb:-
+msgid "UserRole|Edit templates"
+msgstr ""
+
+#: app/models/user_role.rb:-
+msgid "UserRole|Created on"
+msgstr ""
+
+#: app/models/user_role.rb:-
+msgid "UserRole|Updated on"
+msgstr ""
+
+#: app/models/content_page.rb:-
+msgid "content page"
+msgstr "página de contenidos"
+
+#: app/models/content_page.rb:-
+msgid "ContentPage|Templet"
+msgstr ""
+
+#: app/models/content_page.rb:-
+msgid "ContentPage|Name"
+msgstr ""
+
+#: app/models/content_page.rb:-
+msgid "ContentPage|Status"
+msgstr ""
+
+#: app/models/content_page.rb:-
+msgid "ContentPage|Abstract"
+msgstr ""
+
+#: app/models/content_page.rb:-
+msgid "ContentPage|Content"
+msgstr ""
+
+#: app/models/content_page.rb:-
+msgid "ContentPage|Notes"
+msgstr ""
+
+#: app/models/content_page.rb:-
+msgid "ContentPage|Created on"
+msgstr ""
+
+#: app/models/content_page.rb:-
+msgid "ContentPage|Updated on"
+msgstr ""
+
+#: app/models/content_page.rb:-
+msgid "ContentPage|Media url"
+msgstr ""
+
+#: app/models/content_page.rb:-
+msgid "ContentPage|Bulletin"
+msgstr ""
+
+#: app/models/content_page_tag.rb:-
+msgid "content page tag"
+msgstr "tag de página de contenidos"
+
+#: app/models/content_page_tag.rb:-
+msgid "ContentPageTag|Content page"
+msgstr ""
+
+#: app/models/content_page_tag.rb:-
+msgid "ContentPageTag|Tag"
+msgstr ""
+
+#: app/views/layouts/admin.rhtml:15
+msgid "Logout"
+msgstr "Salir"
+
+#: app/views/layouts/admin.rhtml:17
+#: app/views/layouts/admin.rhtml:21
+#: app/views/admin/projects/edit.rhtml:9
+#: app/views/admin/projects/list.rhtml:1
+msgid "Projects"
+msgstr "Proyectos"
+
+#: app/views/layouts/admin.rhtml:18
+#: app/views/admin/projects/list.rhtml:18
+#: app/views/admin/projects/show.rhtml:9
+#: app/views/admin/bulletins/list.rhtml:72
+msgid "Templates"
+msgstr "Plantillas"
+
+#: app/views/layouts/admin.rhtml:19
+#: app/views/admin/projects/list.rhtml:19
+msgid "Users"
+msgstr "Usuarios"
+
+#: app/views/layouts/admin_close_popup.rhtml:22
+msgid "Please close this popup and refresh the main window"
+msgstr "Por favor, cierre esta ventana y actualiza la ventana principal."
+
+#: app/views/admin/projects/_form.rhtml:4
+#: app/views/admin/projects/list.rhtml:6
+#: app/views/admin/recipients/list.rhtml:25
+#: app/views/admin/sections/_form.rhtml:6
+#: app/views/admin/sections/list.rhtml:7
+#: app/views/admin/content_pages/_form.rhtml:4
+#: app/views/admin/content_pages/list.rhtml:5
+msgid "Name"
+msgstr "Nombre"
+
+#: app/views/admin/projects/_form.rhtml:7
+msgid "Domain"
+msgstr "Dominio"
+
+#: app/views/admin/projects/_form.rhtml:11
+msgid "Sender Email Address"
+msgstr "Dirección de envio"
+
+#: app/views/admin/projects/_form.rhtml:14
+msgid "Email address(es) for delivery reports"
+msgstr "Direcciones para informe de entrega"
+
+#: app/views/admin/projects/_form.rhtml:17
+#: app/views/admin/sections/_form.rhtml:23
+msgid "Description"
+msgstr "Descripción"
+
+#: app/views/admin/projects/edit.rhtml:1
+msgid "Editing project"
+msgstr "Editar Proyecto"
+
+#: app/views/admin/projects/edit.rhtml:5
+#: app/views/admin/bulletins/edit.rhtml:5
+#: app/views/admin/entries/edit.rhtml:5
+#: app/views/admin/recipients/edit.rhtml:5
+#: app/views/admin/sections/edit.rhtml:5
+#: app/views/admin/content_pages/edit.rhtml:5
+msgid "Save"
+msgstr "Guardar"
+
+#: app/views/admin/projects/edit.rhtml:8
+#: app/views/admin/bulletins/list.rhtml:30
+#: app/views/admin/entries/list.rhtml:23
+#: app/views/admin/entries/edit.rhtml:9
+#: app/views/admin/recipients/edit.rhtml:8
+#: app/views/admin/sections/edit.rhtml:9
+#: app/views/admin/content_pages/list.rhtml:13
+#: app/views/admin/content_pages/edit.rhtml:8
+msgid "Show"
+msgstr "Mostrar"
+
+#: app/views/admin/projects/list.rhtml:7
+#: app/views/admin/entries/list.rhtml:9
+#: app/views/admin/content_pages/list.rhtml:6
+msgid "Date updated"
+msgstr "Fecha Actualizado"
+
+#: app/views/admin/projects/list.rhtml:16
+msgid "Show Bulletins"
+msgstr "Mostrar Boletines"
+
+#: app/views/admin/projects/list.rhtml:17
+#: app/views/admin/projects/show.rhtml:15
+#: app/views/admin/bulletins/list.rhtml:37
+#: app/views/admin/bulletins/show.rhtml:7
+#: app/views/admin/bulletins/live_edit_header.rhtml:26
+#: app/views/admin/entries/list.rhtml:21
+#: app/views/admin/entries/list.rhtml:24
+#: app/views/admin/entries/show.rhtml:33
+#: app/views/admin/recipients/show.rhtml:15
+#: app/views/admin/sections/list.rhtml:18
+#: app/views/admin/sections/show.rhtml:7
+#: app/views/admin/content_pages/list.rhtml:14
+#: app/views/admin/content_pages/show.rhtml:7
+msgid "Edit"
+msgstr "Editar"
+
+#: app/views/admin/projects/list.rhtml:20
+#: app/views/admin/bulletins/list.rhtml:53
+#: app/views/admin/entries/list.rhtml:25
+#: app/views/admin/sections/list.rhtml:19
+#: app/views/admin/content_pages/list.rhtml:15
+msgid "Destroy"
+msgstr "Destruir"
+
+#: app/views/admin/projects/list.rhtml:20
+#: app/views/admin/bulletins/list.rhtml:53
+#: app/views/admin/entries/list.rhtml:25
+#: app/views/admin/recipients/list.rhtml:38
+msgid "Are you sure?"
+msgstr "Esta seguro?"
+
+#: app/views/admin/projects/list.rhtml:26
+#: app/views/admin/entries/list.rhtml:30
+#: app/views/admin/sections/list.rhtml:25
+#: app/views/admin/content_pages/list.rhtml:22
+msgid "Previous page"
+msgstr "Página Anterior"
+
+#: app/views/admin/projects/list.rhtml:27
+#: app/views/admin/entries/list.rhtml:31
+#: app/views/admin/sections/list.rhtml:26
+#: app/views/admin/content_pages/list.rhtml:23
+msgid "Next page"
+msgstr "Página Siguiente"
+
+#: app/views/admin/projects/list.rhtml:29
+#: app/views/admin/projects/new.rhtml:1
+msgid "New project"
+msgstr "Nuevo proyecto"
+
+#: app/views/admin/projects/list.rhtml:29
+msgid "New Project"
+msgstr "Nuevo Proyecto"
+
+#: app/views/admin/projects/new.rhtml:5
+#: app/views/admin/bulletins/new.rhtml:5
+#: app/views/admin/entries/new.rhtml:5
+#: app/views/admin/recipients/new.rhtml:7
+#: app/views/admin/sections/new.rhtml:5
+#: app/views/admin/content_pages/new.rhtml:5
+msgid "Create"
+msgstr "Crear"
+
+#: app/views/admin/projects/new.rhtml:8
+msgid "List"
+msgstr "Listado"
+
+#: app/views/admin/projects/show.rhtml:12
+#: app/views/admin/bulletins/list.rhtml:75
+#: app/views/admin/recipients/show.rhtml:16
+#: app/views/admin/recipients/new.rhtml:12
+msgid "Recipients"
+msgstr "Destinatarios"
+
+#: app/views/admin/bulletins/_form.rhtml:5
+#: app/views/admin/bulletins/list.rhtml:6
+#: app/views/admin/entries/_form.rhtml:8
+#: app/views/admin/entries/list.rhtml:8
+#: app/views/admin/entries/show.rhtml:3
+#: app/views/admin/sections/_form.rhtml:20
+#: app/views/admin/sections/list.rhtml:8
+msgid "Title"
+msgstr "Título"
+
+#: app/views/admin/bulletins/_form.rhtml:8
+msgid "Email Subject"
+msgstr "Asunto del Correo"
+
+#: app/views/admin/bulletins/_form.rhtml:11
+#: app/views/admin/content_pages/_form.rhtml:10
+msgid "Template"
+msgstr "Plantilla"
+
+#: app/views/admin/bulletins/_form.rhtml:15
+#: app/views/admin/content_pages/_form.rhtml:28
+msgid "Notes"
+msgstr "Notas"
+
+#: app/views/admin/bulletins/list.rhtml:1
+#: app/views/admin/bulletins/live_edit_header.rhtml:25
+msgid "Bulletin List"
+msgstr "Listado de Boletines"
+
+#: app/views/admin/bulletins/list.rhtml:5
+msgid "Date"
+msgstr "Fecha"
+
+#: app/views/admin/bulletins/list.rhtml:7
+msgid "Subject"
+msgstr "Asunto"
+
+#: app/views/admin/bulletins/list.rhtml:8
+#: app/views/admin/recipients/list.rhtml:26
+#: app/views/admin/content_pages/_form.rhtml:14
+msgid "Status"
+msgstr "Estado"
+
+#: app/views/admin/bulletins/list.rhtml:9
+msgid "Recv"
+msgstr "Reciv"
+
+#: app/views/admin/bulletins/list.rhtml:10
+msgid "Fail"
+msgstr "Fallo"
+
+#: app/views/admin/bulletins/list.rhtml:28
+#: app/views/admin/bulletins/edit.rhtml:8
+msgid "Live Edit"
+msgstr "Editar en Vivo"
+
+#: app/views/admin/bulletins/list.rhtml:32
+msgid "Duplicate"
+msgstr "Duplicar"
+
+#: app/views/admin/bulletins/list.rhtml:34
+msgid "Send Test"
+msgstr "Enviar Prueba"
+
+#: app/views/admin/bulletins/list.rhtml:38
+#: app/views/admin/entries/list.rhtml:36
+#: app/views/admin/entries/show.rhtml:35
+#: app/views/admin/entries/new.rhtml:10
+#: app/views/admin/entries/edit.rhtml:11
+#: app/views/admin/sections/show.rhtml:8
+#: app/views/admin/sections/new.rhtml:8
+#: app/views/admin/sections/edit.rhtml:10
+msgid "Sections"
+msgstr "Secciones"
+
+#: app/views/admin/bulletins/list.rhtml:39
+#: app/views/admin/bulletins/send_test.rhtml:7
+msgid "Send"
+msgstr "Enviar"
+
+#: app/views/admin/bulletins/list.rhtml:40
+msgid ""
+"Are you sure you want to send this bulletin?\n"
+" No modifications can be made while a bulletin is being sent!"
+msgstr ""
+"¿Esta seguro que quiere envia esta boletín?\n"
+"No se puede modificar la boletín una vez que se ha empezado a enviar."
+
+#: app/views/admin/bulletins/list.rhtml:44
+msgid "Abort"
+msgstr "Abortar"
+
+#: app/views/admin/bulletins/list.rhtml:45
+msgid "Are you sure you want to abort the pending send?"
+msgstr "Esta seguro que quiere abortar el envio?"
+
+#: app/views/admin/bulletins/list.rhtml:50
+msgid "Pages"
+msgstr "Páginas"
+
+#: app/views/admin/bulletins/list.rhtml:66
+msgid "New"
+msgstr "Nuevo"
+
+#: app/views/admin/bulletins/list.rhtml:66
+msgid "New Bulletin"
+msgstr "Nuevo Boletín"
+
+#: app/views/admin/bulletins/list.rhtml:69
+msgid "Edit Project"
+msgstr "Editar Proyecto"
+
+#: app/views/admin/bulletins/show.rhtml:8
+#: app/views/admin/bulletins/new.rhtml:8
+#: app/views/admin/bulletins/send_test.rhtml:10
+#: app/views/admin/entries/list.rhtml:37
+#: app/views/admin/entries/show.rhtml:36
+#: app/views/admin/entries/new.rhtml:11
+#: app/views/admin/entries/edit.rhtml:12
+#: app/views/admin/recipients/list.rhtml:48
+#: app/views/admin/sections/list.rhtml:31
+#: app/views/admin/sections/edit.rhtml:11
+#: app/views/admin/content_pages/list.rhtml:29
+msgid "Bulletins"
+msgstr "Boletines"
+
+#: app/views/admin/bulletins/new.rhtml:1
+msgid "New bulletin"
+msgstr "Nuevo Boletín"
+
+#: app/views/admin/bulletins/edit.rhtml:1
+msgid "Editing bulletin"
+msgstr "Editando boletín"
+
+#: app/views/admin/bulletins/edit.rhtml:9
+#: app/views/admin/recipients/show.rhtml:16
+#: app/views/admin/recipients/edit.rhtml:9
+msgid "Back"
+msgstr "Atras"
+
+#: app/views/admin/bulletins/edit.rhtml:9
+msgid "List Bulletins"
+msgstr "Listado de boletines"
+
+#: app/views/admin/bulletins/send_test.rhtml:1
+msgid "Send Test Bulletin"
+msgstr "Enviar boletín de prueba"
+
+#: app/views/admin/bulletins/live_edit_header.rhtml:3
+msgid "Bcomposer live edit"
+msgstr "Bcomposer editar en vivo"
+
+#: app/views/admin/bulletins/live_edit_header.rhtml:30
+msgid "Mode"
+msgstr "Modo"
+
+#: app/views/admin/bulletins/live_edit_header.rhtml:32
+#: app/views/admin/bulletins/live_edit_header.rhtml:37
+#: app/views/admin/recipients/list.rhtml:37
+msgid "edit"
+msgstr "Editar"
+
+#: app/views/admin/bulletins/live_edit_header.rhtml:34
+#: app/views/admin/bulletins/live_edit_header.rhtml:38
+msgid "preview"
+msgstr "Vista previa"
+
+#: app/views/admin/entries/_form.rhtml:11
+msgid "Sub-Title"
+msgstr "Subtítulo"
+
+#: app/views/admin/entries/_form.rhtml:17
+#: app/views/admin/entries/show.rhtml:10
+msgid "Body"
+msgstr "Cuerpo"
+
+#: app/views/admin/entries/_form.rhtml:20
+msgid "Image link"
+msgstr "Enlace de la imagen"
+
+#: app/views/admin/entries/_form.rhtml:23
+msgid "Image text"
+msgstr "Texto de la imagen"
+
+#: app/views/admin/entries/_form.rhtml:26
+#: app/views/admin/entries/show.rhtml:26
+#: app/views/admin/sections/_form.rhtml:26
+msgid "Link"
+msgstr "Enlace"
+
+#: app/views/admin/entries/_form.rhtml:28
+#: app/views/admin/sections/_form.rhtml:29
+msgid "Link Text"
+msgstr "Texto del Enlace"
+
+#: app/views/admin/entries/list.rhtml:1
+msgid "Listing entries"
+msgstr "Listado de Entradas"
+
+#: app/views/admin/entries/list.rhtml:3
+msgid "Section: %s"
+msgstr "Sección: %s"
+
+#: app/views/admin/entries/list.rhtml:18
+msgid "up"
+msgstr "arriba"
+
+#: app/views/admin/entries/list.rhtml:19
+msgid "down"
+msgstr "abajo"
+
+#: app/views/admin/entries/list.rhtml:35
+#: app/views/admin/entries/new.rhtml:1
+msgid "New entry"
+msgstr "Nueva entrada"
+
+#: app/views/admin/entries/show.rhtml:6
+#: app/views/admin/sections/_form.rhtml:14
+msgid "Style"
+msgstr "Estilo"
+
+#: app/views/admin/entries/show.rhtml:18
+msgid "Image"
+msgstr "Imagen"
+
+#: app/views/admin/entries/show.rhtml:21
+msgid "Image Text"
+msgstr "Text de la Imagen"
+
+#: app/views/admin/entries/show.rhtml:30
+#: app/views/admin/recipients/show.rhtml:7
+#: app/views/admin/sections/list.rhtml:9
+msgid "Date Updated"
+msgstr "Fecha Actualizado"
+
+#: app/views/admin/entries/show.rhtml:34
+#: app/views/admin/entries/new.rhtml:9
+#: app/views/admin/entries/edit.rhtml:10
+#: app/views/admin/sections/list.rhtml:20
+msgid "Entries"
+msgstr "Entradas"
+
+#: app/views/admin/entries/edit.rhtml:1
+msgid "Editing entry"
+msgstr "Editando entrada"
+
+#: app/views/admin/recipients/_form.rhtml:5
+msgid "Email Address"
+msgstr "Dirección de Correo Electrónico"
+
+#: app/views/admin/recipients/_form.rhtml:8
+msgid "Firstname"
+msgstr "Nombre"
+
+#: app/views/admin/recipients/_form.rhtml:11
+msgid "Surnames"
+msgstr "Apellidos"
+
+#: app/views/admin/recipients/_form.rhtml:14
+#: app/views/admin/user/login.rhtml:8
+msgid "Password"
+msgstr "Contraseña"
+
+#: app/views/admin/recipients/_form.rhtml:14
+msgid "(optional)"
+msgstr "(opcional)"
+
+#: app/views/admin/recipients/_form.rhtml:17
+msgid "Password Confirmation"
+msgstr "Confirmación de Contraseña"
+
+#: app/views/admin/recipients/_form.rhtml:20
+msgid "State"
+msgstr "Estado"
+
+#: app/views/admin/recipients/_form.rhtml:22
+msgid "Notify recipient of change"
+msgstr "Notificar destinatario del cambio"
+
+#: app/views/admin/recipients/list.rhtml:1
+msgid "Listing recipients"
+msgstr "Listado de Destinatarios"
+
+#: app/views/admin/recipients/list.rhtml:4
+msgid "Bulletin %s"
+msgstr "Boletín %s"
+
+#: app/views/admin/recipients/list.rhtml:5
+msgid "Number of recipients who have received bulltin: %s"
+msgstr "Cantidad de destinatarios que han recibido el boletín: %s"
+
+#: app/views/admin/recipients/list.rhtml:8
+msgid "search"
+msgstr "buscar"
+
+#: app/views/admin/recipients/list.rhtml:9
+msgid "Search"
+msgstr "Buscar"
+
+#: app/views/admin/recipients/list.rhtml:14
+msgid "All"
+msgstr "Todos"
+
+#: app/views/admin/recipients/list.rhtml:15
+msgid "Confirmed"
+msgstr "Confirmado"
+
+#: app/views/admin/recipients/list.rhtml:16
+msgid "Pending"
+msgstr "Pendiente"
+
+#: app/views/admin/recipients/list.rhtml:17
+msgid "Forced"
+msgstr "Forzado"
+
+#: app/views/admin/recipients/list.rhtml:18
+msgid "Deleted"
+msgstr "Borrado"
+
+#: app/views/admin/recipients/list.rhtml:24
+#: app/views/admin/recipients/show.rhtml:3
+msgid "Email"
+msgstr "Email"
+
+#: app/views/admin/recipients/list.rhtml:27
+msgid "Date created"
+msgstr "Fecha creada"
+
+#: app/views/admin/recipients/list.rhtml:36
+#: app/views/admin/sections/list.rhtml:17
+msgid "show"
+msgstr "mostrar"
+
+#: app/views/admin/recipients/list.rhtml:38
+msgid "destroy"
+msgstr "destruir"
+
+#: app/views/admin/recipients/list.rhtml:47
+msgid "New recipient"
+msgstr "Nuevo Destinatario"
+
+#: app/views/admin/recipients/show.rhtml:4
+msgid "Forname"
+msgstr "Nombre"
+
+#: app/views/admin/recipients/show.rhtml:5
+msgid "Surname"
+msgstr "Apellidos"
+
+#: app/views/admin/recipients/show.rhtml:6
+msgid "Date Added"
+msgstr "Fecha Añadido"
+
+#: app/views/admin/recipients/show.rhtml:11
+msgid "Bulletins Received"
+msgstr "Boletines Recibidos"
+
+#: app/views/admin/recipients/new.rhtml:1
+msgid "New Recipient"
+msgstr "Nuevo Destinatario"
+
+#: app/views/admin/recipients/edit.rhtml:1
+msgid "Editing recipient"
+msgstr "Editando Destinatario"
+
+#: app/views/admin/sections/_form.rhtml:18
+msgid "Optional Fields"
+msgstr "Campos Opcionales"
+
+#: app/views/admin/sections/list.rhtml:1
+msgid "Listing sections"
+msgstr "Listado de Secciones"
+
+#: app/views/admin/sections/list.rhtml:3
+msgid "For %s"
+msgstr "Para %s"
+
+#: app/views/admin/sections/list.rhtml:30
+#: app/views/admin/sections/new.rhtml:1
+msgid "New section"
+msgstr "Nueva Sección"
+
+#: app/views/admin/sections/edit.rhtml:1
+msgid "Editing section"
+msgstr "Editando sección"
+
+#: app/views/admin/user/login.rhtml:2
+msgid "Enter access details:"
+msgstr "Introduzca sus detalles de accesso:"
+
+#: app/views/admin/user/login.rhtml:5
+msgid "Username"
+msgstr "Usuario"
+
+#: app/views/admin/user/login.rhtml:11
+msgid "Login"
+msgstr "Entrar"
+
+#: app/views/admin/content_pages/_form.rhtml:7
+msgid "Bulletin"
+msgstr "Boletín"
+
+#: app/views/admin/content_pages/_form.rhtml:17
+msgid "Abstract"
+msgstr "Abstracto"
+
+#: app/views/admin/content_pages/_form.rhtml:20
+msgid "Content"
+msgstr "Contenido"
+
+#: app/views/admin/content_pages/_form.rhtml:25
+msgid "Media URL"
+msgstr "URL de Media"
+
+#: app/views/admin/content_pages/list.rhtml:1
+msgid "Listing Content Pages"
+msgstr "Listado de páginas de contenidos"
+
+#: app/views/admin/content_pages/list.rhtml:28
+msgid "New content page"
+msgstr "Nueva página de contenidos"
+
+#: app/views/admin/content_pages/show.rhtml:8
+#: app/views/admin/content_pages/new.rhtml:8
+#: app/views/admin/content_pages/edit.rhtml:9
+msgid "Content Pages"
+msgstr "Páginas de Contenidos"
+
+#: app/views/admin/content_pages/new.rhtml:1
+msgid "New Content Page"
+msgstr "Nueva Página de Contenidos"
+
+#: app/views/admin/content_pages/edit.rhtml:1
+msgid "Editing Content Page"
+msgstr "Editar Página de Contenidos"
+
+#~ msgid "Recipient|Country"
+#~ msgstr "Destinatarios|Pais"
+#~ msgid "Recipient|Artist"
+#~ msgstr "Destinatarios|Artista"
+#~ msgid "Recipient|Mobile"
+#~ msgstr "Destinatarios|Movil"
+#~ msgid "Recipient|Nosms"
+#~ msgstr "Destinatarios|Nosms"
+#~ msgid "Recipient|Noemail"
+#~ msgstr "Destinatarios|Noemail"
+#~ msgid "Recipient|Address"
+#~ msgstr "Destinatarios|Dirección"
+#~ msgid "Recipient|City"
+#~ msgstr "Destinatarios|Ciudad"
+#~ msgid "Recipient|Postcode"
+#~ msgstr "Destinatarios|Código Postal"
+#~ msgid "Projets"
+#~ msgstr "Proyectos"
+
+#, fuzzy
+#~ msgid "Destroy)"
+#~ msgstr "Destruir"
+

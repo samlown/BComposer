@@ -1,0 +1,12 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+  <title><%= @bulletin.nil? ? 'BComposer' : @bulletin.full_title %></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=<%= (@bulletin_layout.nil? or @bulletin_layout.charset.blank?) ? 'UTF-8' : @bulletin_layout.charset %>" />
+</head>
+<body>
+
+<%= yield %>
+
+</body>
+</html>

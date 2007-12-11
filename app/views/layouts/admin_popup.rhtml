@@ -1,0 +1,45 @@
+<html>
+<head>
+  <title>Bcomposer <%= ('- '+ @project.name) if (@project) %></title>
+  <%= stylesheet_link_tag 'admin' %>
+  <%= stylesheet_link_tag 'admin_popup' %>
+  <%= javascript_include_tag :fckeditor %>
+  <%= javascript_include_tag :defaults %> 
+<SCRIPT TYPE="text/javascript">
+<!--
+
+window.focus();
+
+function refresh_parent() {
+  if (! (window.focus && window.opener))return true;
+  window.opener.focus();
+  window.opener.location.reload(true);
+  // window.close();
+  return true;
+}
+
+// Close this window and update the parent
+function close_and_update( value ) {
+    opener.document.getElementById( '<%= @update_field %>' ).value = value;
+    opener.focus();
+    window.close();
+}
+
+//-->
+</SCRIPT>
+</head>
+<body>
+
+<div id="content">
+<% if @skip_admin_flash.blank? %>
+<p style="color: green"><%= flash[:notice] %></p>
+<p style="color: red"><%= flash[:warning] %></p>
+<p style="color: red"><%= flash[:error] %></p>
+<% end %>
+
+<%= yield %>
+
+</div>
+
+</body>
+</html>

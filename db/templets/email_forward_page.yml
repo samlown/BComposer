@@ -1,0 +1,10 @@
+--- !ruby/object:TempletExporter 
+charset: ISO-8859-15
+created_on: 2007-03-23 00:43:16 +01:00
+description: Email containing link to page
+filetype: text/html
+filter: liquid
+name: EMAIL_FORWARD_PAGE
+subject: ""
+type: Email
+updated_on: 2007-04-23 14:19:54 +02:00

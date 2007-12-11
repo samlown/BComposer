@@ -1,0 +1,12 @@
+
+<ul>  
+<% for bulletin in @bulletins %>
+  <li><%= link_to bulletin.subject, {:action => 'show', :id => bulletin, :popup => true}, :popup => true %> - <%=h bulletin.date.strftime('%Y-%m-%d') %></li>
+<% end %>
+</ul>
+
+<% # page_selector(@bulletin_pages) 
+%>
+
+<br />
+<br />

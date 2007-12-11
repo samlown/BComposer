@@ -1,0 +1,8 @@
+<% for column in UserRole.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @user_role.send(column.name) %>
+</p>
+<% end %>
+
+<%= link_to 'Edit', :action => 'edit', :id => @user_role %> |
+<%= link_to 'Back', :action => 'list' %>

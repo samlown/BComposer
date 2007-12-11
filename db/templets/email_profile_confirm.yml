@@ -1,0 +1,10 @@
+--- !ruby/object:TempletExporter 
+charset: ISO-8859-15
+created_on: 2007-04-02 21:16:23 +02:00
+description: ""
+filetype: text/html
+filter: liquid
+name: EMAIL_PROFILE_CONFIRM
+subject: Confirm your email address
+type: Email
+updated_on: 2007-04-23 14:19:55 +02:00

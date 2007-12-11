@@ -1,0 +1,8 @@
+<h1><%= _('New Content Page') %></h1>
+
+<% form_tag :action => 'create' do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag _("Create") %>
+<% end %>
+
+<%= link_to _('Content Pages'), :action => 'list', :bulletin_id => @bulletin.id %>

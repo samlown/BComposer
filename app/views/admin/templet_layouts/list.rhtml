@@ -1,0 +1,28 @@
+<h1>Listing Template Layouts</h1>
+
+<h2>Template: <%= link_to @templet.name, :controller => 'templets', :action => 'list' %></h2>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Updated On</th>
+  </tr>
+  
+<% for templet_layout in @templet_layouts %>
+  <tr>
+    <td ><%=h templet_layout.name %></td>
+   	<td ><%=h templet_layout.updated_on %></td>
+    <td ><%= link_to image_tag("Show.png", :title=>"show", :border=>"0"), :action => 'show', :id => templet_layout %></td>
+    <td ><%= link_to image_tag("edit.png", :title=>"edit", :border=>"0"), :action => 'edit', :id => templet_layout %></td>
+    <td ><%= link_to image_tag("destroy.png", :title=>"destroy", :border=>"0"), { :action => 'destroy', :id => templet_layout }, :confirm => 'Are you sure?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @templet_layout_pages.current.previous } if @templet_layout_pages.current.previous %>
+<%= link_to 'Next page', { :page => @templet_layout_pages.current.next } if @templet_layout_pages.current.next %> 
+
+<br />
+
+<%= link_to image_tag("add.png", :border=>"0")+' New layout', :action => 'new', :templet_id => @templet %>
+| <%= link_to 'Templates', :controller => 'templets', :action => 'list' %>

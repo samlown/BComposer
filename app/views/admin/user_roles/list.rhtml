@@ -1,0 +1,45 @@
+<h1>Listing User Roles for <%= @project.name %></h1>
+
+<table>
+  <tr>
+    <th rowspan="2">User name</th>
+    <th rowspan="2">Edit project</th>
+    <th colspan="5" align="center">Bulletin Edit Permisions</th>
+  </tr>
+  <tr>
+    <th>Create</th>
+    <th>Send</th>
+    <th>Edit</th>
+    <th>Sections</th>
+    <th>Entries</th>
+    <th>Templates</th>
+    <th>Recipients</th>
+    <th>Pages</th>
+    <th>Files</th>
+  </tr>
+  
+<% for user_role in @user_roles %>
+  <tr>
+    <td><%=h user_role.user.name %></td>
+    <td><%=h user_role.edit_project %></td>
+    <td><%=h user_role.create_bulletin %></td>
+    <td><%=h user_role.send_bulletin %></td>
+    <td><%=h user_role.edit_bulletin %></td>
+    <td><%=h user_role.edit_section %></td>
+    <td><%=h user_role.edit_entry %></td>
+    <td><%=h user_role.edit_templates %></td>
+    <td><%=h user_role.edit_recipients %></td>
+    <td><%=h user_role.edit_pages %></td>
+    <td><%=h user_role.edit_files %></td>    
+ 
+    <td><%= link_to 'Edit', :action => 'edit', :id => user_role %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @user_role_pages.current.previous } if @user_role_pages.current.previous %>
+<%= link_to 'Next page', { :page => @user_role_pages.current.next } if @user_role_pages.current.next %> 
+
+<br />
+
+<%= link_to 'Projects', :controller => 'projects', :action => 'list', :project_name => nil %>

@@ -1,0 +1,9 @@
+<p>
+<%= link_to_remote "Edit as plain text",
+   :url => {:action => 'choose_form', :edit_as_html => false, :id => @templet_layout.id},
+   :submit => "edit_body_form" %>
+</p>
+<p><label for="templet_layout_data">Data</label><br/>
+<%= fckeditor_textarea 'templet_layout', 'data', :toolbarSet => 'Default', :width => '100%', :height => '400px' %></p>
+
+<%= hidden_field 'templet_layout', 'edit_as_raw' %>

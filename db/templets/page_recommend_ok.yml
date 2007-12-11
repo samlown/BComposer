@@ -1,0 +1,10 @@
+--- !ruby/object:TempletExporter 
+charset: ISO-8859-15
+created_on: 2007-03-05 20:17:59 +01:00
+description: ""
+filetype: text/html
+filter: liquid
+name: PAGE_RECOMMEND_OK
+subject: ""
+type: Page
+updated_on: 2007-04-23 14:19:54 +02:00

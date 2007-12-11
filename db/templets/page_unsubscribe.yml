@@ -1,0 +1,10 @@
+--- !ruby/object:TempletExporter 
+charset: ISO-8859-15
+created_on: 2007-03-09 15:15:32 +01:00
+description: Present user with form to remove themselves from the database.
+filetype: text/html
+filter: liquid
+name: PAGE_UNSUBSCRIBE
+subject: ""
+type: Page
+updated_on: 2007-04-23 14:19:54 +02:00
