@@ -2,7 +2,7 @@
 # migrations feature of ActiveRecord to incrementally modify your database, and
 # then regenerate this schema definition.
 
-ActiveRecord::Schema.define(:version => 30) do
+ActiveRecord::Schema.define(:version => 32) do
 
   create_table "bulletin_layouts", :force => true do |t|
     t.column "bulletin_id",  :integer,                 :default => 0,  :null => false
@@ -10,7 +10,7 @@ ActiveRecord::Schema.define(:version => 30) do
     t.column "filetype",     :string,    :limit => 20, :default => "", :null => false
     t.column "charset",      :string,    :limit => 20, :default => "", :null => false
     t.column "rendered",     :text,                    :default => "", :null => false
-    t.column "date_updated", :timestamp,                               :null => false
+    t.column "date_updated", :timestamp
   end
 
   add_index "bulletin_layouts", ["bulletin_id", "name"], :name => "bulletin_id", :unique => true
@@ -24,27 +24,27 @@ ActiveRecord::Schema.define(:version => 30) do
     t.column "rendered",      :text
     t.column "status",        :string,    :limit => 1, :default => "O", :null => false
     t.column "date_released", :datetime
-    t.column "updated_on",    :timestamp,                               :null => false
+    t.column "updated_on",    :timestamp
     t.column "filter_raw",    :text
     t.column "date",          :date
   end
 
   create_table "content_page_tags", :id => false, :force => true do |t|
-    t.column "content_page_id", :integer, :null => false
-    t.column "tag_id",          :integer, :null => false
+    t.column "content_page_id", :integer
+    t.column "tag_id",          :integer
   end
 
   create_table "content_pages", :force => true do |t|
-    t.column "templet_id",  :integer,                                :null => false
-    t.column "name",        :string,                :default => "",  :null => false
-    t.column "status",      :string,   :limit => 1, :default => "O", :null => false
+    t.column "templet_id",  :integer,                                 :null => false
+    t.column "name",        :string,                 :default => "",  :null => false
+    t.column "status",      :string,    :limit => 1, :default => "O", :null => false
     t.column "abstract",    :text
     t.column "content",     :text
     t.column "notes",       :text
-    t.column "created_on",  :datetime,                               :null => false
-    t.column "updated_on",  :datetime,                               :null => false
+    t.column "created_on",  :datetime,                                :null => false
+    t.column "updated_on",  :timestamp
     t.column "media_url",   :string
-    t.column "bulletin_id", :integer,                                :null => false
+    t.column "bulletin_id", :integer,                                 :null => false
   end
 
   create_table "email_templets", :force => true do |t|
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(:version => 30) do
     t.column "subject",      :string,                 :default => "", :null => false
     t.column "description",  :text
     t.column "date_created", :datetime,                               :null => false
-    t.column "date_updated", :timestamp,                              :null => false
+    t.column "date_updated", :timestamp
   end
 
   create_table "entries", :force => true do |t|
@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(:version => 30) do
     t.column "link_text",    :string
     t.column "position",     :integer,   :limit => 6,  :default => 0,  :null => false
     t.column "date_created", :datetime,                                :null => false
-    t.column "date_updated", :timestamp,                               :null => false
+    t.column "date_updated", :timestamp
   end
 
   create_table "project_groups", :force => true do |t|
@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(:version => 30) do
     t.column "domain",            :string
     t.column "description",       :text
     t.column "default_lang",      :string,    :limit => 3,   :default => "", :null => false
-    t.column "date_updated",      :timestamp,                                :null => false
+    t.column "date_updated",      :timestamp
     t.column "project_group_id",  :integer,                  :default => 1
   end
 
@@ -96,6 +96,17 @@ ActiveRecord::Schema.define(:version => 30) do
   end
 
   add_index "recipient_email_receipts", ["bulletin_id", "recipient_id"], :name => "bulletin_id"
+
+  create_table "recipient_meta_options", :force => true do |t|
+    t.column "project_group_id", :integer
+    t.column "parent_id",        :integer
+    t.column "field",            :string
+    t.column "value",            :string
+    t.column "created_on",       :datetime
+    t.column "updated_on",       :datetime
+  end
+
+  add_index "recipient_meta_options", ["field", "project_group_id"], :name => "index_recipient_meta_options_on_field_and_project_group_id", :unique => true
 
   create_table "recipient_receipts", :force => true do |t|
     t.column "bulletin_id",  :integer,               :default => 0, :null => false
@@ -109,22 +120,27 @@ ActiveRecord::Schema.define(:version => 30) do
   add_index "recipient_receipts", ["bulletin_id", "recipient_id"], :name => "bulletin_id"
 
   create_table "recipients", :force => true do |t|
-    t.column "email",            :string,                   :default => "",    :null => false
-    t.column "firstname",        :string,    :limit => 128
-    t.column "surname",          :string,    :limit => 64
-    t.column "surname2",         :string,    :limit => 64
-    t.column "lang_pref",        :string,    :limit => 3,   :default => "ES",  :null => false
-    t.column "country",          :string
-    t.column "mobile",           :string,    :limit => 64
-    t.column "mobile_operator",  :string
-    t.column "address",          :string
-    t.column "city",             :string
-    t.column "postcode",         :string,    :limit => 20
-    t.column "created_on",       :datetime
-    t.column "updated_on",       :timestamp,                                   :null => false
-    t.column "new_data",         :text
-    t.column "project_group_id", :integer,                  :default => 1
-    t.column "confirmed_real",   :boolean,                  :default => false
+    t.column "email",             :string,                   :default => "",    :null => false
+    t.column "firstname",         :string,    :limit => 128
+    t.column "surname",           :string,    :limit => 64
+    t.column "surname2",          :string,    :limit => 64
+    t.column "created_on",        :datetime
+    t.column "updated_on",        :timestamp
+    t.column "new_data",          :text
+    t.column "project_group_id",  :integer,                  :default => 1
+    t.column "confirmed_real",    :boolean,                  :default => false
+    t.column "entity",            :string
+    t.column "entity_type",       :string
+    t.column "position",          :string
+    t.column "position_type",     :string
+    t.column "county",            :string
+    t.column "province",          :string
+    t.column "interest_area",     :text
+    t.column "gender",            :string,    :limit => 1
+    t.column "country",           :string
+    t.column "organisation_type", :string
+    t.column "active",            :boolean
+    t.column "last_active_on",    :date
   end
 
   create_table "sections", :force => true do |t|
@@ -137,7 +153,7 @@ ActiveRecord::Schema.define(:version => 30) do
     t.column "link",         :string
     t.column "link_text",    :string
     t.column "date_created", :datetime,                                :null => false
-    t.column "date_updated", :timestamp,                               :null => false
+    t.column "date_updated", :timestamp
   end
 
   create_table "subscriptions", :force => true do |t|
@@ -149,7 +165,7 @@ ActiveRecord::Schema.define(:version => 30) do
     t.column "updated_on",   :datetime
   end
 
-  add_index "subscriptions", ["recipient_id", "project_id"], :name => "recipient_project_id"
+  add_index "subscriptions", ["recipient_id", "project_id"], :name => "subscription_id"
 
   create_table "tags", :force => true do |t|
     t.column "name",       :string
@@ -157,14 +173,14 @@ ActiveRecord::Schema.define(:version => 30) do
   end
 
   create_table "templet_layouts", :force => true do |t|
-    t.column "templet_id",  :integer,                 :default => 0,             :null => false
-    t.column "name",        :string,    :limit => 30, :default => "",            :null => false
-    t.column "filetype",    :string,    :limit => 20, :default => "text/html",   :null => false
-    t.column "charset",     :string,    :limit => 20, :default => "ISO-8859-15", :null => false
-    t.column "edit_as_raw", :boolean,                 :default => false,         :null => false
-    t.column "data",        :text,                    :default => "",            :null => false
+    t.column "templet_id",  :integer,                 :default => 0,           :null => false
+    t.column "name",        :string,    :limit => 30, :default => "",          :null => false
+    t.column "filetype",    :string,    :limit => 20, :default => "text/html", :null => false
+    t.column "charset",     :string,    :limit => 20, :default => "",          :null => false
+    t.column "edit_as_raw", :boolean,                 :default => false,       :null => false
+    t.column "data",        :text,                    :default => "",          :null => false
     t.column "created_on",  :datetime
-    t.column "updated_on",  :timestamp,                                          :null => false
+    t.column "updated_on",  :timestamp
     t.column "filter",      :string,    :limit => 20
   end
 
@@ -177,7 +193,7 @@ ActiveRecord::Schema.define(:version => 30) do
     t.column "static",      :boolean,                 :default => false, :null => false
     t.column "description", :text,                    :default => "",    :null => false
     t.column "created_on",  :datetime
-    t.column "updated_on",  :timestamp,                                  :null => false
+    t.column "updated_on",  :timestamp
   end
 
   create_table "user_roles", :force => true do |t|
@@ -192,7 +208,7 @@ ActiveRecord::Schema.define(:version => 30) do
     t.column "edit_entry",      :boolean,   :default => false, :null => false
     t.column "edit_templates",  :boolean,   :default => false, :null => false
     t.column "created_on",      :datetime,                     :null => false
-    t.column "updated_on",      :timestamp,                    :null => false
+    t.column "updated_on",      :timestamp
     t.column "edit_pages",      :boolean,   :default => false, :null => false
     t.column "edit_files",      :boolean,   :default => false, :null => false
   end
@@ -203,7 +219,7 @@ ActiveRecord::Schema.define(:version => 30) do
     t.column "description",   :text,                    :default => "",    :null => false
     t.column "admin_role",    :boolean,                 :default => false, :null => false
     t.column "date_created",  :datetime,                                   :null => false
-    t.column "date_updated",  :timestamp,                                  :null => false
+    t.column "date_updated",  :timestamp
   end
 
 end

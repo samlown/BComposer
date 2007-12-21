@@ -2,6 +2,7 @@ class CreateRecipientMetaOptions < ActiveRecord::Migration
   def self.up
     create_table :recipient_meta_options do |t|
       t.column :project_group_id, :integer
+      t.column :parent_id, :integer
       t.column :field, :string
       t.column :value, :string
       t.column :created_on, :datetime

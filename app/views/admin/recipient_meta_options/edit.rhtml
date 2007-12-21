@@ -1,0 +1,9 @@
+<h1>Editing recipient_meta_option</h1>
+
+<% form_tag :action => 'update', :id => @recipient_meta_option do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'Edit' %>
+<% end %>
+
+<%= link_to 'Show', :action => 'show', :id => @recipient_meta_option %> |
+<%= link_to 'Back', :action => 'list' %>

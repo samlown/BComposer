@@ -13,6 +13,7 @@
     <td><%=h project_group.send(column.name) %></td>
   <% end %>
     <td><%= link_to 'Show', :action => 'show', :id => project_group %></td>
+    <td><%= link_to 'Recipient Options', :controller => 'recipient_meta_options', :action => 'list', :project_group_id => project_group %></td>
     <td><%= link_to 'Edit', :action => 'edit', :id => project_group %></td>
     <td><%= link_to 'Destroy', { :action => 'destroy', :id => project_group }, :confirm => 'Are you sure?', :method => :post %></td>
   </tr>

@@ -1,0 +1,30 @@
+<h1>Listing Recipient Meta Options</h1>
+
+<p>The Receipient Meta Options are used to provide pulldown select boxes in 
+subscription forms to help users add information.</p>
+
+<table>
+  <tr>
+    <th>Field</th>
+    <th>Value</th>
+    <th>Parent</th>
+  </tr>
+  
+<% for recipient_meta_option in @recipient_meta_options %>
+  <tr>
+    <td><%=h recipient_meta_option.field %></td>
+    <td><%=h recipient_meta_option.value %></td>
+    <td>
+      <% if  %>
+      </td>
+    <td><%= link_to 'Show', :action => 'show', :id => recipient_meta_option %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => recipient_meta_option %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => recipient_meta_option, :project_group_id => @project_group.id }, :confirm => 'Are you sure?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate @recipient_meta_options %>
+<br />
+
+<%= link_to 'New recipient meta option', :action => 'new', :project_group_id => @project_group.id %>
