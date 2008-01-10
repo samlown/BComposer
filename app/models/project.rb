@@ -23,8 +23,7 @@ class Project < ActiveRecord::Base
       Templet.find_for_bulletin( proxy_owner )
     end
   end
-  has_many :content_pages, :dependent => :destroy
-  
+ 
   # Provide a the domain along with the project name
   # which is the correct way to set the base project location.
   def full_domain
