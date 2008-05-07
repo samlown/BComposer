@@ -9,7 +9,6 @@ class CreateUsers < ActiveRecord::Migration
        t.column :date_update, :timestamp
     end
     
-    
   end
 
   def self.down
