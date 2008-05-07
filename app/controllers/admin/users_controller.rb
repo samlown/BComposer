@@ -29,8 +29,6 @@ class Admin::UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
-    @user.date_created = Time.now
-    @user.date_updated = Time.now
     if @user.save
       store_user_projects
       flash[:notice] = 'User was successfully created.'
@@ -48,7 +46,6 @@ class Admin::UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    @user.date_updated = Time.now
     store_user_projects
     if (params[:user][:password] == '')
       params[:user].delete(:password)
