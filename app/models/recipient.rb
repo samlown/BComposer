@@ -16,7 +16,7 @@ class Recipient < ActiveRecord::Base
   validates_presence_of :email, :message => _("- address required.")
   # validates_presence_of :password, :message => "required!"
   
-  validates_format_of :email, :with => /^([\d\w][\d\w\.\-\_]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, 
+  validates_format_of :email, :with => /^([\d\w][\d\w\.\-\_]*)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, 
             :message => _("- invalid address");
   
 
