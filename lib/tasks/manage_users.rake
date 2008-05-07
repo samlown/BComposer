@@ -27,7 +27,7 @@ namespace :users do
     user = User.find_by_name('admin')
     if ! user
       # Add an admin user!
-      user = User.new( :name => 'admin', :date_updated => Time.now, :date_created => Time.now,
+      user = User.new( :name => 'admin',
         :password => 'admin', :password_confirmation => 'admin' )
       user.admin_role = true
       if user.save
