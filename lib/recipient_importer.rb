@@ -55,7 +55,15 @@ module RecipientImporter
       row.each do | field, value |
         r.send(field+'=', value)
       end
-      if not r.save
+      # check to see if already exists
+      r2 = Recipient.find_by_email( r.email )
+      if r2.nil?
+        r.save
+      else
+        r = r2
+      end
+      
+      if ! r.errors.empty?
         skipped_count += 1
         msg = "Invalid entry: " + r.email
         if block_given? 
@@ -75,7 +83,7 @@ module RecipientImporter
           end
         end
       else
-        # no add link to project
+        # now add link to project
         if (! project.subscriptions.create(:recipient_id => r.id, :state => 'F' ))
           raise "Fatal error adding project subscription! " + $!
         end
