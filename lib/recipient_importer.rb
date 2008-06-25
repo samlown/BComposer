@@ -85,7 +85,7 @@ module RecipientImporter
       else
         # now add link to project
         s = project.subscriptions.create(:recipient_id => r.id, :state => 'F' )
-        if (! s.errors.emtpy?)
+        if (! s.errors.empty?)
           skipped_count += 1
           msg = " * Error adding subscription - probably a duplicate"
         else
