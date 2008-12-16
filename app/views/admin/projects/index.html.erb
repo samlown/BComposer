@@ -1,0 +1,42 @@
+<h1><%= _('Projects') %></h1>
+
+<table>
+  <thead>
+  <tr>
+    <th><%= _('Name') %></th>
+    <% if current_user.is_admin? %>
+    <th><%= _('Group') %></th>
+    <% end %>
+    <th><%= _('Date updated') %></th>
+  </tr>
+  </thead>
+  <tbody>
+<% @projects.each do | project | %>
+  <tr>
+	<td><%= link_to project.name, admin_project_bulletins_url(project) %></td>
+	<% if current_user.is_admin? %>
+    <td><%= project.project_group.name %></td>
+    <% end %>
+	<td><%= project.updated_on %></td>
+
+    <td><%= link_to image_tag("Show.png", :title=>_("Show Bulletins"), :alt => "show"),  admin_project_bulletins_url(project) %></td>
+    <td><%= link_to image_tag("edit.png", :title=>_("Edit")), edit_admin_project_url(project) %></td>
+  	<td><%= link_to image_tag("templates.png", :title=>_("Templates")), admin_project_templets_url(project) %></td> 
+   	<td><%= link_to image_tag("users.png", :title=>_("Users")), admin_project_user_roles_url(project) %></td>
+    <td><%= link_to image_tag("destroy.png", :title=>_("Destroy")), admin_project_url(project), :confirm => _('Are you sure?'), :method => :delete %></td>
+  </tr>
+<% end %>
+  </tbody>
+</table>
+
+
+<%= will_paginate @projects %>
+
+<br/>
+<hr />
+<%= link_to image_tag("add.png", :border => 0, :alt => _("New project"))+" "+_('New Project'), new_admin_project_url %>
+<% if current_user.is_admin? %> 
+ | <%= link_to 'Project Groups', admin_project_groups_url %>
+<% end %>
+
+<br />

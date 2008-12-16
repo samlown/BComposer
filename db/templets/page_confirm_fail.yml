@@ -1,5 +1,5 @@
 --- !ruby/object:TempletExporter 
-charset: ISO-8859-15
+charset: UTF-8 
 created_on: 2007-03-09 15:14:45 +01:00
 description: Confirmation was not successful.
 filetype: text/html

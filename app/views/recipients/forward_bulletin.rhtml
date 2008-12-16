@@ -1,15 +1,15 @@
 
 <% if (@bulletin.id) %>
 
-<%= error_messages_for 'recipient' %>
+  <%= error_messages_for 'recipient' %>
 
-<h2>Mandar Boletin "<%= @bulletin.full_title %>" a un amigo</h2>
+  <h2>Mandar Boletin "<%= @bulletin.full_title %>" a un amigo</h2>
 
-<%= start_form_tag :action => 'sendtofriend', :bulletin_id => @bulletin.id %>
-	<p><label for="recipient_email">Email</label><br/>
-	<%= text_field 'recipient', 'email'  %></p>
-	
-	<%= submit_tag 'Enviar' %>
-<%= end_form_tag %>
+  <% form_tag :action => 'sendtofriend', :bulletin_id => @bulletin.id do %>
+      <p><label for="recipient_email">Email</label><br/>
+      <%= text_field 'recipient', 'email'  %></p>
+      
+      <%= submit_tag 'Enviar' %>
+  <% end %>
 
 <% end %>

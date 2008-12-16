@@ -1,0 +1,28 @@
+<h1>Listing Project Groups</h1>
+
+<table>
+  <tr>
+  <% for column in ProjectGroup.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+  
+<% for project_group in @project_groups %>
+  <tr>
+  <% for column in ProjectGroup.content_columns %>
+    <td><%=h project_group.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to 'Show', admin_project_group_url(project_group) %></td>
+    <td><%= link_to 'Recipient Options', admin_project_group_recipient_meta_options_url(project_group) %></td>
+    <td><%= link_to 'Edit', edit_admin_project_group_url(project_group) %></td>
+    <td><%= link_to 'Destroy', admin_project_group_url(project_group), :confirm => _('Are you sure?'), :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate @project_groups %>
+
+<br />
+
+<%= link_to 'New Project Group', new_admin_project_group_url %>
+ | <%= link_to 'Projects', admin_projects_url %>

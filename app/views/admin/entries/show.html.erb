@@ -1,0 +1,36 @@
+
+<p>
+  <b><%= _('Title') %>:</b> <%=h @entry.send(:title) %>
+</p>
+<p>
+  <b><%= _('Style') %>:</b> <%=h @entry.send(:style) %>
+</p>
+<hr/>
+<p>
+  <b><%= _('Body') %>:</b>
+</p>
+<div>
+ <%= @entry.send(:body) %>
+</div>
+<hr/>
+<% if @entry.send(:image_link) %>
+<p>
+  <b><%= _('Image') %>:</b> <%= image_tag @entry.send(:image_link) %>
+</p>
+<p>
+  <b><%= _('Image Text') %>:</b> <%=h @entry.send(:image_text) %>
+</p>
+<% end %>
+<% if @entry.link %>
+<p>
+  <b><%= _('Link') %>:</b> <a href="<%= @entry.send(:link) %>">[<%=h @entry.send(:link_text) %>]</a>
+</p>
+<% end %>
+<p>
+  <b><%= _('Date Updated') %>:</b> <%=h @entry.updated_on %>
+</p>
+
+<%= link_to(_('Edit'), :action => 'edit', :id => @entry) + ' | ' if check_role(:edit_entry) %>
+<%= link_to _('Entries'), :action => 'list', :section_id => @entry.section %> |
+<%= link_to _('Sections'), :controller => 'sections', :action => 'list', :bulletin_id => @entry.section.bulletin_id %> |
+<%= link_to _('Bulletins'), :controller => 'bulletins', :action => 'list' %>

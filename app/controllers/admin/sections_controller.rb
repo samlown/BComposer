@@ -1,41 +1,31 @@
 class Admin::SectionsController < ApplicationController
   layout 'admin'
 
-  before_filter(:except => [ :list, :show ]) do | c |
+  before_filter :load_project
+
+  before_filter :load_bulletin
+
+  before_filter(:except => [ :index, :show ]) do | c |
     c.check_role(:edit_section, :back)
   end
 
   def index
-    list
-    render :action => 'list'
-  end
-
-  # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
-  verify :method => :post, :only => [ :destroy, :create, :update ],
-         :redirect_to => { :action => :list }
-
-  def list
-    @bulletin = Bulletin.find(params[:bulletin_id])
-    @section_pages, @sections = paginate :sections, :per_page => 10,
-        :conditions => ['bulletin_id = ?', @bulletin.id]
+    @sections = @bulletin.sections.paginate :per_page => 10, :page => params[:page]
   end
 
   def show
-    @section = Section.find(params[:id])
+    @section = @bulletin.sections.find(params[:id])
   end
 
   def new 
-    @bulletin = Bulletin.find(params[:bulletin_id])
-    @section = Section.new
-    @section.bulletin_id = @bulletin.id
+    @section = @bulletin.sections.build
   end
 
   def create
-    @section = Section.new(params[:section])
-    @section.date_created = Time.now
+    @section = @bulletin.sections.build(params[:section])
     if @section.save
       flash[:notice] = _('Section was successfully created.')
-      redirect_to :action => 'list', :bulletin_id => @section.bulletin
+      redirect_to :action => 'index'
     else
       render :action => 'new'
     end
@@ -50,13 +40,13 @@ class Admin::SectionsController < ApplicationController
   end
 
   def update
-    @section = Section.find(params[:id])
+    @section = @bulletin.sections.find(params[:id])
     if @section.update_attributes(params[:section])
       if params[:popup]
         render :layout => 'admin_close_popup', :text => ''
       else
         flash[:notice] = _('Section was successfully updated.')
-        redirect_to :action => 'show', :id => @section
+        redirect_to :action => 'edit'
       end
     else
       render :action => 'edit'
@@ -64,9 +54,13 @@ class Admin::SectionsController < ApplicationController
   end
 
   def destroy
-    section = Section.find(params[:id])
-    id = section.bulletin_id
-    section.destroy
-    redirect_to :action => 'list', :bulletin_id => id
+    section = @bulletin.sections.find(params[:id]).destroy
+    redirect_to :action => 'index'
+  end
+
+  protected
+  
+  def load_bulletin  
+    @bulletin = @project.bulletins.find(params[:bulletin_id])
   end
 end

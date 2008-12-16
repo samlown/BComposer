@@ -1,0 +1,32 @@
+<h1><%= _('Listing entries') %></h1>
+
+<h2><%= _('Section: %s') % [ link_to(@section.send(:name), admin_project_bulletin_section_url(@project,@bulletin,@section)) ] %></h2>
+
+<table>
+  <tr>
+    <th>&nbsp;</th>
+	<th><%= _('Title') %></th>
+	<th><%= _('Date updated') %></th>
+  </tr>
+
+<% for entry in @entries %>
+  <tr>
+    <td><%= link_to image_tag("up.png", :border=>0, :title=>_('up')), :action => 'move_up', :id => entry, :page => params[:page] %>
+    <%= link_to image_tag("down.png", :border=>0, :title=>_('down')), :action => 'move_down', :id => entry, :page => params[:page] %>
+    </td>
+    <td><%= link_to entry.send(:title), {:action => 'edit', :id => entry }, :title=>_("Edit") %></td>
+    <td><%=h entry.updated_on %></td>
+    <td><%= link_to image_tag("Show.png", :title=>_("Show"), :border=>0), :action => 'show', :id => entry %></td>
+    <td><%= link_to image_tag("edit.png", :title=>_("Edit"), :border=>0), :action => 'edit', :id => entry if check_role(:edit_entry) %></td>
+    <td><%= link_to image_tag("destroy.png", :title=>_("Destroy"), :border=>0), admin_project_bulletin_section_entry_url(@project,@bulletin,@section,entry), :confirm => _('Are you sure?'), :method => :delete if check_role(:edit_entry) %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate @entries %>
+
+<br />
+
+<%= link_to(image_tag("add.png") + ' '+_('New entry'), :action => 'new') + ' | ' if check_role(:edit_entry) %>
+<%= link_to _('Sections'),  admin_project_bulletin_section_url(@project,@bulletin,@section) %> |
+<%= link_to _('Bulletins'), admin_project_bulletins_url(@project) %>

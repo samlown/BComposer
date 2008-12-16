@@ -13,10 +13,6 @@ ActionController::Routing::Routes.draw do |map|
   # -- just remember to delete public/index.html.
   # map.connect '', :controller => "welcome"
 
-  # Allow downloading Web Service WSDL as a file with an extension
-  # instead of a file named 'wsdl'
-  map.connect ':controller/service.wsdl', :action => 'wsdl'
-
   # is there a bulletin to use?
   #map.connect ':project/bulletin/:bulletin/:action', :controller => 'bulletins'
 
@@ -25,9 +21,41 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'admin', :controller => 'admin/user', :action => 'login'
   
   # default routes that do not require :project_name infront (this is a pain)
-  map.connect 'admin/projects/:action/:id', :controller => 'admin/projects'
-  map.connect 'admin/users/:action/:id', :controller => 'admin/users'
-  map.connect 'admin/recipients/:action/:id', :controller => 'admin/recipients'
+  # map.connect 'admin/projects/:action/:id', :controller => 'admin/projects'
+  # map.connect 'admin/users/:action/:id', :controller => 'admin/users'
+  # map.connect 'admin/recipients/:action/:id', :controller => 'admin/recipients'
+  map.namespace :admin do |admin|
+    admin.connect 'user/:action', :controller => 'user'
+    admin.resources :users
+    admin.resources :recipients
+    admin.resources :project_groups do |project_group|
+      project_group.resources :recipient_meta_options
+    end
+    admin.resources :projects do |project|
+      project.connect 'files/:action', :controller => 'files'
+      project.resources :bulletins, :member => {:live_edit => :get, :preview => :any,
+          :copy => :post, :send_test => :any, :send_bulletin => :any, :abort_send => :any,
+          :stats => :get, :preview_edit => :get, :live_edit_header => :get} do |bulletin|
+        bulletin.resources :sections do |section|
+          section.resources :entries, :member => {:move_up => :get, :move_down => :get}
+        end
+      end
+      project.resources :content_pages
+      project.resources :subscriptions
+      project.resources :user_roles
+      project.resources :templets, :collection => {:help => :get} do |templates|
+        templates.resources :templet_layouts, :member => {:choose_form => :any},
+          :name_prefix => 'admin_project_', :as => 'layouts'
+        templates.resources :templet_layouts, :member => {:choose_form => :any}
+      end
+    end
+    # templates provided twice!
+    admin.resources :templets, :collection => {:help => :get} do |templates|
+      templates.resources :templet_layouts, :member => {:choose_form => :any},
+          :name_prefix => 'admin_', :as => 'layouts'
+      templates.resources :templet_layouts, :member => {:choose_form => :any}
+    end
+  end
 
   # Routes used by subscribers to ease visuals
   map.connect ':project_name/bulletin/:bulletin_title', :controller => 'bulletins', :action => 'show'
@@ -44,7 +72,6 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':project_name', :controller => 'projects', :action => 'show'
   map.connect ':project_name/:controller/:action/:id'
   
-
   # Install the default route as the lowest priority.
-  map.connect ':controller/:action/:id'
+  # map.connect ':controller/:action/:id'
 end

@@ -1,0 +1,17 @@
+<h1>Editing templet</h1>
+
+<% form_for :templet, :url => (@project ? admin_project_templet_url(@project, @templet) : 
+      admin_templet_url(@templet)), :html => {:method => :put} do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'Edit' %>
+<% end %>
+
+<% if @project %>
+  <%= link_to 'Show', admin_project_templet_url(@project, @templet) %> |
+  <%= link_to 'Templates', admin_project_templets_url(@project) %> |
+  <%= link_to 'Layouts', admin_project_templet_layouts_url(@project, @templet) %>
+<% else %>
+  <%= link_to 'Show', admin_templet_url(@templet) %> |
+  <%= link_to 'Templates', admin_templets_url %> |
+  <%= link_to 'Layouts', admin_templet_layouts_url(@templet) %>
+<% end %>

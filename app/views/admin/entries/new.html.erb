@@ -1,0 +1,12 @@
+<h1><%= _('New entry') %></h1>
+
+<% form_for [:admin, @project, @bulletin, @section, @entry] do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag _("Create") %>
+<% end %>
+
+<% if ! @popup_mode %>
+<%= link_to _('Entries'), :action => 'index' %> |
+<%= link_to _('Sections'), admin_project_bulletin_sections_url(@project, @bulletin) %> |
+<%= link_to _('Bulletins'), admin_project_bulletins_url(@project) %>
+<% end %>

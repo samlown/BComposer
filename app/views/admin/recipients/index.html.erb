@@ -1,0 +1,37 @@
+<h1><%= _('Listing recipients') %></h1>
+
+
+<% form_tag({ :action => 'index' }, :method => :get) do %>
+  <%= image_tag('search.png', :alt=>_("search")) %>
+  <input type="text" name="search" value="<%= @search %>" size="30"/><%= submit_tag _('Search') %>
+<% end %>
+
+
+<table>
+  <tr>
+    <th><%= _('Email') %></th>
+    <th><%= _('Name') %></th>
+    <th><%= _('Subscriptions') %></th>
+    <th><%= _('Date Added') %></th>
+  </tr>
+  
+<% @recipients.each do | recipient | %>
+  <tr>
+    <td><%=h recipient.send(:email) %></td>
+    <td><%= recipient.full_name %></td>
+    <td><%= recipient.subscriptions.size %></td>
+    <td><%=h recipient.created_on %></td>
+    <td><%= link_to image_tag("Show.png", :title => _("show")), admin_recipient_url(recipient) %></td>
+    <td><%= link_to image_tag("edit.png", :title => _("edit")), edit_admin_recipient_url(recipient) %></td>
+    <td><%= link_to image_tag("destroy.png", :title => _("destroy")), admin_recipient_url(recipient), :confirm => _('Are you sure?'), :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate @recipients, {:search => @search, :filter => @filter } %>
+
+<br />
+
+<%= link_to image_tag("new.gif", :border => 0, :title => _("New recipient")) +' '+_("New recipient"), new_admin_recipient_url %>
+ | <%= link_to _('Projects'), admin_projects_url %>
+

@@ -6,16 +6,7 @@ class Admin::ProjectGroupsController < ApplicationController
   before_filter :require_admin
   
   def index
-    list
-    render :action => 'list'
-  end
-
-  # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
-  verify :method => :post, :only => [ :destroy, :create, :update ],
-         :redirect_to => { :action => :list }
-
-  def list
-    @project_group_pages, @project_groups = paginate :project_groups, :per_page => 10
+    @project_groups = ProjectGroup.paginate :per_page => 20, :page => params[:page]
   end
 
   def show
@@ -30,7 +21,7 @@ class Admin::ProjectGroupsController < ApplicationController
     @project_group = ProjectGroup.new(params[:project_group])
     if @project_group.save
       flash[:notice] = 'ProjectGroup was successfully created.'
-      redirect_to :action => 'list'
+      redirect_to :action => 'index'
     else
       render :action => 'new'
     end
@@ -44,7 +35,7 @@ class Admin::ProjectGroupsController < ApplicationController
     @project_group = ProjectGroup.find(params[:id])
     if @project_group.update_attributes(params[:project_group])
       flash[:notice] = 'ProjectGroup was successfully updated.'
-      redirect_to :action => 'show', :id => @project_group
+      redirect_to admin_project_group_url(@project_group)
     else
       render :action => 'edit'
     end
@@ -52,6 +43,6 @@ class Admin::ProjectGroupsController < ApplicationController
 
   def destroy
     ProjectGroup.find(params[:id]).destroy
-    redirect_to :action => 'list'
+    redirect_to admin_project_groups_url
   end
 end

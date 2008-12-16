@@ -1,8 +1,0 @@
-<html>
-
-<frameset rows = "45px,*">
-  <frame name="header" src="<%= url_for(:action=>'live_edit_header', :id=>@bulletin.id, :edit_mode => @edit_mode) %>" />
-  <frame name="content" src="<%= url_for(:action=>'preview_edit', :id=>@bulletin.id, :edit_mode=>@edit_mode) %>" />
-</frameset>
-
-</html>

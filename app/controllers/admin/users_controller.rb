@@ -6,16 +6,7 @@ class Admin::UsersController < ApplicationController
   before_filter :require_admin
 
   def index
-    list
-    render :action => 'list'
-  end
-
-  # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
-  verify :method => :post, :only => [ :destroy, :create, :update ],
-         :redirect_to => { :action => :list }
-
-  def list
-    @user_pages, @users = paginate :users, :per_page => 10
+    @users = User.paginate :per_page => 10, :page => params[:page]
   end
 
   def show
@@ -32,7 +23,7 @@ class Admin::UsersController < ApplicationController
     if @user.save
       store_user_projects
       flash[:notice] = 'User was successfully created.'
-      redirect_to :action => 'list'
+      redirect_to :action => 'index'
     else
       @projects = Project.find(:all)
       render :action => 'new'
@@ -66,7 +57,7 @@ class Admin::UsersController < ApplicationController
     else
       user.destroy
     end
-    redirect_to :action => 'list'
+    redirect_to :action => 'index'
   end
   
   private

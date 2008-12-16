@@ -1,9 +1,0 @@
-<h1><%= _('Editing recipient') %></h1>
-
-<%= start_form_tag :action => 'update', :id => @recipient %>
-  <%= render :partial => 'form' %>
-  <%= submit_tag _('Save') %>
-<%= end_form_tag %>
-
-<%= link_to image_tag('Show.png', :alt=>"Show", :border=>0)+' '+_('Show'), :action => 'show', :id => @recipient %> |
-<%= link_to image_tag('back.gif', :alt=>"Back", :border=>0)+' '+_('Back'), :action => 'list' %>

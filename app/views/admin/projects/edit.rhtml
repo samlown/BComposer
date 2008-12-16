@@ -1,9 +1,0 @@
-<h1><%= _('Editing project') %></h1>
-
-<%= start_form_tag :controller => '/admin/projects', :action => 'update', :id => @project %>
-  <%= render :partial => 'form' %>
-  <%= submit_tag _('Save') %>
-<%= end_form_tag %>
-
-<%= link_to _('Show'), :action => 'show', :id => @project %> |
-<%= link_to _('Projects'), :action => 'list', :project_name => nil %>

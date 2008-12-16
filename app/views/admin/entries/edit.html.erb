@@ -1,0 +1,13 @@
+<h1><%= _('Editing entry') %></h1>
+
+<% form_tag [:admin, @project, @bulletin, @section, @entry], :method => :put do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag _('Save') %>
+<% end %>
+
+<% if ! @popup_mode %>
+<%= link_to _('Show'), :action => 'show' %> |
+<%= link_to _('Entries'), :action => 'index' %> |
+<%= link_to _('Sections'), admin_project_bulletin_sections_url %> |
+<%= link_to _('Bulletins'), admin_project_bulletins_url %>
+<% end %>

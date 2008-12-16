@@ -1,14 +1,9 @@
 class Admin::BulletinsController < ApplicationController
+  
   layout 'admin'
 
-  
 
-  def index
-    list
-    render :action => 'list'
-  end
-
-  before_filter(:except => [ :list, :show, :preview ]) do | c |
+  before_filter(:except => [ :index, :show, :preview ]) do | c |
     c.check_role(:edit_bulletin, :back)
   end
   before_filter(:only => [ :copy, :new, :create, :destroy ]) do |c|
@@ -21,21 +16,13 @@ class Admin::BulletinsController < ApplicationController
   skip_before_filter :configure_charsets
   before_filter :configure_charsets, :except=>['show']
   
-
-
-  # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
-  verify :method => :post, :only => [ :destroy, :create, :update ],
-         :redirect_to => { :action => :list }
-
-  def list
+  def index
     remember_page(:bulletins_page)
     
-    @bulletin_pages, @bulletins = paginate :bulletins, :per_page => 10, 
+    @bulletins = Bulletin.paginate :per_page => 10, :page => params[:page],
         :conditions => ['project_id = ?', @project.id],
         :order => 'updated_on DESC'
   end
-
-
 
   def show
     @bulletin = Bulletin.find(params[:id])
@@ -53,7 +40,7 @@ class Admin::BulletinsController < ApplicationController
     @bulletin.filter = params[:bulletin][:filter]
     if @bulletin.save
       flash[:notice] = _('Bulletin was successfully created.')
-      redirect_to :action => 'list'
+      redirect_to :action => 'index'
     else
       render :action => 'new'
     end
@@ -68,7 +55,7 @@ class Admin::BulletinsController < ApplicationController
     if (newbull = @bulletin.duplicate)
       redirect_to :action => 'edit', :id => newbull.id
     else
-      redirect_to :action => 'list'
+      redirect_to :action => 'index'
     end
   end
 
@@ -84,7 +71,7 @@ class Admin::BulletinsController < ApplicationController
       flash[:notice] = _('Bulletin was successfully updated.')
       redirect_to :action => 'edit', :id => @bulletin
     else
-      @templets = Templet.find_all(['project_id = ? AND type IS NULL', @project.id])
+      @templets = Templet.find(:all, :conditions => ['project_id = ? AND type IS NULL', @project.id])
       render :action => 'edit'
     end
   end
@@ -107,7 +94,7 @@ class Admin::BulletinsController < ApplicationController
       flash[:error] = _('A fatal error has occurred while compiling the temlpate!<br />Please check the template and try again!')
     end
     
-    redirect_to :action => 'list'
+    redirect_to :action => 'index'
   end
   
   ##
@@ -126,14 +113,14 @@ class Admin::BulletinsController < ApplicationController
       flash[:warning] = _('Unable to abort sending, as the bulletin is now being sent!')
     end
 
-    redirect_to :action => 'list'   
+    redirect_to :action => 'index'   
   end
   
   #
   # Send a test email
   #
   def send_test
-    @bulletin = Bulletin.find(params[:id])    
+    @bulletin = @project.bulletins.find(params[:id])    
     
     if request.post?
       addr = params[:recipient][:email]
@@ -148,7 +135,7 @@ class Admin::BulletinsController < ApplicationController
       #begin 
         BulkMailer::deliver_bulletin(@bulletin, subscription)
         flash[:notice] = _("Test e-mail sent successfully!")
-        redirect_to :action => 'list'
+        redirect_to :action => 'index'
       #rescue
       #  flash[:error] = "Unable to send the test email! " + $!
       #end
@@ -157,7 +144,7 @@ class Admin::BulletinsController < ApplicationController
 
   def destroy
     Bulletin.find(params[:id]).destroy
-    redirect_to :action => 'list'
+    redirect_to :action => 'index'
   end
   
   #
@@ -216,13 +203,13 @@ class Admin::BulletinsController < ApplicationController
   end
   
   def live_edit_header
-    @bulletin = Bulletin.find(params[:id]) 
+    @bulletin = @project.bulletins.find(params[:id]) 
     @edit_mode = (params[:edit_mode])
     render :layout => false
   end
   
   def stats
-    @bulletin = Bulletin.find(params[:id])
+    @bulletin = @project.bulletins.find(params[:id])
     @stats = {}
     @stats[:date_first_sent] = (t = @bulletin.recipient_receipts.first_sent) ? t.received.to_formatted_s(:full) : ''
     @stats[:date_last_sent] = (t = @bulletin.recipient_receipts.last_sent) ? t.received.to_formatted_s(:full): ''
@@ -230,26 +217,4 @@ class Admin::BulletinsController < ApplicationController
     @stats[:date_last_read] = (t = @bulletin.recipient_receipts.last_read) ? t.read.to_formatted_s(:full) : ''
   end
   
-  def entry_move_up
-    entry = Entry.find(params[:id])
-    entry.section.move_up_entry(entry)
-   
-    redirect_to :action => 'preview_edit', :id => entry.section.bulletin_id, :edit_mode => 1
-  end
-  
-  def entry_move_down
-    entry = Entry.find(params[:id])
-    entry.section.move_down_entry(entry)
-   
-    redirect_to :action => 'preview_edit', :id => entry.section.bulletin_id, :edit_mode => 1
-  end
-  
-  def entry_delete
-    entry = Entry.find(params[:id])
-    id = entry.section.bulletin_id
-    
-    entry.destroy
-    
-    redirect_to :action => 'preview_edit', :id => id, :edit_mode => 1
-  end
 end

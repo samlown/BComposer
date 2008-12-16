@@ -32,9 +32,9 @@ class Page < Templet
     layout = templet_layouts.default
     options.update( :project => project, :params => page_params )
     @recipient = options[:recipient] if options[:recipient]
-    if layout.is_filter? 'ERB'
-      layout.render( binding )
-    end
+    #if layout.is_filter? 'ERB'
+    #  layout.render( binding )
+    #end
     layout.rendered_with_filter( options )
   end
   

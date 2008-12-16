@@ -1,8 +1,0 @@
-<% for column in Templet.content_columns %>
-<p>
-  <b><%= column.human_name %>:</b> <%=h @templet.send(column.name) %>
-</p>
-<% end %>
-
-<%= link_to 'Edit', :action => 'edit', :id => @templet %> |
-<%= link_to 'Templates', :action => 'list' %>

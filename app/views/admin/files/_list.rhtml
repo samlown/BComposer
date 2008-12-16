@@ -100,7 +100,7 @@
           <% end %>
         </td>
         <td>
-          <%= human_size(file[:size]) %>
+          <%= number_to_human_size(file[:size]) %>
         </td>
         <td>
           <b><%= (! file[:dim].nil?) ? file[:dim] : '' %></b>

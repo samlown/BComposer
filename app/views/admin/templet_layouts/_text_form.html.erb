@@ -1,0 +1,9 @@
+<!-- p>
+<%# link_to_remote "Edit as HTML",
+   :url => {:action => 'choose_form', :edit_as_html => true, :id => @templet_layout.id},
+   :submit => "edit_body_form" %>
+</p -->
+<p><label for="templet_layout_data">Data</label><br/>
+<%= text_area 'templet_layout', 'data', { :cols => 120, :rows => 20 } %></p>
+
+<%= hidden_field 'templet_layout', 'edit_as_raw' %>

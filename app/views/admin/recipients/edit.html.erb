@@ -1,0 +1,9 @@
+<h1><%= _('Editing recipient') %></h1>
+
+<% form_for [:admin, @recipient] do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag _('Save') %>
+<% end %>
+
+<%= link_to image_tag('Show.png', :alt=>"Show")+' '+_('Show'), admin_recipient_url(@recipient) %> |
+<%= link_to image_tag('back.gif', :alt=>"Back")+' '+_('Back'), admin_recipients_url %>

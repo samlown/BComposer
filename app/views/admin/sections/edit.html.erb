@@ -1,0 +1,11 @@
+<h1><%= _('Editing section') %></h1>
+
+<% form_for [:admin, @project, @bulletin, @section], :popup => @popup_mode do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag _('Save') %>
+<% end %>
+
+<% if ! @popup_mode %>
+<%= link_to _('Sections'), :action => 'index' %> |
+<%= link_to _('Bulletins'), admin_project_bulletins_url(@project) %>
+<% end %>

@@ -1,0 +1,10 @@
+<h1><%= _("Editing bulletin") %></h1>
+
+<% form_for [:admin, @project, @bulletin] do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag _('Save') %>
+<% end %>
+
+<%= link_to image_tag("liveedit.png", :title => _("Live Edit"))+' '+_('Live Edit'), 
+      live_edit_admin_project_bulletin_url(@project, @bulletin, :edit_mode => true) %> |
+<%= link_to image_tag("back.gif", :title => _("Back"))+' '+_('List Bulletins'), admin_project_bulletins_url(@project)  %>

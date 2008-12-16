@@ -3,24 +3,14 @@ class Admin::TempletLayoutsController < ApplicationController
 
   skip_before_filter :require_project
   before_filter :load_project
-  before_filter(:except => [ :list ]) do | c |
+  before_filter :load_templet
+  before_filter(:except => [ :index ]) do | c |
     c.check_role(:edit_templates, :back)
   end
   before_filter :require_admin_or_project
 
-  # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
-  verify :method => :post, :only => [ :destroy, :create, :update ],
-         :redirect_to => { :action => :list }
-
   def index
-    list
-    render :action => 'list'
-  end
-
-  def list
-    @templet = Templet.find(params[:templet_id])
-    @templet_layout_pages, @templet_layouts = paginate :templet_layouts, :per_page => 10,
-        :conditions => ['templet_id = ?', @templet.id]
+    @templet_layouts = @templet.templet_layouts.paginate :per_page => 10, :page => params[:page]
   end
 
   def show
@@ -28,7 +18,6 @@ class Admin::TempletLayoutsController < ApplicationController
   end
 
   def new
-    @templet = Templet.find(params[:templet_id])
     @templet_layout = TempletLayout.new
     @templet_layout.templet_id = @templet.id
     # defaults
@@ -41,21 +30,17 @@ class Admin::TempletLayoutsController < ApplicationController
   end
 
   def create
-    @templet_layout = TempletLayout.new(params[:templet_layout])
-    # @templet_layout.filter = "liquid"
-    #if current_user.is_admin?
-    #  @templet_layout.filter = params[:templet_layout][:filter] if params[:templet_layout][:filter]
-    #end
+    @templet_layout = @templet.templet_layouts.build(params[:templet_layout])
     if @templet_layout.save
       flash[:notice] = 'TempletLayout was successfully created.'
-      redirect_to :action => 'list', :templet_id => @templet_layout.templet
+      redirect_to :action => 'index'
     else
       render :action => 'new'
     end
   end
 
   def edit
-    @templet_layout = TempletLayout.find(params[:id])
+    @templet_layout = @templet.templet_layouts.find(params[:id])
     # defaults
     if (params[:edit_as_html] != nil) 
       @templet_layout.edit_as_raw = (params[:edit_as_html] == 'false')
@@ -84,7 +69,7 @@ class Admin::TempletLayoutsController < ApplicationController
     @templet_layout = TempletLayout.find(params[:id])
     t_id = @templet_layout.templet_id
     @templet_layout.destroy
-    redirect_to :action => 'list', :templet_id => t_id
+    redirect_to :action => 'index'
   end
  
   def choose_form
@@ -107,5 +92,11 @@ class Admin::TempletLayoutsController < ApplicationController
       end
     end
   end
+
+  protected
+
+  def load_templet
+    @templet = Templet.find(params[:templet_id])
+  end 
   
 end

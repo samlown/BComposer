@@ -1,5 +1,5 @@
 --- !ruby/object:TempletExporter 
-charset: ISO-8859-15
+charset: UTF-8
 created_on: 2007-03-23 00:43:16 +01:00
 description: Email containing link to page
 filetype: text/html

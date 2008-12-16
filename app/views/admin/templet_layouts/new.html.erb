@@ -1,0 +1,10 @@
+<h1>New Layout</h1>
+
+<% form_for :templet_layout, :url => (@project ? admin_project_templet_layout_url(@project, @templet, @templet_layout) :
+                        admin_templet_layout_url(@templet, @templet_layout)), :html => {:method => :post} do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag "Create" %>
+<% end %>
+
+<%= link_to 'Layouts', :action => 'index' %> |
+<%= link_to 'Templats', :controller => 'templets', :action => 'index' %>

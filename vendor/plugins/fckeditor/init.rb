@@ -6,14 +6,14 @@ require 'fckeditor_file_utils'
 FckeditorFileUtils.check_and_install
 
 # make plugin controller available to app
-config.load_paths += %W(#{Fckeditor::PLUGIN_CONTROLLER_PATH})
+config.load_paths += %W(#{Fckeditor::PLUGIN_CONTROLLER_PATH} #{Fckeditor::PLUGIN_HELPER_PATH})
 
 Rails::Initializer.run(:set_load_path, config)
 
 ActionView::Base.send(:include, Fckeditor::Helper)
 
-# require the controller
-#require 'fckeditor_controller'
+# require the controller Why?!
+# require 'fckeditor_controller'
 
 # add a route for spellcheck
 class ActionController::Routing::RouteSet

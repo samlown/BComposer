@@ -93,6 +93,8 @@ module Liquid
         Context.new(assigns, registers, @rethrow_errors)
       when nil
         Context.new(assigns, registers, @rethrow_errors)
+      else
+        raise ArgumentError, "Expect Hash or Liquid::Context as parameter"
       end
       
       case args.last
@@ -116,9 +118,9 @@ module Liquid
       # render the nodelist.
       # for performance reasons we get a array back here. to_s will make a string out of it
       begin
-        @root.render(context).to_s
+        @root.render(context).join
       ensure
-        @errors = context.errors      
+        @errors = context.errors
       end
     end
     
@@ -137,7 +139,7 @@ module Liquid
       tokens.shift if tokens[0] and tokens[0].empty? 
 
       tokens
-    end        
+    end
      
   end  
 end

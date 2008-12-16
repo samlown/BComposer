@@ -1,0 +1,35 @@
+<%= error_messages_for 'templet_layout' %>
+
+<p><label>Template:</label> <%= @templet_layout.templet.name %>
+</p>
+
+<!--[form:templet_layout]-->
+
+<p><label for="templet_layout_name">Name</label><br/>
+<%= text_field 'templet_layout', 'name'  %><br />
+<small>If name starts with 'print', the layout will not be sent in an email.</small></p>
+
+<p><label for="templet_layout_filetype">File Type</label><br/>
+<%= select 'templet_layout', 'filetype', TempletLayout.valid_filetypes  %></p>
+
+<p><label for="templet_layout_name">Character Set</label><br/>
+<%= text_field 'templet_layout', 'charset'  %></p>
+
+<p><label>Pre-Filter Used:</label>
+<% if @current_user.is_admin? %>
+  <%= select 'templet_layout', 'filter', @templet_layout.valid_filters %>
+<% else %> 
+  <%= ( @templet_layout.filter.nil? ? 'none' : @templet_layout.filter ) %>
+<% end %>
+</p>
+
+<div id="edit_body_form">
+<%# (@templet_layout.edit_as_raw == true) %>
+  <%= render :partial => 'text_form' %>
+<%# else %>
+  <%# render :partial => 'gui_form' %>
+<%# end %>
+</div>
+
+<!--[eoform:templet_layout]-->
+

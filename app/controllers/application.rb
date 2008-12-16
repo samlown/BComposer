@@ -88,11 +88,11 @@ class ApplicationController < ActionController::Base
     end 
   end
   
-  def default_url_options(options)
-    if (@project and ! @project.new_record?)
-      return { :project_name => @project.name }
-    end
-  end
+#  def default_url_options(options)
+#    if (@project and ! @project.new_record?)
+#      return { :project_name => @project.name }
+#    end
+#  end
 
   ##
   # Check if the current user is an admin user, and if not, forward to base page.

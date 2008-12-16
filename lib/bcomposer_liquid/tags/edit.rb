@@ -55,6 +55,9 @@ class BcomposerLiquid::Tags::Edit < Liquid::Block
         context.registers[:include_precode] = true
       end
     end
+
+    @project = context.registers[:project]
+    @bulletin = context.registers[:bulletin]
     
     res += self.send(function, context.registers[:controller], item) do | result |
       # add to the results
@@ -70,7 +73,8 @@ class BcomposerLiquid::Tags::Edit < Liquid::Block
     result = []
     if controller
       text = ""
-      edit_url = controller.url_for(:controller => 'sections', :action => 'edit', :id => section.id, :popup => true)
+      url_base = { :project_id => @project.id, :bulletin_id => @bulletin.id }
+      edit_url = controller.url_for( url_base.dup.update(:controller => 'sections', :action => 'edit', :id => section.id, :popup => true) )
       element_id = "sectionbox"+section.id.to_s
       text.concat <<-EOF
 <div id="editarea" onmouseover="document.getElementById('#{element_id}').style.display = 'block'" 
@@ -96,11 +100,13 @@ EOF
     result = []
     if controller
       text = ""
-      edit_url = controller.url_for(:controller => 'entries', :action => 'edit', :id => entry.id, :popup => true);  
-      up_url = controller.url_for(:action => 'entry_move_up', :id => entry.id);
-      down_url = controller.url_for(:action => 'entry_move_down', :id => entry.id);
-      add_url = controller.url_for(:controller => 'entries', :action => 'new', :section_id => entry.section_id, :popup => true, :position => entry.position);
-      delete_url = controller.url_for(:action => 'entry_delete', :id => entry.id);
+      url_base = { :controller => :entries, :project_id => @project.id, :bulletin_id => @bulletin.id,
+          :section_id => entry.section_id, :popup => true, :id => entry.id }
+      edit_url = controller.url_for( url_base.dup.update(:action => 'edit') );  
+      up_url = controller.url_for( url_base.dup.update(:action => 'move_up'));
+      down_url = controller.url_for( url_base.dup.update(:action => 'move_down'));
+      add_url = controller.url_for( url_base.dup.update(:action => 'new', :position => entry.position, :id => nil) );
+      delete_url = controller.url_for( url_base.dup.update(:action => 'destroy', '_method'=>:delete) );
       element_id = 'editbox' + entry.id.to_s
   
       text.concat <<-EOF

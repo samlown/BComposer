@@ -1,0 +1,87 @@
+<h1><%= _('Bulletin List') %></h1>
+
+<table>
+  <tr>
+	<th><%= _("Date") %></th>    
+    <th><%= _("Title") %></th>
+    <th><%= _("Subject") %></th>
+    <th><%= _("Status") %></th>
+    <th><%= _("Sent") %></th> <!-- recipients -->
+    <th><%= _("Fail") %></th> <!-- failures -->
+  </tr>
+  
+<% for bulletin in @bulletins %>
+  <tr>
+    <td ><%=h bulletin.updated_on.strftime("%d/%m/%Y") %></td>
+    <td>
+<% if (bulletin.is_status('O') and check_role(:edit_bulletin)) %> 
+    <%= link_to bulletin.title, live_edit_admin_project_bulletin_url(@project, bulletin, :edit_mode => true ) %>
+<% else %> 
+    <%= link_to bulletin.title, preview_admin_project_bulletin_url(@project, bulletin) %>
+<% end %>
+    <td ><%= bulletin.subject %></td>
+    <td ><%=h bulletin.status_text %></td>
+    <td ><%=h bulletin.sent_count %></td>
+    <td ><%=h bulletin.fail_count %></td>
+
+<% if (bulletin.is_status('O') and check_role(:edit_bulletin)) %> 
+    <td><%= link_to(image_tag("liveedit.png", :title => _("Live Edit")), live_edit_admin_project_bulletin_url(@project, bulletin, :edit_mode => true)) %></td>
+<% else %> 
+    <td ><%= link_to image_tag("viewmag.png", :title => _("Show")), preview_admin_project_bulletin_url(@project, bulletin) %></td>
+<% end %>
+    <td ><%= link_to(image_tag("add.png", :title => _("Duplicate")), copy_admin_project_bulletin_url(@project, bulletin), :confirm => 'Are you sure you want to duplicate this bulletin?', :method => :post) if check_role(:create_bulletin) %> </td>
+   
+    <td ><%= link_to(image_tag("send.png", :title=> _("Send Test")), send_test_admin_project_bulletin_url(@project, bulletin)) if check_role(:edit_bulletin) %> </td>
+
+<% if (bulletin.is_status('O')) %>
+    <td><%= link_to(image_tag("edit.png", :title => _("Edit")), edit_admin_project_bulletin_url(@project, bulletin)) if check_role(:edit_bulletin) %></td>
+    <td><%= link_to image_tag("sections.png", :title => _("Sections")), admin_project_bulletin_sections_url(@project, bulletin) %></td>
+	<td><%= link_to(image_tag("send2.png", :border => 0, :title => _("Send")), send_bulletin_admin_project_bulletin_url(@project, bulletin), 
+      		:confirm => _("Are you sure you want to send this bulletin?\n No modifications can be made while a bulletin is being sent!"), :method => :post) if check_role(:send_bulletin) %> </td>
+
+<% elsif bulletin.is_status('P') %>
+	<td colspan="3">
+      <%= link_to _('Abort'), abort_send_admin_project_bulletin_url(@project, bulletin),
+      	    :confirm => _("Are you sure you want to abort the pending send?"), :method => :post if check_role(:send_bulletin) %>
+	</td>
+<% elsif bulletin.is_status('S') %>
+	<td colspan="3">
+      	<%= link_to _('Stats'), stats_admin_project_bulletin_url(@project, bulletin) %>
+	</td>
+<% else %>
+    <td colspan="3"> </td>
+<% end %>
+    <td><%= link_to _('Pages'), admin_project_bulletin_content_pages_url(@project, bulletin) if ENABLE_CONTENT_PAGES %></td>
+    <td>
+      <% if (bulletin.is_status('O') or bulletin.is_status('S')) %>
+        <%= link_to(image_tag("destroy.png", :title => _("Destroy")), admin_project_bulletin_url(@project, bulletin), :confirm => _('Are you sure?'), :method => :delete) if check_role(:create_bulletin) %></td>
+      <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate @bulletins %>
+
+<br />
+<br />
+
+<hr />
+
+<% if check_role(:create_bulletin) %>
+  <%= link_to(image_tag("add.png", :title => _("New")) + " " + _("New Bulletin"), new_admin_project_bulletin_url(@project)) %>  |
+<% end %>
+<% if check_role(:edit_project) %>
+  <%= link_to _('Edit Project'), edit_admin_project_url(@project) %> |
+<% end %>
+<% if check_role(:edit_templates) %>
+  <%= link_to _('Templates'), admin_project_templets_url(@project) %> |
+<% end %>
+<% if check_role(:edit_recipients) %>
+  <%= link_to _('Subscribers'), admin_project_subscriptions_url(@project) %> |
+<% end %>
+<% if check_role(:edit_files) %>
+  <%= link_to _('Files'), :controller => 'files', :action => 'list' %> |
+<% end %>
+<%= link_to _('Extenal Site'), :controller => '/projects', :project_name => @project.name, :action => 'show' %>
+

@@ -11,13 +11,13 @@ class Admin::UserController < ApplicationController
   def login
     if current_user
       # redirect if they are already logged in!
-      redirect_to :controller=>'/admin/projects', :action=>'list'
+      redirect_to admin_projects_url
       return
     end
     if request.post?
       if session[:user] = User.authenticate(params[:user][:name], params[:user][:password])
         flash[:notice]  = _("Login successful")
-        redirect_to :controller=>'/admin/projects', :action=>'list'
+        redirect_to admin_projects_url
       else
         flash[:warning] = _("Login unsuccessful")
       end
@@ -43,7 +43,7 @@ class Admin::UserController < ApplicationController
 
   def welcome
     u = session[:user]
-    redirect_to :controller => '/admin/project', :action => 'list'
+    redirect_to admin_projects_url
   end
 
   def hidden

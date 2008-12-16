@@ -156,7 +156,6 @@ class RecipientsController < ApplicationController
       pass = Recipient.generate_password
       @recipient.password = pass
       @recipient.password_confirmation = pass
-      @recipient.date_created = Time.now
       @recipient.project_id = @bulletin.project_id
       if (@recipient.save)
         BulkMailer.deliver_bulletin(@bulletin.layout, "Fwd: " + @bulletin.project.name + ' - ' + @bulletin.title, @recipient)

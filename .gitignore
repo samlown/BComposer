@@ -8,3 +8,4 @@ doc/app
 config/environment.rb
 config/database.yml
 config/mongrel_cluster.yml
+*.swp

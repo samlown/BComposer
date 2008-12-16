@@ -4,16 +4,7 @@ class Admin::RecipientsController < ApplicationController
   skip_before_filter :require_project
   before_filter :require_admin
 
-  # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
-  verify :method => :post, :only => [ :destroy, :create, :update ], 
-      :redirect_to => { :action => :list }
-
   def index
-    login
-    render :action => 'list'
-  end
- 
-  def list
     @search = params[:search] if (params[:search])
 
     cond_str = ""
@@ -24,7 +15,7 @@ class Admin::RecipientsController < ApplicationController
       cond_vars[:s] = s
     end
      
-    @recipient_pages, @recipients = paginate :recipients, :per_page => 10,
+    @recipients = Recipient.paginate :per_page => 10, :page => params[:page],
         :conditions => (cond_str.blank?) ? nil : [ cond_str, cond_vars ],
         :include => :subscriptions
   end
@@ -66,9 +57,8 @@ class Admin::RecipientsController < ApplicationController
   end 
 
   def destroy
- 
     Recipient.find(params[:id]).destroy
-    redirect_to :action => 'list'
+    redirect_to :action => 'index'
   end
   
   def edit

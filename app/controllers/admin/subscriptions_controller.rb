@@ -8,42 +8,27 @@ class Admin::SubscriptionsController < ApplicationController
     c.check_role(:edit_recipients, :back)
   end
 
-  # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
-  verify :method => :post, :only => [ :destroy, :create, :update ], 
-      :redirect_to => { :action => :list }
-
   def index
-    login
-    render :action => 'list'
-  end
- 
-  def list
     @search = params[:search] if (params[:search])
     @filter = params[:filter]
     if (params[:bulletin_id])
-      @bulletin = Bulletin.find(params[:bulletin_id])
-            
+      @bulletin = @project.bulletins.find(params[:bulletin_id])
     else
-      cond_str = ""
+      cond_strs = []
       cond_vars = { }
-      if @project
-        cond_str += "subscriptions.project_id = :pid "
-        cond_vars.update( :pid => @project.id )
-      end
       if (@search)
         s = '%' + @search + '%'
-        cond_str += 'AND (email LIKE :s OR firstname LIKE :s OR surname LIKE :s) '
+        cond_strs << '(email LIKE :s OR firstname LIKE :s OR surname LIKE :s)'
         cond_vars[:s] = s
       end
       if (@filter)
-        cond_str += 'AND (subscriptions.state = :t) '
+        cond_strs << '(subscriptions.state = :t)'
         cond_vars[:t] = @filter
       end
       
-      @subscription_pages, @subscriptions = paginate :subscriptions, :per_page => 10,
-          :conditions => [ cond_str, cond_vars ],
+      @subscriptions = @project.subscriptions.paginate :per_page => 10, :page => params[:page],
+          :conditions => (cond_strs.empty? ? nil : [ cond_strs.join(' AND '), cond_vars ]),
           :include => :recipient
-     
     end
   end
 
@@ -77,20 +62,21 @@ class Admin::SubscriptionsController < ApplicationController
 
   def create
     # check to see if they exist
-    @recipient = @project.project_group.recipients.find_by_email(params[:recipient][:email])
+    @recipient = @project.project_group.recipients.build(params[:recipient])
+    current_recipient = @project.project_group.recipients.find_by_email(params[:recipient][:email])
     
-    if @recipient
+    if current_recipient
       # alread a member of the group, check if already subscribed
-      @subscription = @project.subscriptions.find_by_recipient_id( @recipient.id )
+      @subscription = @project.subscriptions.find_by_recipient_id( current_recipient.id )
       if (@subscription)
         @recipient.errors.add(:email, _("address already subscribed to this project!"))
         render :action => 'new'
         return
       end
+      @recipient = current_recipient # copy over now!
     else
       # create a new recipient
-      @recipient = Recipient.new( params[:recipient] )
-      @recipient.project_group = @project.project_group
+      @recipient = @project.project_group.recipients.build( params[:recipient] )
       if ! @recipient.save
         render :action => 'new'
         return
@@ -101,7 +87,7 @@ class Admin::SubscriptionsController < ApplicationController
     @subscription.state = 'F'
     if @subscription
       flash[:notice] = _("New subscription added successfully!")
-      redirect_to :action => 'edit', :id => @subscription.id
+      redirect_to edit_admin_project_subscription_url(@project, @subscription), :method => :get
     else
       flash.now[:warning] = _("An error ocurred while saving the recipient's subscription!")
       render :action => 'new'
@@ -110,7 +96,7 @@ class Admin::SubscriptionsController < ApplicationController
 
   def destroy
     @project.subscriptions.find(params[:id]).destroy
-    redirect_to :action => 'list'
+    redirect_to :action => 'index'
   end
   
   def edit
@@ -121,5 +107,5 @@ class Admin::SubscriptionsController < ApplicationController
       @recipient = @subscription.recipient
     end
   end
-  
+
 end

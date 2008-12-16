@@ -112,6 +112,13 @@ class ContextTest < Test::Unit::TestCase
 
     assert_equal 1000, @context['numbers.size']
     
+  end           
+  
+  def test_hyphenated_variable
+
+    @context['oh-my'] = 'godz'
+    assert_equal 'godz', @context['oh-my']
+    
   end
   
   def test_add_filter
@@ -264,13 +271,31 @@ class ContextTest < Test::Unit::TestCase
     @context['product'] = {'variants' => [ {'title' => 'draft151cm'}, {'title' => 'element151cm'}  ]}
 
 
-    assert_equal 5, @context['products[count]']
-    assert_equal 'deepsnow', @context['products[tags][0]']
-    assert_equal 'deepsnow', @context['products[tags].first']
-    assert_equal 'draft151cm', @context['product[variants][0][title]']
-    assert_equal 'element151cm', @context['product[variants][1][title]']
-    assert_equal 'draft151cm', @context['product[variants][0][title]']
-    assert_equal 'element151cm', @context['product[variants][last][title]']
+    assert_equal 5, @context['products["count"]']
+    assert_equal 'deepsnow', @context['products["tags"][0]']
+    assert_equal 'deepsnow', @context['products["tags"].first']
+    assert_equal 'draft151cm', @context['product["variants"][0]["title"]']
+    assert_equal 'element151cm', @context['product["variants"][1]["title"]']
+    assert_equal 'draft151cm', @context['product["variants"][0]["title"]']
+    assert_equal 'element151cm', @context['product["variants"].last["title"]']
+  end
+  
+  def test_access_variable_with_hash_notation
+    @context['foo'] = 'baz'
+    @context['bar'] = 'foo'
+    
+    assert_equal 'baz', @context['["foo"]']
+    assert_equal 'baz', @context['[bar]']
+  end
+  
+  def test_access_hashes_with_hash_access_variables
+    
+    @context['var'] = 'tags'
+    @context['nested'] = {'var' => 'tags'}
+    @context['products'] = {'count' => 5, 'tags' => ['deepsnow', 'freestyle'] }
+
+    assert_equal 'deepsnow', @context['products[var].first']
+    assert_equal 'freestyle', @context['products[nested.var].last']
   end
   
 

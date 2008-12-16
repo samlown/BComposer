@@ -1,0 +1,11 @@
+<h1><%= _('Send Test Bulletin') %></h1>
+
+<% form_for :bulletin, :url => send_test_admin_project_bulletin_url(@project,@bulletin) do %>
+
+  <p><label for="recipient_email">E-mail addresses to send the test to:</label><br />
+  <%= text_area 'recipient', 'email' %>
+  </p>
+  <%= submit_tag _("Send") %>
+<% end %>
+
+<%= link_to _('Bulletins'), :action => 'index'  %>

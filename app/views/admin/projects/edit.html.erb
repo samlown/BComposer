@@ -1,0 +1,8 @@
+<h1><%= _('Editing project') %></h1>
+
+<% form_for admin_project_url(@project) do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag _('Save') %>
+<% end %>
+
+<%= link_to _('Projects'), admin_projects_url %>

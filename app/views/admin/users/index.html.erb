@@ -1,0 +1,26 @@
+<h1>Listing users</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Date Created</th>
+  </tr>
+  
+<% for user in @users %>
+  <tr>
+    <td ><%=h user.name %></td>
+    <td ><%=h user.description %></td>
+    <td ><%=h user.created_on %></td>
+    <td ><%= link_to image_tag('Show.png', :title => 'Show user', :border=>0), admin_user_url(user) %></td>
+    <td ><%= link_to image_tag('edituser.png', :title=>"edit user", :border=>0), edit_admin_user_url(user) %></td>
+    <td ><%= link_to image_tag('destroy.png', :title=>"destroy", :border=>0), admin_user_url(user), :method => :delete, :confirm => 'Are you sure?' %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate @users %>
+
+<br />
+
+<%= link_to image_tag("add.png", :border => 0)+'New user', new_admin_user_url() %>

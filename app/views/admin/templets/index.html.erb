@@ -1,0 +1,53 @@
+<h1>Listing <%= 'Default ' if (! @project) %>Templates</h1>
+
+<p>
+<b>Filter by</b>: 
+<%= link_to_if @filter[:type] != 'All', 'All', 'filter[type]' => 'All' %> |
+<%= link_to_if @filter[:type] != 'Templet', 'Bulletins', 'filter[type]' => 'Templet' %> |
+<%= link_to_if @filter[:type] != 'Email', 'Emails', 'filter[type]' => 'Email' %> |
+<%= link_to_if @filter[:type] != 'Page', 'Pages', 'filter[type]' => 'Page' %>
+<% if ENABLE_CONTENT_PAGES %>
+  | <%= link_to_if @filter[:type] != 'ContentTemplet', 'Content Pages', 'filter[type]' => 'ContentTemplet' %>
+<% end %> 
+  
+</p>
+
+<table>
+  <tr>
+  	<th>Name</th>
+  	<th>Type</th>
+  	<th>Updated</th>
+  </tr>
+  
+<% for templet in @templets %>
+  <tr>
+  	<td><b><%= link_to_if((! @project or !templet.generic?), templet.name, 
+            (@project ? admin_project_templet_layouts_url(@project, templet) : admin_templet_layouts_url(templet))) %></b>
+  	  <%= templet.generic? ? ' - default' : '' %>
+  	</td>  
+  	<td><%=h templet.type_name %></td>
+  	<td><%=h templet.updated_on %></td>
+  	<td><%= link_to 'Layouts', :controller => 'templet_layouts', :action => 'index', :templet_id => templet if (! @project or templet.project_id != 0) %> </td>
+    <td><%= link_to((@project and templet.generic?) ? image_tag("add.png", :title => "copy") : image_tag("edit.png", :title=>"edit"),
+              (@project ? edit_admin_project_templet_url(@project, templet) : edit_admin_templet_url(templet))) %></td>
+    <td><%= link_to(image_tag("destroy.png", :title=>"destroy"), (@project ? admin_project_templet_url(@project, templet):admin_templet_url(templet)),
+              :confirm => 'Are you sure?', :method => :delete) if (! (@project and templet.generic?)) %></td>
+    <td><%= link_to(image_tag("send.png", :title=> "Send Test"), {:action => 'send_test', :id => templet }) if (templet.is_a? Email) %></td>
+  </tr>
+<% end %>
+</table>
+
+<p>
+<%= link_to 'Previous page', { :page => @templet_pages.current.previous, 'filter[type]' => @filter[:type] } if @templet_pages.current.previous %>
+<%= link_to 'Next page', { :page => @templet_pages.current.next, 'filter[type]' => @filter[:type] } if @templet_pages.current.next %> 
+</p>
+
+<br />
+
+<% if @project %>
+  <%= link_to image_tag("add.png")+' New template', new_admin_project_templet_url(@project) %> | 
+  <%= link_to 'Bulletins', admin_project_bulletins_url(@project) %>
+<% else %>
+  <%= link_to image_tag("add.png")+' New template', new_admin_templet_url %> | 
+  <%= link_to 'Projects', admin_projects_url %>
+<% end %>

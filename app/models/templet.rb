@@ -74,7 +74,11 @@ class Templet < ActiveRecord::Base
     end
     return r
   end
-  
+ 
+  def generic?
+    (self.project_id == 0)
+  end
+ 
   # Clone and save onself with all sub layouts
   def duplicate
     # copy self, save, then copy layouts

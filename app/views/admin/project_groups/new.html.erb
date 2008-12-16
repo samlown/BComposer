@@ -1,0 +1,9 @@
+<h1>New Project Group</h1>
+
+<% form_for [:admin, @project_group] do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag "Create" %>
+<% end %>
+
+<%= link_to 'Project Groups', admin_project_groups_url %>
+ | <%= link_to 'Projects', admin_projects_url %>

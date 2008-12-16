@@ -1,5 +1,5 @@
 --- !ruby/object:TempletExporter 
-charset: ISO-8859-15
+charset: UTF-8 
 created_on: 2007-03-09 15:13:13 +01:00
 description: ""
 filetype: text/html

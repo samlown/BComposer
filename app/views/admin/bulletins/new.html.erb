@@ -1,0 +1,8 @@
+<h1><%= _('New bulletin') %></h1>
+
+<% form_for [:admin, @project, @bulletin] do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag _("Create") %>
+<% end %>
+
+<%= link_to _('Bulletins'), admin_project_bulletins_url %>

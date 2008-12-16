@@ -5,20 +5,11 @@ class Admin::TempletsController < ApplicationController
   before_filter :load_project
   before_filter :require_admin_or_project
 
-  before_filter(:except => [ :list, :show ]) do | c |
+  before_filter(:except => [ :index, :show ]) do | c |
     c.check_role(:edit_templates, :back)
   end
 
   def index
-    list
-    render :action => 'list'
-  end
-
-  # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
-  verify :method => :post, :only => [ :destroy, :create, :update ],
-         :redirect_to => { :action => :list }
-
-  def list
     # Prepare the current filter
     @filter = { }
     @filter[:type] = params[:filter][:type] if ! params[:filter].nil?
@@ -76,7 +67,7 @@ class Admin::TempletsController < ApplicationController
         flash[:error] = 'Unable to save a template layout.'
       end
       flash[:notice] = 'Templet was successfully created.'
-      redirect_to :action => 'list'
+      redirect_to :action => 'index'
     else
       render :action => 'new'
     end
@@ -86,7 +77,7 @@ class Admin::TempletsController < ApplicationController
     @templet = Templet.find(params[:id])
     # if template is a default one and there is a project, 
     # copy it!
-    if (@project and @templet.project_id == 0)
+    if @project and @templet.generic?
       @templet = @templet.duplicate
       @templet.project = @project
       @templet.save
@@ -102,7 +93,7 @@ class Admin::TempletsController < ApplicationController
     end
     if @templet.update_attributes(params[:templet])
       flash[:notice] = 'Templet was successfully updated.'
-      redirect_to :action => 'show', :id => @templet
+      redirect_to :action => 'edit'
     else
       render :action => 'edit'
     end
@@ -110,7 +101,7 @@ class Admin::TempletsController < ApplicationController
 
   def destroy
     Templet.find(params[:id]).destroy
-    redirect_to :action => 'list'
+    redirect_to :action => 'index'
   end
   
   def error
@@ -136,7 +127,7 @@ class Admin::TempletsController < ApplicationController
         Notifier::deliver_status_notify(:project => @project, :recipient => recip, :email => email)
       
         flash[:notice] = "Test e-mail sent successfully!"
-        redirect_to :action => 'list'
+        redirect_to :action => 'index'
       rescue
         flash[:error] = "Unable to send the test email! " + $!
       end

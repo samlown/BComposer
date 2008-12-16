@@ -2,9 +2,9 @@
 
 <h2>Darse de baja:</h2>
 
-<%= start_form_tag :action => 'remove', :project_id => @project %>
+<% form_tag :action => 'remove', :project_id => @project do %>
 	<p><label for="recipient_email">Email</label><br/>
 	<%= text_field 'recipient', 'email'  %></p>
 	
 	<%= submit_tag 'Mandar' %>
-<%= end_form_tag %>
+<% end %>

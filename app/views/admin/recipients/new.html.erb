@@ -1,0 +1,8 @@
+<h1><%= _('New Recipient') %></h1>
+
+<% form_for [:admin, @recipient] do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag _("Create") %>
+<% end %>
+
+<%= link_to _('Recipients'), :action => 'list' %>

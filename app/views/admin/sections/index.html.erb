@@ -1,0 +1,29 @@
+<h1><%= _('Listing sections') %></h1>
+
+<h2><%= _('For %s') % [ link_to(@bulletin.send(:title), :controller => 'bulletins', :action => 'index') ] %></h2>
+
+<table>
+  <tr>
+  	<th><%= _('Name') %></th>
+    <th><%= _('Title') %></th>
+    <th><%= _('Date Updated') %></th>
+  </tr>
+  
+<% for section in @sections %>
+  <tr>
+  	<td><%= link_to section.name, admin_project_bulletin_section_entries_url(@project, @bulletin, section), :title => "View Entries" %></td>
+    <td><%=h section.title %></td>
+    <td><%=h section.updated_on %></td>   
+    <td><%= link_to image_tag("Show.png", :title=>_("Show")), admin_project_bulletin_section_url(@project, @bulletin, section) %></td>
+    <td><%= link_to image_tag("destroy.png", :title=>_("Destroy")), admin_project_bulletin_section_url(@project, @bulletin, section), :confirm => 'Are you sure?', :method => :delete if check_role(:edit_section) %></td>
+    <td><%= link_to image_tag("sections.png", :title=>_("Entries")), admin_project_bulletin_section_entries_url(@project, @bulletin, section) %></td>
+ </tr>
+<% end %>
+</table>
+
+<%= will_paginate @sections %>
+
+<br />
+
+<%= link_to(image_tag("add.png")+' '+_('New section'), {:action => 'new'}) + ' | ' if check_role(:edit_section) %>
+<%= link_to image_tag("back.gif")+' '+_('Bulletins'), {:controller => 'bulletins', :action => 'index'} %>

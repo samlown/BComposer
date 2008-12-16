@@ -1,10 +1,7 @@
 
 <h1>Subscribe to <%= @project.name %></h1>
 
-<%= start_form_tag :action => 'subscribe' %>
- 
-
-<br />
-<%= submit_tag m('SEND') %>
-
-<%= end_form_tag %>
+<% form_tag :action => 'subscribe' do %>
+  <br />
+  <%= submit_tag m('SEND') %>
+<% end %>

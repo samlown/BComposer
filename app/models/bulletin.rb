@@ -18,7 +18,10 @@ class Bulletin < ActiveRecord::Base
       'S' => 'Sent',
       'E' => 'Error',
   }
-  
+ 
+  named_scope :sent, :conditions => ['bulletins.status = ?', 'S']
+  named_scope :pending, :condutions => ['bulletins.status = ?', 'P']
+
   def is_status(status)
     if (self.status == status) or (@@status_values[self.status] == status)
       return true

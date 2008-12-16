@@ -1,6 +1,8 @@
 class Entry < ActiveRecord::Base
   belongs_to :section
 
+  acts_as_list :scope => :section_id
+
   # Create a new entry and fill in all the required fields automatically.
   # This is required if the section is going to be saved before the
   # user has added any data.
@@ -16,7 +18,5 @@ class Entry < ActiveRecord::Base
   def set_defaults
     self.title = "Entry Title"
     self.body = "Entry body text"
-    self.date_created = Time.now
-    self.date_updated = Time.now
   end
 end

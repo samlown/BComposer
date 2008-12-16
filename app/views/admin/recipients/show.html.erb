@@ -1,0 +1,31 @@
+
+<p>
+  <b><%= _('Email') %>:</b> <%=h @recipient.send(:email) %></p>
+  <p><b><%= _('Forname') %>:</b> <%=h @recipient.send(:firstname) %></p>
+  <p><b><%= _('Surname') %>:</b> <%=h @recipient.send(:surname) %> <%=h @recipient.send(:surname2) %></p>
+  <% @recipient.attribute_names.each do | attrib | %>
+    <% next if ['id', 'firstname', 'surname', 'surname2', 'email', 
+        'project_group_id', 'new_data', 'created_on', 'updated_on'].include? attrib %>
+    <p><b><%= attrib %>:</b> <%= @recipient.send(attrib) %></p>
+  <% end %>
+  <p><b><%= _('Date Added') %>:</b> <%=h @recipient.send(:created_on) %></p>
+  <p><b><%= _('Date Updated') %>:</b> <%=h @recipient.send(:updated_on) %></p>
+
+<hr>
+
+<p><b><%= _('Project Group') %>:</b> <%= link_to @recipient.project_group.name, admin_project_group_url(@recipient.project_group) %></p>
+
+<p><b><%= _('Subscriptions') %>:</b><br/>
+ <ul>
+  <% @recipient.subscriptions.each do | s | %>
+    <li><%= link_to s.project.name, admin_project_url(s.project) %></li>
+  <% end %>
+ </ul>
+</p> 
+
+<hr>
+  <p><b><%= _('Bulletins Received') %>:</b> <%= @recipient.recipient_receipts.count %></p>
+</p>
+
+<%= link_to image_tag('edit.png', :title=>_("Edit"))+' '+_('Edit'), edit_admin_recipient_url(@recipient) %> 
+<%= link_to image_tag('back.gif', :title=>_("Recipients"))+' '+_('Back'), admin_recipients_url %>

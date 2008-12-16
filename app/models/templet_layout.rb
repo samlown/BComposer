@@ -33,7 +33,11 @@ class TempletLayout < ActiveRecord::Base
   end
 
   def save
-    self.filter = 'liquid' if new_record? and filter.blank?
+    if new_record? and filter.blank?
+      self.filter = 'liquid'
+      self.charset = 'UTF-8'
+      self.data = " "
+    end
     super
   end
 

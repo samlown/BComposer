@@ -1,5 +1,5 @@
 --- !ruby/object:TempletExporter 
-charset: ISO-8859-15
+charset: UTF-8
 created_on: 2006-10-06 12:46:56 +02:00
 description: Allow the user to confirm their email address.
 filetype: text/html

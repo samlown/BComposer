@@ -17,8 +17,6 @@ class Section < ActiveRecord::Base
   
   def set_defaults
     self.title = "New Section "+self.name
-    self.date_created = Time.now
-    self.date_updated = Time.now
   end
   
   def move_up_entry( entry )

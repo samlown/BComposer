@@ -1,0 +1,8 @@
+<h1><%= _('New section') %></h1>
+
+<% form_for [:admin, @project, @bulletin, @section] do  %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag _("Create") %>
+<% end %>
+
+<%= link_to _('Sections'), :action => 'index' %>

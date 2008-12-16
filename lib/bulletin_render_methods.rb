@@ -108,8 +108,8 @@ EOF
   def entry_edit(entry)
     if @controller
       include_precode
-      edit_url = @controller.url_for(:controller => 'entries', :action => 'edit', :id => entry.id, :popup => true);  
-      up_url = @controller.url_for(:action => 'entry_move_up', :id => entry.id);
+      edit_url = @controller.edit_admin_project_bulletin_section_entry_url(@project, @bulletin, entry.section, entry, :popup => true);  
+      up_url = @controller.url_for(:action => 'entry_move_up', :id => entry.id)
       down_url = @controller.url_for(:action => 'entry_move_down', :id => entry.id);
       add_url = @controller.url_for(:controller => 'entries', :action => 'new', :section_id => entry.section_id, :popup => true, :position => entry.position);
       delete_url = @controller.url_for(:action => 'entry_delete', :id => entry.id);
