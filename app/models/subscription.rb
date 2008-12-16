@@ -3,7 +3,7 @@ class Subscription < ActiveRecord::Base
   belongs_to :recipient
   belongs_to :project
 
-  validates_uniqueness_of :recipient, :scope => :project_id
+  validates_uniqueness_of :recipient_id, :scope => :project_id
   
   # A list of valid states that the state field may become
   # including a common name.
