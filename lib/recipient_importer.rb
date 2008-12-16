@@ -53,7 +53,7 @@ module RecipientImporter
       r = Recipient.new
       r.project_group_id = project.project_group_id
       row.each do | field, value |
-        r.send(field+'=', value)
+        r.send(field+'=', value.strip)
       end
       # check to see if already exists
       r2 = Recipient.find_by_email( r.email )
