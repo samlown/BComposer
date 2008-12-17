@@ -43,14 +43,14 @@ ActionController::Routing::Routes.draw do |map|
       project.resources :content_pages
       project.resources :subscriptions
       project.resources :user_roles
-      project.resources :templets, :collection => {:help => :get} do |templates|
+      project.resources :templets, :collection => {:help => :get}, :member => {:send_test => :any} do |templates|
         templates.resources :templet_layouts, :member => {:choose_form => :any},
           :name_prefix => 'admin_project_', :as => 'layouts'
         templates.resources :templet_layouts, :member => {:choose_form => :any}
       end
     end
     # templates provided twice!
-    admin.resources :templets, :collection => {:help => :get} do |templates|
+    admin.resources :templets, :collection => {:help => :get}, :member => {:send_test => :any} do |templates|
       templates.resources :templet_layouts, :member => {:choose_form => :any},
           :name_prefix => 'admin_', :as => 'layouts'
       templates.resources :templet_layouts, :member => {:choose_form => :any}

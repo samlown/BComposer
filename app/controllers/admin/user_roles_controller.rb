@@ -6,23 +6,13 @@ class Admin::UserRolesController < ApplicationController
     c.check_role(:edit_project, :controller=>'projects', :action => 'list')
   end
 
-
   def index
-    list
-    render :action => 'list'
-  end
+    @user_roles = @project.user_roles.paginate :per_page => 20, :page => params[:page]
 
-  # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
-  verify :method => :post, :only => [ :destroy, :create, :update ],
-         :redirect_to => { :action => :list }
-
-  def list
-    @user_role_pages, @user_roles = paginate :user_roles, :per_page => 20,
-       :conditions => ['project_id = ?', @project.id]
   end
 
   def show
-    @user_role = UserRole.find(params[:id])
+    @user_role = @project.user_roles.find(params[:id])
   end
 
   #def new
@@ -40,13 +30,13 @@ class Admin::UserRolesController < ApplicationController
   #end
 
   def edit
-    @user_role = UserRole.find(params[:id])
+    @user_role = @project.user_roles.find(params[:id])
   end
 
   def update
-    @user_role = UserRole.find(params[:id])
+    @user_role = @project.user_roles.find(params[:id])
     if @user_role.update_attributes(params[:user_role])
-      flash[:notice] = 'UserRole was successfully updated.'
+      flash[:notice] = 'User Role was successfully updated.'
     end
     render :action => 'edit'
   end

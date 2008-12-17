@@ -36,10 +36,9 @@
   </tr>
 <% end %>
 </table>
-
-<%= link_to 'Previous page', { :page => @user_role_pages.current.previous } if @user_role_pages.current.previous %>
-<%= link_to 'Next page', { :page => @user_role_pages.current.next } if @user_role_pages.current.next %> 
+<br />
+<%= will_paginate @user_roles %>
 
 <br />
 
-<%= link_to 'Projects', :controller => 'projects', :action => 'list', :project_name => nil %>
+<%= link_to 'Projects', admin_projects_url %>

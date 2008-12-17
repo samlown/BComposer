@@ -129,7 +129,7 @@ class Admin::TempletsController < ApplicationController
         flash[:notice] = "Test e-mail sent successfully!"
         redirect_to :action => 'index'
       rescue
-        flash[:error] = "Unable to send the test email! " + $!
+        flash.now[:error] = "Unable to send the test email! " + $!
       end
     end
   end

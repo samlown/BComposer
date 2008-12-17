@@ -1,6 +1,6 @@
 <h1>Send Test Email</h1>
 
-<% form_tag :action => 'send_test', :id => @templet %>
+<% form_for :templet, :url => {:action => 'send_test', :id => @templet} do %>
   <p><label for="recipient_email">E-mail addresses to send the test to:</label><br />
   <%= text_area 'recipient', 'email' %>
   </p>

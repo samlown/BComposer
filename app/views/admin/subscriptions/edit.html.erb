@@ -5,5 +5,5 @@
   <%= submit_tag _('Save') %>
 <% end %>
 
-<%= link_to image_tag('Show.png')+' '+_('Show'), :action => 'show', :id => @recipient %> |
-<%= link_to image_tag('back.gif')+' '+_('Recipients'), :action => 'index' %>
+<%= link_to image_tag('Show.png')+' '+_('Show'), admin_project_subscription_url(@project,@subscription) %> |
+<%= link_to image_tag('back.gif')+' '+_('Recipients'), admin_project_subscriptions_url(@project) %>

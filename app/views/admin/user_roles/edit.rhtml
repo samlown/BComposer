@@ -1,9 +1,0 @@
-<h1>Editing User Roles for <i><%= @user_role.user.name %></i> on <i><%= @project.name %></i></h1>
-
-<%= start_form_tag :action => 'update', :id => @user_role %>
-  <%= render :partial => 'form' %>
-  <%= submit_tag 'Edit' %>
-<%= end_form_tag %>
-
-<%= link_to 'Show', :action => 'show', :id => @user_role %> |
-<%= link_to 'Back', :action => 'list' %>

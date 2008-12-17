@@ -36,7 +36,7 @@ class TempletLayout < ActiveRecord::Base
     if new_record? and filter.blank?
       self.filter = 'liquid'
       self.charset = 'UTF-8'
-      self.data = " "
+      self.data = " " if self.data.blank?
     end
     super
   end

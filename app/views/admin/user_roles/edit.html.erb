@@ -1,0 +1,9 @@
+<h1>Editing User Roles for <i><%= @user_role.user.name %></i> on <i><%= @project.name %></i></h1>
+
+<% form_for [:admin, @project, @user_role] do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'Edit' %>
+<% end %>
+
+<%= link_to 'Show', admin_project_user_role_url(@project, @user_role) %> |
+<%= link_to 'Back', admin_project_user_roles_url(@project) %>

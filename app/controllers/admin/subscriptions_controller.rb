@@ -18,7 +18,7 @@ class Admin::SubscriptionsController < ApplicationController
       cond_vars = { }
       if (@search)
         s = '%' + @search + '%'
-        cond_strs << '(email LIKE :s OR firstname LIKE :s OR surname LIKE :s)'
+        cond_strs << '(recipients.email LIKE :s OR recipients.firstname LIKE :s OR recipients.surname LIKE :s)'
         cond_vars[:s] = s
       end
       if (@filter)
@@ -28,8 +28,13 @@ class Admin::SubscriptionsController < ApplicationController
       
       @subscriptions = @project.subscriptions.paginate :per_page => 10, :page => params[:page],
           :conditions => (cond_strs.empty? ? nil : [ cond_strs.join(' AND '), cond_vars ]),
-          :include => :recipient
+          :joins => :recipient
     end
+  end
+
+  def show
+    @subscription = @project.subscriptions.find( params[:id] )
+    @recipient = @subscription.recipient
   end
 
   def update
