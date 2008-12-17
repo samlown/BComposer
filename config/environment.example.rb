@@ -5,7 +5,7 @@
 # ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '1.2.6'
+RAILS_GEM_VERSION = '2.1.2'
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -19,13 +19,21 @@ Rails::Initializer.run do |config|
   # Add additional load paths for your own custom dirs
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
 
+  # Your secret key for verifying cookie session data integrity.
+  # If you change this key, all old sessions will become invalid!
+  config.action_controller.session = {
+    :session_key => '_Bcomposer_session',
+    :secret      => '42d579235aeae7b2701d097dcf7eae0d'
+  }
+
+
   # Force all environments to use the same logger level 
   # (by default production uses :info, the others :debug)
   # config.log_level = :debug
 
   # Use the database for sessions instead of the file system
   # (create the session table with 'rake db:sessions:create')
-  # config.action_controller.session_store = :active_record_store
+  config.action_controller.session_store = :cookie_store # :active_record_store
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper, 
@@ -39,20 +47,14 @@ Rails::Initializer.run do |config|
   # config.active_record.default_timezone = :utc
   
   # See Rails::Configuration for more options
+  config.gem "gettext", :version => "1.93.0"
+  config.gem 'mislav-will_paginate', :version => '~> 2.2.3', :lib => 'will_paginate', 
+      :source => 'http://gems.github.com'
 end
-
-# Add new inflection rules using the following format 
-# (all these examples are active by default):
-# Inflector.inflections do |inflect|
-#   inflect.plural /^(ox)$/i, '\1en'
-#   inflect.singular /^(ox)en/i, '\1'
-#   inflect.irregular 'person', 'people'
-#   inflect.uncountable %w( fish sheep )
-# end
 
 # Include your application configuration below
 
-require 'gettext/rails'
+# require 'gettext/rails'
 require 'RMagick'
 
 require 'lib/bcomposer_liquid'
@@ -61,6 +63,8 @@ ActionMailer::Base.delivery_method = :smtp
 ActionMailer::Base.smtp_settings[:address] = "localhost"
 
 
+# DEPRICATED AND NO LONGER SUPPORTED!!!
+# *** LEAVE FALSE ***
 # Special option to enable ERB bulletin templates.
 # This is recommed to always be false, as it poses a huge
 # security risk to the system. Liquid templates are far safer.

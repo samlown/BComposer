@@ -12,7 +12,7 @@
   
 <% for bulletin in @bulletins %>
   <tr>
-    <td ><%=h bulletin.updated_on.strftime("%d/%m/%Y") %></td>
+    <td ><%=h (bulletin.date || bulletin.updated_on).strftime("%Y-%m-%d") %></td>
     <td>
 <% if (bulletin.is_status('O') and check_role(:edit_bulletin)) %> 
     <%= link_to bulletin.title, live_edit_admin_project_bulletin_url(@project, bulletin, :edit_mode => true ) %>

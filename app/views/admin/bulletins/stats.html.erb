@@ -14,10 +14,10 @@
 <br />
 <h3>Totals</h3>
 <ul>
-  <li><b>Total Received:</b> <%=h @bulletin.recipient_receipts.total_received %></li>
-  <li><b>Total Failed:</b> <%=h @bulletin.recipient_receipts.total_failed %></li>
-  <li><b>Total Read:</b> <%=h @bulletin.recipient_receipts.total_read %></li>
-  <li><b>Total Hits:</b> <%=h @bulletin.recipient_receipts.total_hits %></li>
+  <li><b>Total Received:</b> <%=h @stats[:total_received] %></li>
+  <li><b>Total Failed:</b> <%=h @stats[:total_failed] %></li>
+  <li><b>Total Read:</b> <%=h @stats[:total_read] %></li>
+  <li><b>Total Hits:</b> <%=h @stats[:total_hits] %></li>
 </ul>
 
 <br />

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081216165900) do
+ActiveRecord::Schema.define(:version => 20081217153653) do
 
   create_table "bulletin_layouts", :force => true do |t|
     t.integer   "bulletin_id",                       :default => 0,  :null => false
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(:version => 20081216165900) do
     t.date      "date"
     t.integer   "sent_count",                          :default => 0
     t.integer   "fail_count",                          :default => 0
+    t.text      "stats_data"
   end
 
   create_table "content_page_tags", :id => false, :force => true do |t|

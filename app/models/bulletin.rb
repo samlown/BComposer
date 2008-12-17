@@ -2,13 +2,17 @@ require 'erb'
 
 class Bulletin < ActiveRecord::Base
 
+  OLD_MONTHS = 3
+
   belongs_to :project
   belongs_to :templet
   has_many :sections, :dependent => :destroy
   has_many :recipient_receipts, :dependent => :delete_all, :extend => BulletinRecipientStatistics
   has_many :bulletin_layouts, :dependent => :delete_all
   has_many :content_pages, :dependent => :destroy
-  
+ 
+  serialize :stats_data, Hash
+
   validates_uniqueness_of :title, :scope => 'project_id'
   
   @@status_values =  {
@@ -22,11 +26,11 @@ class Bulletin < ActiveRecord::Base
   named_scope :sent, :conditions => ['bulletins.status = ?', 'S']
   named_scope :pending, :condutions => ['bulletins.status = ?', 'P']
 
+  # see also, old? method
+  named_scope :old, :conditions => ['status = ? AND date_released < ?', 'S', OLD_MONTHS.months.ago]
+
   def is_status(status)
-    if (self.status == status) or (@@status_values[self.status] == status)
-      return true
-    end
-    return false
+    (self.status == status) or (@@status_values[self.status] == status)
   end
   
   #
@@ -51,8 +55,38 @@ class Bulletin < ActiveRecord::Base
   def subscription_count
     self.project.valid_subscriptions.count(:conditions => self.filter_conditions)
   end
-  
-  
+ 
+  # Generate a hash of statistical data
+  # Checks if bulletin old if it should use stored data.
+  def statistics
+    return stats_data if old? and !stats_data.blank?
+    {
+      :date_first_sent => (t = recipient_receipts.first_sent) ? t.received.to_formatted_s(:full) : '',
+      :date_last_sent => (t = recipient_receipts.last_sent) ? t.received.to_formatted_s(:full): '',
+      :date_first_read => (t = recipient_receipts.first_read) ? t.received.to_formatted_s(:full) : '',
+      :date_last_read => (t = recipient_receipts.last_read) ? t.read.to_formatted_s(:full) : '',
+      :total_received => recipient_receipts.total_received,
+      :total_failed => recipient_receipts.total_failed,
+      :total_read => recipient_receipts.total_read,
+      :total_hits => recipient_receipts.total_hits,
+    }
+  end
+
+  # Generate the statistical data, save it, and clear out the old data.
+  # WARNING: This is distructive! Use with caution!
+  def save_and_clear_statistics!
+    self.stats_data = self.statistics
+    if save
+      recipient_receipts.delete_all
+    end
+  end
+ 
+  # If the bulletin is sent and two months old, it is classed as old.
+  # See also, named_space :old
+  def old?
+    (is_status('S') and date_released < OLD_MONTHS.months.ago)
+  end
+
   # Set the filter for the list of recipients for this bulletin.
   # The filter is stored as a YAML hash inside the filter text field.
   def filter=( opts )

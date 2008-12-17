@@ -21,7 +21,7 @@ class Admin::BulletinsController < ApplicationController
     
     @bulletins = Bulletin.paginate :per_page => 10, :page => params[:page],
         :conditions => ['project_id = ?', @project.id],
-        :order => 'updated_on DESC'
+        :order => 'date DESC'
   end
 
   def show
@@ -210,11 +210,7 @@ class Admin::BulletinsController < ApplicationController
   
   def stats
     @bulletin = @project.bulletins.find(params[:id])
-    @stats = {}
-    @stats[:date_first_sent] = (t = @bulletin.recipient_receipts.first_sent) ? t.received.to_formatted_s(:full) : ''
-    @stats[:date_last_sent] = (t = @bulletin.recipient_receipts.last_sent) ? t.received.to_formatted_s(:full): ''
-    @stats[:date_first_read] = (t = @bulletin.recipient_receipts.first_read) ? t.received.to_formatted_s(:full) : ''
-    @stats[:date_last_read] = (t = @bulletin.recipient_receipts.last_read) ? t.read.to_formatted_s(:full) : ''
+    @stats = @bulletin.statistics
   end
   
 end

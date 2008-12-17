@@ -9,3 +9,4 @@ config/environment.rb
 config/database.yml
 config/mongrel_cluster.yml
 *.swp
+public/project_files/*/

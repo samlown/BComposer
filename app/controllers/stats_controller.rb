@@ -26,11 +26,11 @@ class StatsController < ApplicationController
       end
       receipt = recipient.recipient_receipts.find(:first, :conditions => ['bulletin_id = ?', ary[1]])
       receipt.read = Time.now
-      receipt.hits = receipt.hits + 1
+      receipt.increment :hits
       receipt.save
     rescue
       # nothing
-      logger.info "ERROR: Stats update failed: "+$!
+      logger.info "ERROR: Stats update failed, probably old recipient: "+$!
     end
     
     render :file => 'public/images/spek.png', :type => :png,
