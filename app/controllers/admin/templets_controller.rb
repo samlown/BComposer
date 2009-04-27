@@ -42,7 +42,7 @@ class Admin::TempletsController < ApplicationController
     end
     
     # send the query
-    @templet_pages, @templets = paginate :templets, :per_page => 20, 
+    @templets = Templet.paginate :page => params[:page], :per_page => 20, 
        :conditions => [ conds_str ] + conds_vars,
        :order => 'name'
   end

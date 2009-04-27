@@ -38,8 +38,9 @@
 </table>
 
 <p>
-<%= link_to 'Previous page', { :page => @templet_pages.current.previous, 'filter[type]' => @filter[:type] } if @templet_pages.current.previous %>
-<%= link_to 'Next page', { :page => @templet_pages.current.next, 'filter[type]' => @filter[:type] } if @templet_pages.current.next %> 
+<%# link_to 'Previous page', { :page => @templet_pages.current.previous, 'filter[type]' => @filter[:type] } if @templet_pages.current.previous %>
+<%# link_to 'Next page', { :page => @templet_pages.current.next, 'filter[type]' => @filter[:type] } if @templet_pages.current.next %> 
+<%= will_paginate @templets %>
 </p>
 
 <br />
