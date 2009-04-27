@@ -26,9 +26,9 @@ class Admin::TempletsController < ApplicationController
     conds_vars = []
     if @filter[:type] != 'All'
       if @filter[:type] == 'Templet'
-        conds_str += "(`type` = ? OR type IS NULL)"
+        conds_str += "(type = ? OR type IS NULL)"
       else
-        conds_str += "(`type` = ?)"
+        conds_str += "(type = ?)"
       end
       conds_vars << @filter[:type]
     end
