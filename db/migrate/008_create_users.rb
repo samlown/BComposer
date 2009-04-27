@@ -4,7 +4,7 @@ class CreateUsers < ActiveRecord::Migration
        t.column :name, :string
        t.column :password_hash, :string
        t.column :description, :text
-       t.column :admin_role, :boolean, :default => 0
+       t.column :admin_role, :boolean, :default => false
        t.column :date_created, :datetime
        t.column :date_update, :timestamp
     end

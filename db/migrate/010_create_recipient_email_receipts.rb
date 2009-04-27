@@ -7,7 +7,7 @@ class CreateRecipientEmailReceipts < ActiveRecord::Migration
       t.column "received",     :datetime
     end
   
-    add_index "recipient_email_receipts", ["bulletin_id", "recipient_id"], :name => "bulletin_id"
+    add_index "recipient_email_receipts", ["bulletin_id", "recipient_id"], :name => "bulletin_recipient_id"
     
   end
 

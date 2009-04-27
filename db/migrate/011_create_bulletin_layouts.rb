@@ -9,7 +9,7 @@ class CreateBulletinLayouts < ActiveRecord::Migration
       t.column "date_updated", :timestamp
     end
   
-    add_index "bulletin_layouts", ["bulletin_id", "name"], :name => "bulletin_id", :unique => true
+    add_index "bulletin_layouts", ["bulletin_id", "name"], :name => "bulletin_id_name", :unique => true
   end
 
   def self.down
