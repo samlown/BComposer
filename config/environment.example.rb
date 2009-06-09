@@ -5,7 +5,7 @@
 # ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.1.2'
+RAILS_GEM_VERSION = '2.3.2'
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -47,21 +47,24 @@ Rails::Initializer.run do |config|
   # config.active_record.default_timezone = :utc
   
   # See Rails::Configuration for more options
-  config.gem "gettext", :version => "1.93.0"
+  config.gem "gettext", :version => "1.93.0", :lib => 'gettext'
   config.gem 'mislav-will_paginate', :version => '~> 2.2.3', :lib => 'will_paginate', 
       :source => 'http://gems.github.com'
+  config.gem "mini_magick"
 end
 
 # Include your application configuration below
 
 # require 'gettext/rails'
-require 'RMagick'
+# require 'RMagick'
 
 require 'lib/bcomposer_liquid'
 
 ActionMailer::Base.delivery_method = :smtp
 ActionMailer::Base.smtp_settings[:address] = "localhost"
 
+I18n.backend = I18n::Backend::GetTextWrapper.new
+I18n.backend.default_domain = 'bcomposer'
 
 # DEPRICATED AND NO LONGER SUPPORTED!!!
 # *** LEAVE FALSE ***
