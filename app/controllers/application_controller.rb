@@ -8,12 +8,13 @@ class ApplicationController < ActionController::Base
   before_filter :configure_charsets
   before_filter :require_project
   
-  init_gettext "bcomposer"
+  # init_gettext "bcomposer"
   
   def configure_language
     if (! params[:lang].blank?)
       cookies[:lang] = params[:lang]
     end
+    I18n.locale = cookies[:lang] unless cookies[:lang].blank?
   end
   
   def configure_charsets

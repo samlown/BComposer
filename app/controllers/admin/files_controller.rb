@@ -33,10 +33,8 @@ class Admin::FilesController < ApplicationController
       filestat = File.stat(dir_path + file)
       dim = nil
       if file =~ /\.(gif|png|jpe?g)$/
-        if LibraryHelper.check_magick
-          if img = Magick::Image.ping(dir_path + file).first
-            dim = "#{img.columns}x#{img.rows}"
-          end
+        if img = MiniMagick::Image.from_file(dir_path + file)
+          dim = "#{img[:width]}x#{img[:height]}"
         end
       end
       @dirs << { :name => file, :dir => true } if filestat.directory?
@@ -110,8 +108,8 @@ class Admin::FilesController < ApplicationController
     size_str = size[0].to_s + 'x' + size[1].to_s
     
     if FileTest.exists? cur_path + file
-      img = Magick::Image.read(cur_path + file).first
-      img.resize_to_fit!(size[0], size[1])
+      img = MiniMagick::Image.from_file(cur_path + file)
+      img.resize "#{size[0]}x#{size[1]}>"
       new_name = file.gsub(/\.(gif|png|jpe?g)$/, "_#{size_str}"+'.\1' )
       img.write( cur_path + new_name )
       flash[:notice] = _("Image resized correctly!")

@@ -10,3 +10,4 @@ config/database.yml
 config/mongrel_cluster.yml
 *.swp
 public/project_files/*/
+db/*.sqlite3

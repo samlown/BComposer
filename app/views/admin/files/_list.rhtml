@@ -114,7 +114,7 @@
           <%= link_to_remote image_tag('edit.png', :border=>0, :title=>_('Edit')), :update => 'filelist',
                 :url => { :action => 'list', :edit_file => file[:name], :path => @path.join('/'), :mode => @mode } %>
             |
-          <% if ! file[:dir] and LibraryHelper.check_magick %>
+          <% if ! file[:dir] %>
           <%= link_to_remote image_tag('add.png', :border=>0, :title=>_('Resize')), :update => 'filelist',
                 :url => { :action => 'list', :resize_file => file[:name], :path => @path.join('/'), :mode => @mode },
                 :after => 'show_spinner( self )' %>
